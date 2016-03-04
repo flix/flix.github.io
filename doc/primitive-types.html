@@ -1,0 +1,672 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Primitive Types | Flix</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+        <link rel="stylesheet" href="./styles/website.css">
+    
+
+        
+    
+    
+    <link rel="next" href="./compound-types.html" />
+    
+    
+    <link rel="prev" href="./syntax-and-semantics.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="4.1"
+        data-chapter-title="Primitive Types"
+        data-filepath="primitive-types.md"
+        data-basepath="."
+        data-revision="Fri Mar 04 2016 01:20:32 GMT-0500 (Eastern Standard Time)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        The Flix Programming Language
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="introduction.html">
+            
+                
+                    <a href="./introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="getting-started.html">
+            
+                
+                    <a href="./getting-started.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Getting Started
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="installation.html">
+            
+                
+                    <a href="./installation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Installation
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="learn-flix.html">
+            
+                
+                    <a href="./learn-flix.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Learn Flix
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="syntax-and-semantics.html">
+            
+                
+                    <a href="./syntax-and-semantics.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Syntax and Semantics
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="4.1" data-path="primitive-types.html">
+            
+                
+                    <a href="./primitive-types.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Primitive Types
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="compound-types.html">
+            
+                
+                    <a href="./compound-types.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        Compound Types
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="enumerations.html">
+            
+                
+                    <a href="./enumerations.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Enumerations
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="pattern-matching.html">
+            
+                
+                    <a href="./pattern-matching.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Pattern Matching
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="grammar.html">
+            
+                
+                    <a href="./grammar.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        Grammar
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="library.html">
+            
+                
+                    <a href="./library.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Library
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="opt.html">
+            
+                
+                    <a href="./opt.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Opt
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="list.html">
+            
+                
+                    <a href="./list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="type-classes.html">
+            
+                
+                    <a href="./type-classes.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Type Classes
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="internals.html">
+            
+                
+                    <a href="./internals.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        Internals
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="dependencies.html">
+            
+                
+                    <a href="./dependencies.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        Dependencies
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="exceptions-and-errors.html">
+            
+                
+                    <a href="./exceptions-and-errors.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Exceptions and Errors
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="parsing.html">
+            
+                
+                    <a href="./parsing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        Parsing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="code-generation.html">
+            
+                
+                    <a href="./code-generation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        Code Generation
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="questions-and-answers.html">
+            
+                
+                    <a href="./questions-and-answers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        Questions and Answers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="contributing.html">
+            
+            <span><b>8.</b> How Can I Help?</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="contributors.html">
+            
+                
+                    <a href="./contributors.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        Contributors
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="bibliography.html">
+            
+                
+                    <a href="./bibliography.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        Bibliography
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >Flix</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="primitive-types">Primitive Types</h1>
+<p>Flix has the primitive types: <code>Unit</code>, <code>Bool</code>, <code>Char</code>, <code>Int8</code>, <code>Int16</code>, <code>Int32</code>, <code>Int64</code> and <code>Str</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Flix Type</th>
+<th>JVM Type</th>
+<th>Examples</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit</td>
+<td>n/ a</td>
+<td><code>()</code></td>
+<td>The unit value.</td>
+</tr>
+<tr>
+<td>Bool</td>
+<td>boolean</td>
+<td><code>true</code>, <code>false</code></td>
+<td>A boolean, true or false.</td>
+</tr>
+<tr>
+<td>Char</td>
+<td>char</td>
+<td><code>&apos;a&apos;</code>, <code>&apos;b&apos;</code>, <code>&apos;c&apos;</code></td>
+<td>A unicode character.</td>
+</tr>
+<tr>
+<td>Int8</td>
+<td>byte</td>
+<td><code>21i8</code>, <code>-42i8</code></td>
+<td>A  8-bit signed integer.</td>
+</tr>
+<tr>
+<td>Int16</td>
+<td>short</td>
+<td><code>21i16</code>, <code>-42i16</code></td>
+<td>A 16-bit signed integer.</td>
+</tr>
+<tr>
+<td>Int32</td>
+<td>int</td>
+<td><code>42</code>, <code>42i32</code></td>
+<td>A 32-bit signed integer.</td>
+</tr>
+<tr>
+<td>Int64</td>
+<td>long</td>
+<td><code>21i64</code>, <code>-42i64</code></td>
+<td>A 64-bit signed integer.</td>
+</tr>
+<tr>
+<td>Str</td>
+<td>String</td>
+<td><code>&quot;foo&quot;</code>, <code>&quot;bar&quot;</code></td>
+<td>A string.</td>
+</tr>
+</tbody>
+</table>
+<p>Note: The <code>Int32</code> type is available under the alias <code>Int</code>.</p>
+<p>Note: The <code>Str</code> type may be removed in the future.</p>
+<h3 id="unit">Unit</h3>
+<p>The <code>Unit</code> type has the single value <code>()</code>. The <code>Unit</code> type exists to simplify the language design,
+but has limited use in practice. That said, you can write a function that returns the <code>Unit</code> value:</p>
+<pre><code class="lang-flix">def f: Unit = ()
+</code></pre>
+<h3 id="bool">Bool</h3>
+<p>The <code>Bool</code> type has the two familiar boolean values: <code>true</code> and <code>false</code>:</p>
+<pre><code class="lang-flix">def t: Bool = true
+def f: Bool = false
+</code></pre>
+<p>Booleans support the usual operations:</p>
+<pre><code class="lang-flix">def f(x: Bool): Bool = !x
+def g(x: Bool, y: Bool): Bool = x &amp;&amp; y
+def h(x: Bool, y: Bool): Bool = x || y
+def j(x: Bool, y: Bool): Bool = (x &#x2227; y) &#x2192; (x &#x2228; y)
+</code></pre>
+<p>The last function shows that booleans also support the UTF-8 operators:
+<code>&#xAC;</code> (not), <code>&#x2227;</code> (and), <code>&#x2228;</code> (or), <code>&#x2192;</code> (implication), and <code>&#x2194;</code> (bicondition).
+Implication and bicondition can be written in ASCII as <code>==&gt;</code> and <code>&lt;==&gt;</code>, respectively.</p>
+<h3 id="char">Char</h3>
+<p>The <code>Char</code> type represents unicode character values:</p>
+<pre><code class="lang-flix">def a: Char = &apos;a&apos;
+def b: Char = &apos;b&apos;
+</code></pre>
+<h3 id="int8">Int8</h3>
+<p>The <code>Int8</code> type represents signed 8-bit integers. </p>
+<p>The minimum and maximum value an <code>Int8</code> can hold is <code>-2^7 = -128</code> and <code>2^7-1 = 127</code>, respectively.</p>
+<pre><code class="lang-flix">def one: Int8 = 42i8 - 41i8
+def min: Int8 = -128i8
+def max: Int8 =  127i8
+</code></pre>
+<h3 id="int16">Int16</h3>
+<p>The <code>Int16</code> type represents signed 16-bit integers.</p>
+<p>The minimum and maximum value an <code>Int16</code> can hold is <code>-2^15 = -32768</code> and <code>2^15-1 = 32767</code>, respectively.</p>
+<pre><code class="lang-flix">def one: Int16 = 42i16 - 41i16
+def min: Int16 = -32768i16
+def max: Int16 =  32767i16
+</code></pre>
+<h3 id="int32">Int32</h3>
+<p>The <code>Int32</code> type represents signed 32-bit integers.</p>
+<p>The minimum and maximum value an <code>Int32</code> can hold is <code>-2^31 = -2147483648</code> and <code>2^31-1 = 2147483647</code>, respectively.</p>
+<pre><code class="lang-flix">def one: Int32 = 42i32 - 41i32
+def min: Int32 = -2147483648i32
+def max: Int32 =  2147483647i32
+def two: Int = 2
+</code></pre>
+<p>Note that <code>Int</code> is an alias for <code>Int32</code> and that these values can be written without the <code>i32</code> suffix.</p>
+<h3 id="int64">Int64</h3>
+<p>The <code>Int64</code> type represents signed 64-bit integers.</p>
+<p>The minimum and maximum value an <code>Int64</code> can hold is <code>-2^63 = -9223372036854775807</code> and <code>2^63-1 = 9223372036854775806</code>, respectively.</p>
+<pre><code class="lang-flix">def one: Int64 = 42i64 - 41i64
+def min: Int64 = -9223372036854775807i64
+def max: Int64 =  9223372036854775806i64
+</code></pre>
+<h3 id="operations-on-int8-int16-int32-and-int32">Operations on Int8, Int16, Int32 and Int32</h3>
+<p>The types <code>Int8</code>, <code>Int16</code>, <code>Int32</code> and <code>Int64</code> all support the operators:</p>
+<table>
+<thead>
+<tr>
+<th>Operators</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code></td>
+<td>addition, subtraction, multiplication, division, modulo.</td>
+</tr>
+<tr>
+<td><code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code></td>
+<td>less than, less than equal, greater than, greater than equal.</td>
+</tr>
+<tr>
+<td><code>&amp;</code>, <code>|</code> , <code>^</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code></td>
+<td>bitwise and, bitwise or, bitwise xor, left shift, right shift.</td>
+</tr>
+</tbody>
+</table>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./syntax-and-semantics.html" class="navigation navigation-prev " aria-label="Previous page: Syntax and Semantics"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./compound-types.html" class="navigation navigation-next " aria-label="Next page: Compound Types"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

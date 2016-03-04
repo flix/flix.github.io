@@ -1,0 +1,13 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+
+html {
+    overflow-y: scroll;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald', sans-serif;
+}
+
+.book .book-summary ul.summary li a.gitbook-link {
+    display: none;
+}
