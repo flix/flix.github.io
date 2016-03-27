@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Type Classes | Flix</title>
+        <title>Map | Flix</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.6.7">
@@ -39,10 +39,10 @@
         
     
     
-    <link rel="next" href="./internals.html" />
+    <link rel="next" href="./type-classes.html" />
     
     
-    <link rel="prev" href="./map.html" />
+    <link rel="prev" href="./set.html" />
     
 
         
@@ -51,9 +51,9 @@
         
         
     <div class="book"
-        data-level="5.6"
-        data-chapter-title="Type Classes"
-        data-filepath="type-classes.md"
+        data-level="5.5"
+        data-chapter-title="Map"
+        data-filepath="map.md"
         data-basepath="."
         data-revision="Sun Mar 27 2016 15:48:36 GMT-0400 (Eastern Daylight Time)"
         data-innerlanguage="">
@@ -366,7 +366,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.5" data-path="map.html">
+        <li class="chapter active" data-level="5.5" data-path="map.html">
             
                 
                     <a href="./map.html">
@@ -381,7 +381,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="5.6" data-path="type-classes.html">
+        <li class="chapter " data-level="5.6" data-path="type-classes.html">
             
                 
                     <a href="./type-classes.html">
@@ -588,8 +588,212 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="type-classes">Type Classes</h1>
-<p>TBD</p>
+                        <h1 id="map">Map</h1>
+<h2 id="map-construction">Map Construction</h2>
+<ul>
+<li><strong>empty: Map[K, V]</strong><ul>
+<li>The empty map.</li>
+</ul>
+</li>
+<li><strong>singleton(k: K, v: V): Map[K, V]</strong><ul>
+<li>The singleton map where the key k is mapped to the value v.</li>
+</ul>
+</li>
+</ul>
+<h2 id="basic-operations">Basic Operations</h2>
+<ul>
+<li><strong>null(m: Map[K, V]): Bool</strong><ul>
+<li>Returns true iff m is the empty map.</li>
+</ul>
+</li>
+<li><strong>get(k: K, m: Map[K, V]): Opt[V]</strong><ul>
+<li>Optionally returns the value the key k is mapped to in the map m.</li>
+<li>Returns None if m has no mapping for k.</li>
+</ul>
+</li>
+<li><strong>getWithDefault(k: K, v: V, m: Map[K, V]): V</strong><ul>
+<li>Returns the value the key k is mapped to in the map m. Returns v if the key has no mapping.</li>
+</ul>
+</li>
+<li><strong>memberOf(k: K, m: Map[K, V]): Bool</strong><ul>
+<li>Returns true iff k is key of the map m.</li>
+</ul>
+</li>
+<li><strong>keysOf(m: Map[K, V]): Set[K]</strong><ul>
+<li>Returns the key of the map.</li>
+</ul>
+</li>
+<li><strong>valuesOf(m: Map[K, V]): List[V]</strong><ul>
+<li>Returns the values of the map.</li>
+</ul>
+</li>
+</ul>
+<h2 id="insert">Insert</h2>
+<ul>
+<li><strong>insert(k: K, v: V, m: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns the map m updated with the key k mapped to the value v.</li>
+</ul>
+</li>
+<li><strong>insertWith(f: (V, V) =&gt; V, k: K, v: V, m: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns the map m updated with the key k mapped to the value v. If the key already exists in the map and is mapped to v2, then the map is updated with the value of f(v, v2).</li>
+</ul>
+</li>
+<li><strong>insertWithKey(f: (K, V, V) =&gt; V, k: K, v: V, m: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns the map m updated with the key k mapped to the value v. If the key already exists in the map and is mapped to v2, then the map is updated with the value of f(k, v, v2).</li>
+</ul>
+</li>
+</ul>
+<h2 id="update">Update</h2>
+<ul>
+<li><strong>adjust(f: V =&gt; V, k: K, m: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns m adjusted with f. </li>
+<li>Returns the original map if the key k is not in the map. </li>
+</ul>
+</li>
+<li><strong>adjustWithKey(f: (K, V) =&gt; V, k: K, m: Map[K, V]): Map[K, V]</strong><ul>
+<li>Similar to adjust but also passes the key to the function.</li>
+</ul>
+</li>
+<li><strong>update(f: V =&gt; Opt[V], k: K, m: Map[K, V]): Map[K, V]</strong><ul>
+<li>Updates the map m with a new mapping if f(v) returns Some.  </li>
+</ul>
+</li>
+<li><strong>updateWithKey(f: V =&gt; Opt[V], k: K, m: Map[K, V]): Map[K, V]</strong><ul>
+<li>Similar to update but also passes the key to the function.</li>
+</ul>
+</li>
+</ul>
+<h2 id="delete">Delete</h2>
+<ul>
+<li><strong>delete(k: K, m: Map[K, V]): Map[K, V]</strong></li>
+<li>Deletes the mapping for the key k in the map m.</li>
+</ul>
+<h2 id="map-predicates">Map Predicates</h2>
+<ul>
+<li><strong>isSubmapOf(m1: Map[K, V], m2: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns true if all (key, value) mappings in m1 occur in m2. </li>
+</ul>
+</li>
+<li><strong>isProperSubmapOf(m1: Map[K, V], m2: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns true if all (key, value) mappings in m1 occur in m2 and m1 is not equal to m2.</li>
+</ul>
+</li>
+</ul>
+<h2 id="map-transformation">Map Transformation</h2>
+<ul>
+<li><strong>filter(f: V =&gt; Bool, m: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns a map built from m where the values satisfy the predicate f.</li>
+</ul>
+</li>
+<li><strong>filterWithKey(f: (K, V) =&gt; Bool, m: Map[K, V]): Map[K, V]</strong><ul>
+<li>Similar to filter but also passes the key to the predicate function.</li>
+</ul>
+</li>
+<li><strong>map(f: A =&gt; B, m: Map[K, A]): Map[K, B]</strong><ul>
+<li>Returns a map with the function f applied to all values in m. </li>
+</ul>
+</li>
+<li><strong>mapWithKey(f: (K, A) =&gt; B, m: Map[K, A]): Map[K, B]</strong><ul>
+<li>Similar to map but also passes the key to the map function.</li>
+</ul>
+</li>
+</ul>
+<h2 id="fold">Fold</h2>
+<ul>
+<li><strong>fold(f: (B, A) =&gt; B, b: B, m: Map[K, A]): B</strong><ul>
+<li>Alias for foldLeft.</li>
+</ul>
+</li>
+<li><strong>foldWithKey(f: (K, B, A) =&gt; B, b: B, m: Map[K, A]): B</strong><ul>
+<li>Alias for foldLeftWithKey.</li>
+</ul>
+</li>
+<li><strong>foldLeft(f: (B, A) =&gt; B, b: B, m: Map[K, A]): B</strong><ul>
+<li>Left fold of the values in the map m with the fold function f.</li>
+</ul>
+</li>
+<li><strong>foldWithKey(f: (K, B, A) =&gt; B, b: B, m: Map[K, A]): B</strong><ul>
+<li>Similar to foldLeft but passes the key to the fold function.</li>
+</ul>
+</li>
+<li><strong>foldRight(f: (A, B) =&gt; B, b: B, m: Map[K, A]): B</strong><ul>
+<li>Right fold of the values in the map m with the fold function f.</li>
+</ul>
+</li>
+<li><strong>foldRightWithKey(f: (K, A, B) =&gt; B, b: B, m: Map[K, A]): B</strong><ul>
+<li>Similar to foldRight but passes the key to the fold function.</li>
+</ul>
+</li>
+</ul>
+<h2 id="combine-two-maps">Combine Two Maps</h2>
+<ul>
+<li><strong>union(m1: Map[K, V], m2: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns the left-biased union of m1 and m2. That is, a map with all mappings taken from m1 and m2 and where key collisions are resolved by always taking the mapping from m1.</li>
+</ul>
+</li>
+<li><strong>unionWith(f: (V, V) =&gt; V, m1: Map[K, V], m2: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns the union of the maps m1 and m2 where key collisions are resolved by the merge function f.</li>
+</ul>
+</li>
+<li><strong>unionWithKey(f: (K, V, V) =&gt; V, m1: Map[K, V], m2: Map[K, V]): Map[K, V]</strong><ul>
+<li>Similar to unionWith but also passes the key to the merge function.</li>
+</ul>
+</li>
+<li><strong>intersection(m1: Map[K, V], m2: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns the left-biased intersection of m1 and m2. That is, a map with all mappings taken from m1 where the keys also exist in m2.</li>
+</ul>
+</li>
+<li><strong>intersectionWith(f: (V, V) =&gt; V,m1: Map[K, V], m2: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns the intersection of m1 and m2 using the merge function f to combine values.</li>
+</ul>
+</li>
+<li><strong>intersectionWithKey(f: (K, V, V) =&gt; V, m1: Map[K, V], m2: Map[K, V]): Map[K, V]</strong><ul>
+<li>Similar to intersectionWith but also passes the key to the merge function.</li>
+</ul>
+</li>
+<li><strong>difference(m1: Map[K, V], m2: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns the map m1 with the keys removed that are in m2.</li>
+</ul>
+</li>
+<li><strong>differenceWith(f: (V, V) =&gt; Opt[V], m1: Map[K, V], m2: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns a map with the keys (and values) from m1 that are not in m2. When a key is in both m1 and m2 they are passed to the merge function. If the function returns None the mapping is thrown away.</li>
+</ul>
+</li>
+<li><strong>differenceWithKey(f: (K, V, V) =&gt; Opt[V], m1: Map[K, V], m2: Map[K, V]): Map[K, V]</strong><ul>
+<li>Similar to differenceWith but also pases the key to the merge function.</li>
+</ul>
+</li>
+</ul>
+<h2 id="map-conversions">Map Conversions</h2>
+<ul>
+<li><strong>toList(m: Map[K, V]): List[(K, V)]</strong><ul>
+<li>Alias for toListAsc.</li>
+</ul>
+</li>
+<li><strong>toAscList(m: Map[K, V]): List[(K, V)]</strong><ul>
+<li>Returns the map as an association list of pairs ordered by the natural order on the keys in ascending order.</li>
+</ul>
+</li>
+<li><strong>toDescList(m: Map[K, V]): List[(K, V)]</strong><ul>
+<li>Similar to toAscList, but the keys are ordered in descending order.</li>
+</ul>
+</li>
+<li><strong>toSet(m: Map[K, V]): Set[(K, V)]</strong><ul>
+<li>Returns the map as a set of pairs.</li>
+</ul>
+</li>
+</ul>
+<h2 id="order-and-lattice-operations">Order and Lattice Operations</h2>
+<ul>
+<li><strong>join(m1: Map[K, V], m2: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns the least upper bound of the two maps.</li>
+</ul>
+</li>
+<li><strong>meet(m1: Map[K, V], m2: Map[K, V]): Map[K, V]</strong><ul>
+<li>Returns the greatest upper bound of the two maps.</li>
+</ul>
+</li>
+</ul>
 
                     
                     </section>
@@ -600,10 +804,10 @@
         </div>
 
         
-        <a href="./map.html" class="navigation navigation-prev " aria-label="Previous page: Map"><i class="fa fa-angle-left"></i></a>
+        <a href="./set.html" class="navigation navigation-prev " aria-label="Previous page: Set"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="./internals.html" class="navigation navigation-next " aria-label="Next page: Internals"><i class="fa fa-angle-right"></i></a>
+        <a href="./type-classes.html" class="navigation navigation-next " aria-label="Next page: Type Classes"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

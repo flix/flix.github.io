@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Type Classes | Flix</title>
+        <title>Set | Flix</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.6.7">
@@ -39,10 +39,10 @@
         
     
     
-    <link rel="next" href="./internals.html" />
+    <link rel="next" href="./map.html" />
     
     
-    <link rel="prev" href="./map.html" />
+    <link rel="prev" href="./list.html" />
     
 
         
@@ -51,9 +51,9 @@
         
         
     <div class="book"
-        data-level="5.6"
-        data-chapter-title="Type Classes"
-        data-filepath="type-classes.md"
+        data-level="5.4"
+        data-chapter-title="Set"
+        data-filepath="set.md"
         data-basepath="."
         data-revision="Sun Mar 27 2016 15:48:36 GMT-0400 (Eastern Daylight Time)"
         data-innerlanguage="">
@@ -351,7 +351,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.4" data-path="set.html">
+        <li class="chapter active" data-level="5.4" data-path="set.html">
             
                 
                     <a href="./set.html">
@@ -381,7 +381,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="5.6" data-path="type-classes.html">
+        <li class="chapter " data-level="5.6" data-path="type-classes.html">
             
                 
                     <a href="./type-classes.html">
@@ -588,8 +588,122 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="type-classes">Type Classes</h1>
-<p>TBD</p>
+                        <h1 id="set">Set</h1>
+<h2 id="set-construction">Set Construction</h2>
+<ul>
+<li><strong>empty: Set[A]</strong><ul>
+<li>The empty set.</li>
+</ul>
+</li>
+<li><strong>singleton(x: A): Set[A]</strong><ul>
+<li>The singleton set of x.</li>
+</ul>
+</li>
+<li><strong>insert(x: A, xs: Set[A]): Set[A]</strong><ul>
+<li>Adds x to the set xs.</li>
+</ul>
+</li>
+<li><strong>delete(x: A, xs: Set[A]): Set[A]</strong><ul>
+<li>Removes x from the set xs.</li>
+</ul>
+</li>
+</ul>
+<h2 id="set-predicates">Set Predicates</h2>
+<ul>
+<li><strong>null(xs: Set[A]): Bool</strong><ul>
+<li>Returns true if the set is empty.</li>
+</ul>
+</li>
+<li><strong>memberOf(x: A, xs: Set[A]): Bool</strong><ul>
+<li>Returns true if x is a member of the set xs.</li>
+</ul>
+</li>
+<li><strong>isSubsetOf(xs: Set[A], ys: Set[A]): Bool</strong><ul>
+<li>Returns true if every element in xs appears in ys.</li>
+</ul>
+</li>
+<li><strong>isProperSubsetOf(xs: Set[A], ys: Set[A]): Bool</strong><ul>
+<li>Returns true if every element in xs appears in ys and xs != ys.</li>
+</ul>
+</li>
+</ul>
+<h2 id="elementary-set-operations">Elementary Set Operations</h2>
+<ul>
+<li><strong>union(xs: Set[A], ys: Set[A]): Set[A]</strong><ul>
+<li>Returns a new set of the union of xs and ys.</li>
+</ul>
+</li>
+<li><strong>intersection(xs: Set[A], ys: Set[A]): Set[A]</strong><ul>
+<li>Returns a new set of the intersection of xs and ys.</li>
+</ul>
+</li>
+<li><strong>difference(xs: Set[A], ys: Set[A]): Set[A]</strong><ul>
+<li>Returns a new set of the difference of xs and ys.</li>
+</ul>
+</li>
+<li><strong>subsets(xs: Set[A]): Set[Set[A]]</strong><ul>
+<li>Returns the subsets of the set xs.</li>
+</ul>
+</li>
+</ul>
+<h2 id="set-transformation">Set Transformation</h2>
+<ul>
+<li><strong>filter(f: A =&gt; Bool, xs: Set[A]): Set[A]</strong><ul>
+<li>Returns the subset of xs where the elements satisfy the predicate f. </li>
+</ul>
+</li>
+<li><strong>map(f: A =&gt; B, xs: Set[A]): Set[B]</strong><ul>
+<li>Returns the result of applying the function f to every element in the set. </li>
+<li>Note: The returned set may be smaller than the given set.</li>
+</ul>
+</li>
+<li><strong>flatMap(f: A =&gt; Set[B], xs: Set[A]): Set[B]</strong><ul>
+<li>Returns the result of applying the function f to every element in the set and taking the union of the result. </li>
+</ul>
+</li>
+</ul>
+<h2 id="set-conversions">Set Conversions</h2>
+<ul>
+<li><strong>toList(xs: Set[A]): List[A]</strong><ul>
+<li>Alias for toAscList.</li>
+</ul>
+</li>
+<li><strong>toAscList(xs: Set[A]): List[A]</strong><ul>
+<li>Returns the set as a list in ascending order (w.r.t. its natural order).</li>
+</ul>
+</li>
+<li><strong>toDescList(xs: Set[A]): List[A]</strong><ul>
+<li>Returns the set as a list in descending order (w.r.t. its natural order).</li>
+</ul>
+</li>
+<li><strong>toMap(xs: Set[(A, B)]): Map[A, B]</strong><ul>
+<li>Returns the set of pairs as a map. If the set contains the same mapping multiple times the one with the greatest key (w.r.t. the natural order) takes precedence. Functionally equivalent to List/toMap(Set/toList(xs)).</li>
+</ul>
+</li>
+</ul>
+<h2 id="order-and-lattice-operations">Order and Lattice Operations</h2>
+<ul>
+<li><strong>isAntiChain(xs: Set[A]): Bool</strong><ul>
+<li>Returns true if the set xs is an anti chain. That is, if every element is incomparable every other element.</li>
+</ul>
+</li>
+<li><strong>join(xs: Set[A]): A</strong><ul>
+<li>Returns the least upper bound of all element in xs.  The bottom element of A is returned if the set is empty. </li>
+</ul>
+</li>
+<li><strong>meet(xs: Set[A]): A</strong><ul>
+<li>Similar to lub, but with the greatest lower bound and top element.</li>
+</ul>
+</li>
+<li><strong>widen(xs: Set[A]): A</strong><ul>
+<li>Similar to lub, but with the widening operator.</li>
+</ul>
+</li>
+<li><strong>narrow(xs: Set[A]): A</strong><ul>
+<li>Similar to lub, but with the narrowing operator.</li>
+</ul>
+</li>
+</ul>
 
                     
                     </section>
@@ -600,10 +714,10 @@
         </div>
 
         
-        <a href="./map.html" class="navigation navigation-prev " aria-label="Previous page: Map"><i class="fa fa-angle-left"></i></a>
+        <a href="./list.html" class="navigation navigation-prev " aria-label="Previous page: List"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="./internals.html" class="navigation navigation-next " aria-label="Next page: Internals"><i class="fa fa-angle-right"></i></a>
+        <a href="./map.html" class="navigation navigation-next " aria-label="Next page: Map"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

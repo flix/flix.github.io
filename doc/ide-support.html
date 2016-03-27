@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Type Classes | Flix</title>
+        <title>IDE Support | Flix</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.6.7">
@@ -39,10 +39,10 @@
         
     
     
-    <link rel="next" href="./internals.html" />
+    <link rel="next" href="./learn-flix.html" />
     
     
-    <link rel="prev" href="./map.html" />
+    <link rel="prev" href="./installation.html" />
     
 
         
@@ -51,9 +51,9 @@
         
         
     <div class="book"
-        data-level="5.6"
-        data-chapter-title="Type Classes"
-        data-filepath="type-classes.md"
+        data-level="2.2"
+        data-chapter-title="IDE Support"
+        data-filepath="ide-support.md"
         data-basepath="."
         data-revision="Sun Mar 27 2016 15:48:36 GMT-0400 (Eastern Daylight Time)"
         data-innerlanguage="">
@@ -130,7 +130,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="ide-support.html">
+        <li class="chapter active" data-level="2.2" data-path="ide-support.html">
             
                 
                     <a href="./ide-support.html">
@@ -381,7 +381,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="5.6" data-path="type-classes.html">
+        <li class="chapter " data-level="5.6" data-path="type-classes.html">
             
                 
                     <a href="./type-classes.html">
@@ -588,9 +588,68 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="type-classes">Type Classes</h1>
-<p>TBD</p>
+                        <h1 id="ide-support">IDE Support</h1>
+<p>Flix currently has limited IDE support, but it is possible to get syntax highlighting.</p>
+<h2 id="syntax-highlighting">Syntax Highlighting</h2>
+<h4 id="intellij-idea">IntelliJ IDEA</h4>
+<p>Locate your IntelliJ config directory. Depending on the version, it could be
+something like <code>~/.IdeaIC14/config</code>. Then create the file
+<code>$INTELLIJCONFIG/filetypes/Flix.xml</code> with the content:</p>
+<pre><code>&lt;filetype binary=&quot;false&quot; description=&quot;The Flix Language&quot; name=&quot;Flix&quot;&gt;
+  &lt;highlighting&gt;
+    &lt;options&gt;
+      &lt;option name=&quot;LINE_COMMENT&quot; value=&quot;//&quot; /&gt;
+      &lt;option name=&quot;COMMENT_START&quot; value=&quot;/*&quot; /&gt;
+      &lt;option name=&quot;COMMENT_END&quot; value=&quot;*/&quot; /&gt;
+      &lt;option name=&quot;HEX_PREFIX&quot; value=&quot;&quot; /&gt;
+      &lt;option name=&quot;NUM_POSTFIXES&quot; value=&quot;&quot; /&gt;
+      &lt;option name=&quot;HAS_BRACES&quot; value=&quot;true&quot; /&gt;
+      &lt;option name=&quot;HAS_BRACKETS&quot; value=&quot;true&quot; /&gt;
+      &lt;option name=&quot;HAS_PARENS&quot; value=&quot;true&quot; /&gt;
+    &lt;/options&gt;
+    &lt;keywords keywords=&quot;assert;case;def;else;enum;if;in;index;lat;
+    let;match;namespace;print;rel;type;val;with&quot; ignore_case=&quot;false&quot; /&gt;
+  &lt;/highlighting&gt;
+  &lt;extensionMap&gt;
+    &lt;mapping ext=&quot;flix&quot; /&gt;
+  &lt;/extensionMap&gt;
+</code></pre><p>Restart IntelliJ IDEA.</p>
+<p>If syntax highlighting doesn&apos;t work, then follow these steps:</p>
+<ul>
+<li>Go to <code>File &gt; Settings &gt; Editor &gt; File Types</code>.</li>
+<li>Press the &quot;green plus&quot; icon on the right to add a new filetype.</li>
+<li>Enter the following:<ul>
+<li>Name: <code>Flix</code>. Description: <code>The Flix Language</code>.</li>
+<li>Line comment: <code>//</code>.</li>
+<li>Block comment start: <code>/*</code>. Block comment end: <code>*/</code>.</li>
+<li>Check support <code>paired braces</code>, <code>paired parens</code>, and <code>paired brackets</code>.</li>
+<li>Add the following keywords:<ul>
+<li><code>assert</code>, <code>case</code>, <code>def</code>, <code>else</code>, <code>enum</code>, <code>if</code>, <code>in</code>, <code>index</code>, <code>lat</code>, <code>let</code>, <code>match</code>,  <code>namespace</code>, <code>print</code>, <code>rel</code>, <code>val</code>, <code>with</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Press <code>OK</code>.</li>
+</ul>
+<h4 id="vim">Vim</h4>
+<p>Create the file <code>~/.vim/ftdetect/flix.vim</code> with the content:</p>
+<pre><code>au BufRead,BufNewFile *.flix set filetype=flix
+</code></pre><p>Create the file <code>~/.vim/syntax/flix.vim</code> with the content:</p>
+<pre><code>if exists(&quot;b:current_syntax&quot;)
+  finish
+endif
 
+syn keyword keywords assert case def else enum if in index lat
+syn keyword keywords let match namespace print rel val with
+
+let b:current_syntax = &quot;flix&quot;
+
+hi def link keywords Statement
+</code></pre><p>Ensure that your <code>~/.vimrc</code> file contains at least the following:</p>
+<pre><code>source ~/.vim/syntax/flix.vim
+source ~/.vim/ftdetect/flix.vim
+syntax on
+</code></pre>
                     
                     </section>
                 
@@ -600,10 +659,10 @@
         </div>
 
         
-        <a href="./map.html" class="navigation navigation-prev " aria-label="Previous page: Map"><i class="fa fa-angle-left"></i></a>
+        <a href="./installation.html" class="navigation navigation-prev " aria-label="Previous page: Installation"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="./internals.html" class="navigation navigation-next " aria-label="Next page: Internals"><i class="fa fa-angle-right"></i></a>
+        <a href="./learn-flix.html" class="navigation navigation-next " aria-label="Next page: Learn Flix"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

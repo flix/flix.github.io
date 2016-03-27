@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Type Classes | Flix</title>
+        <title>Core | Flix</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.6.7">
@@ -39,10 +39,10 @@
         
     
     
-    <link rel="next" href="./internals.html" />
+    <link rel="next" href="./opt.html" />
     
     
-    <link rel="prev" href="./map.html" />
+    <link rel="prev" href="./library.html" />
     
 
         
@@ -51,9 +51,9 @@
         
         
     <div class="book"
-        data-level="5.6"
-        data-chapter-title="Type Classes"
-        data-filepath="type-classes.md"
+        data-level="5.1"
+        data-chapter-title="Core"
+        data-filepath="core.md"
         data-basepath="."
         data-revision="Sun Mar 27 2016 15:48:36 GMT-0400 (Eastern Daylight Time)"
         data-innerlanguage="">
@@ -306,7 +306,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="5.1" data-path="core.html">
+        <li class="chapter active" data-level="5.1" data-path="core.html">
             
                 
                     <a href="./core.html">
@@ -381,7 +381,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="5.6" data-path="type-classes.html">
+        <li class="chapter " data-level="5.6" data-path="type-classes.html">
             
                 
                     <a href="./type-classes.html">
@@ -588,8 +588,124 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="type-classes">Type Classes</h1>
-<p>TBD</p>
+                        <h1 id="core">Core</h1>
+<h2 id="bool">Bool</h2>
+<h3 id="bool-operations">Bool Operations</h3>
+<ul>
+<li><strong>&amp;&amp;(b1: Bool, b2: Bool): Bool</strong><ul>
+<li>Returns true if both b1 and b2 are true. </li>
+</ul>
+</li>
+<li><strong>||(b1: Bool, b2: Bool): Bool</strong><ul>
+<li>Returns true if at least one of b1 and b2 is true.</li>
+</ul>
+</li>
+</ul>
+<h2 id="char">Char</h2>
+<h3 id="char-predicates">Char Predicates</h3>
+<ul>
+<li><strong>isAscii(c: Char): Bool</strong><ul>
+<li>Returns true iff the character is an ASCII character.</li>
+</ul>
+</li>
+<li><strong>isLetter(c: Char): Bool</strong><ul>
+<li>Returns true iff the character is a letter.</li>
+</ul>
+</li>
+<li><strong>isDigit(c: Char): Bool</strong><ul>
+<li>Returns true iff the character is in the range 0...9.</li>
+</ul>
+</li>
+<li><strong>isOctDigit(c: Char): Bool</strong><ul>
+<li>Returns true iff the character is in the range 0...7.</li>
+</ul>
+</li>
+<li><strong>isHexDigit(c: Char): Bool</strong><ul>
+<li>Returns true iff the character is in the range 0...F.</li>
+</ul>
+</li>
+<li><strong>isLower(c: Char): Bool</strong><ul>
+<li>Returns true iff the character is a lowercase letter.</li>
+</ul>
+</li>
+<li><strong>isUpper(c: Char): Bool</strong><ul>
+<li>Returns true iff the character is an uppercase letter.</li>
+</ul>
+</li>
+<li><strong>isWhiteSpace(c: Char): Bool</strong><ul>
+<li>Returns true iff the character is a white space character.</li>
+</ul>
+</li>
+</ul>
+<h3 id="char-conversions">Char Conversions</h3>
+<ul>
+<li><strong>toLower(c: Char): Char</strong><ul>
+<li>Converts a letter to its lowercase version. </li>
+<li>Returns the original character if it does not have a lowercase version.</li>
+</ul>
+</li>
+<li><strong>toUpper(c: Char): Char</strong><ul>
+<li>Converts a letter to its uppercase version.</li>
+<li>Returns the original character if it does not have an uppercase version.</li>
+</ul>
+</li>
+<li><strong>toInt(c: Char): Int</strong><ul>
+<li>Converts the character to an integer.</li>
+</ul>
+</li>
+</ul>
+<h2 id="int">Int</h2>
+<h3 id="int-constants">Int Constants</h3>
+<ul>
+<li><strong>minValue: Int</strong><ul>
+<li>Returns the minimum value representable by the Int type.</li>
+</ul>
+</li>
+<li><strong>maxValue: Int</strong><ul>
+<li>Returns the maximum value representable by the Int type.</li>
+</ul>
+</li>
+</ul>
+<h3 id="int-operations">Int Operations</h3>
+<ul>
+<li><strong>abs(i: Int): Int</strong><ul>
+<li>Returns the absolute value of i.</li>
+</ul>
+</li>
+<li><strong>min(i1: Int, i2: Int): Int</strong><ul>
+<li>Returns the smallest of i1 and i2.</li>
+</ul>
+</li>
+<li><strong>max(i1: Int, i2: Int): Int</strong><ul>
+<li>Returns the largest of i1 and i2.</li>
+</ul>
+</li>
+</ul>
+<h3 id="int-conversions">Int Conversions</h3>
+<ul>
+<li><strong>toChar(i: Int): Char</strong><ul>
+<li>Converts an Int to a Char.</li>
+</ul>
+</li>
+</ul>
+<h2 id="debugging">Debugging</h2>
+<p>Operations for debugging Flix programs.</p>
+<p>Note: The Flix language does not guarantee the semantics of these operations.</p>
+<ul>
+<li><strong>abort(m: String): Unit</strong><ul>
+<li>Immediately aborts execution and prints the message m.</li>
+</ul>
+</li>
+<li><strong>print(a: A): A</strong><ul>
+<li>Prints the value a and returns it.</li>
+</ul>
+</li>
+<li><strong>time(f: () =&gt; A): A</strong><ul>
+<li>Measures the execution time of the function f. </li>
+<li>Returns the result of evaluating the function.</li>
+</ul>
+</li>
+</ul>
 
                     
                     </section>
@@ -600,10 +716,10 @@
         </div>
 
         
-        <a href="./map.html" class="navigation navigation-prev " aria-label="Previous page: Map"><i class="fa fa-angle-left"></i></a>
+        <a href="./library.html" class="navigation navigation-prev " aria-label="Previous page: Library"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="./internals.html" class="navigation navigation-next " aria-label="Next page: Internals"><i class="fa fa-angle-right"></i></a>
+        <a href="./opt.html" class="navigation navigation-next " aria-label="Next page: Opt"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
