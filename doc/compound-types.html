@@ -55,7 +55,7 @@
         data-chapter-title="Compound Types"
         data-filepath="compound-types.md"
         data-basepath="."
-        data-revision="Sun Mar 27 2016 15:48:36 GMT-0400 (Eastern Daylight Time)"
+        data-revision="Mon Jun 06 2016 16:26:30 GMT-0400 (Eastern Daylight Time)"
         data-innerlanguage="">
     
 
@@ -351,14 +351,29 @@
             
         </li>
     
-        <li class="chapter " data-level="5.4" data-path="set.html">
+        <li class="chapter " data-level="5.4" data-path="vec.html">
+            
+                
+                    <a href="./vec.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        Vec
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="set.html">
             
                 
                     <a href="./set.html">
                 
                         <i class="fa fa-check"></i>
                         
-                            <b>5.4.</b>
+                            <b>5.5.</b>
                         
                         Set
                     </a>
@@ -366,14 +381,14 @@
             
         </li>
     
-        <li class="chapter " data-level="5.5" data-path="map.html">
+        <li class="chapter " data-level="5.6" data-path="map.html">
             
                 
                     <a href="./map.html">
                 
                         <i class="fa fa-check"></i>
                         
-                            <b>5.5.</b>
+                            <b>5.6.</b>
                         
                         Map
                     </a>
@@ -381,14 +396,14 @@
             
         </li>
     
-        <li class="chapter " data-level="5.6" data-path="type-classes.html">
+        <li class="chapter " data-level="5.7" data-path="type-classes.html">
             
                 
                     <a href="./type-classes.html">
                 
                         <i class="fa fa-check"></i>
                         
-                            <b>5.6.</b>
+                            <b>5.7.</b>
                         
                         Type Classes
                     </a>
@@ -626,8 +641,8 @@ with this scheme.</p>
 </code></pre>
 <h3 id="list">List</h3>
 <p>The <code>List</code> data type represents an immutable linked list.
-The empty listed is denoted by <code>Nil</code> and a cons cell is denoted by the special syntax <code>::</code>.
-Here is how to construct some lists:</p>
+The empty listed is denoted by <code>Nil</code> and a cons cell is denoted by the special syntax <code>::</code>.</p>
+<p>Here is how to construct some lists:</p>
 <pre><code class="lang-flix">def f: List[Int] = Nil
 def g: List[Int] = 1 :: Nil
 def h: List[Int] = 1 :: 2 :: Nil
@@ -646,10 +661,25 @@ def i: List[Int] = 1 :: 2 :: 3 :: Nil
     case x :: y :: Nil =&gt; f(xs)
 }
 </code></pre>
+<h3 id="vec">Vec</h3>
+<p>The <code>Vec</code> data type represents an immutable fixed-size ordered collection of values.</p>
+<p>Here is how to construct some vectors:</p>
+<pre><code class="lang-flix">def f: Vec[Int] = #[]         // the empty vector
+def g: Vec[Int] = #[1]        // a singleton vector
+def h: Vec[Int] = #[1, 2, 3]  // another vector
+</code></pre>
+<p>Vectors can be destructed using pattern matching:</p>
+<pre><code class="lang-flix">def f(xs: Vec[Int): Bool = match xs with {
+    case #[] =&gt; true
+    case [x] =&gt; false
+    case [x, y, xs...] =&gt; f(xs)
+}
+</code></pre>
+<p>The syntax <code>xs...</code> denotes the rest of the vector.</p>
 <h3 id="set">Set</h3>
 <p>The <code>Set</code> data type represents an immutable unordered collection of values.
-Sets are denoted by the special syntax <code>#{...}</code>.
-Here is how to construct some sets:</p>
+Sets are denoted by the special syntax <code>#{...}</code>.</p>
+<p>Here is how to construct some sets:</p>
 <pre><code class="lang-flix">def f: Set[Int] = #{}         // the empty set
 def g: Set[Int] = #{1}        // a singleton set
 def h: Set[Int] = #{1, 2, 3}  // another set
