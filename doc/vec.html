@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Exceptions and Errors | Flix</title>
+        <title>Vec | Flix</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.6.7">
@@ -39,10 +39,10 @@
         
     
     
-    <link rel="next" href="./parsing.html" />
+    <link rel="next" href="./set.html" />
     
     
-    <link rel="prev" href="./dependencies.html" />
+    <link rel="prev" href="./list.html" />
     
 
         
@@ -51,9 +51,9 @@
         
         
     <div class="book"
-        data-level="6.3"
-        data-chapter-title="Exceptions and Errors"
-        data-filepath="exceptions-and-errors.md"
+        data-level="5.4"
+        data-chapter-title="Vec"
+        data-filepath="vec.md"
         data-basepath="."
         data-revision="Thu Jun 30 2016 23:42:14 GMT-0400 (Eastern Daylight Time)"
         data-innerlanguage="">
@@ -351,7 +351,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.4" data-path="vec.html">
+        <li class="chapter active" data-level="5.4" data-path="vec.html">
             
                 
                     <a href="./vec.html">
@@ -462,7 +462,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="6.3" data-path="exceptions-and-errors.html">
+        <li class="chapter " data-level="6.3" data-path="exceptions-and-errors.html">
             
                 
                     <a href="./exceptions-and-errors.html">
@@ -603,71 +603,8 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="exceptions-and-errors">Exceptions and Errors</h1>
-<p>Flix distinguishes between <em>compilation errors</em>, <em>program errors</em>, and <em>internal errors</em>.</p>
-<h3 id="compilation-errors">Compilation Errors</h3>
-<p>Compilation errors are errors caused by malformed Flix programs,
-e.g. due to syntax errors, name errors, type errors, etc.
-A malformed Flix program should never cause the Flix compiler nor run-time to unexpectedly fail.
-Instead it is responsibility of the compiler to raise the appropriate compilation errors.</p>
-<p>All <em>compilation errors</em> are organized in the hierarchy shown below:</p>
-<ul>
-<li><code>CompilationError</code> - super-type of all compilation errors.<ul>
-<li><code>SyntaxError</code> - super-type of all syntax errors.<ul>
-<li><code>DuplicateAnnotation</code></li>
-<li><code>DuplicateAttribute</code></li>
-<li><code>DuplicateFormalArgument</code></li>
-<li><code>DuplicateTag</code></li>
-<li><code>NonLinearPattern</code></li>
-<li>...</li>
-</ul>
-</li>
-<li><code>ResolverError</code> - super-type of all resolver errors.<ul>
-<li><code>DuplicateDefinition</code></li>
-<li><code>IllegalVariableName</code></li>
-<li><code>UnresolvedTagReference</code></li>
-<li>...</li>
-</ul>
-</li>
-<li><code>TypeError</code> - super-type of all type errors.<ul>
-<li>...</li>
-</ul>
-</li>
-<li><code>VerifierError</code> - super-type of all verifier errors.<ul>
-<li>...</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>Note that <code>CompilationError</code> is <strong><em>not</em></strong> a (Java) exception nor is it a (Java) error. It is simply an interface.
-<code>CompilationErrors</code> are never thrown, but are instead collected by the phases of the compiler.</p>
-<h3 id="program-errors">Program Errors</h3>
-<p>Flix programs may themselves be erroneous.
-This gives rise to <code>FlixException</code>s that may be thrown at run-time as shown below:</p>
-<ul>
-<li><code>java.lang.RuntimeException</code><ul>
-<li><code>FlixException</code> - a common super-type for exceptions caused by Flix programs.<ul>
-<li><code>UserException</code> - an exception explicitly thrown by the programmer.</li>
-<li><code>MatchException</code> - an exception thrown due to an incomplete match.</li>
-<li><code>SwitchException</code> - an exception thrown due to an incomplete switch.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>A <em>correct</em> Flix program should never throw any of these exceptions.</p>
-<h3 id="internal-errors">Internal Errors</h3>
-<p>An error may occur in the Flix compiler or run-time. These errors are bugs (unexpected behaviour).</p>
-<p>There are two types of exceptions that may be thrown:</p>
-<ul>
-<li><code>java.lang.RuntimeException</code><ul>
-<li><code>InternalCompilerException</code> - an exception thrown by the compiler.</li>
-<li><code>InternalRuntimeException</code> - an exception thrown by the run-time.</li>
-</ul>
-</li>
-</ul>
-<p>If one of these exceptions is thrown then there is a bug in Flix.</p>
+                        <h1 id="vec">Vec</h1>
+<p>TBD.</p>
 
                     
                     </section>
@@ -678,10 +615,10 @@ This gives rise to <code>FlixException</code>s that may be thrown at run-time as
         </div>
 
         
-        <a href="./dependencies.html" class="navigation navigation-prev " aria-label="Previous page: Dependencies"><i class="fa fa-angle-left"></i></a>
+        <a href="./list.html" class="navigation navigation-prev " aria-label="Previous page: List"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="./parsing.html" class="navigation navigation-next " aria-label="Next page: Parsing"><i class="fa fa-angle-right"></i></a>
+        <a href="./set.html" class="navigation navigation-next " aria-label="Next page: Set"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
