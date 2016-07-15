@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Questions and Answers | Flix</title>
+        <title>Delta Debugging | Flix</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.6.7">
@@ -39,10 +39,10 @@
         
     
     
-    <link rel="next" href="./contributors.html" />
+    <link rel="next" href="./syntax-and-semantics.html" />
     
     
-    <link rel="prev" href="./code-generator.html" />
+    <link rel="prev" href="./tutorial-introduction.html" />
     
 
         
@@ -51,9 +51,9 @@
         
         
     <div class="book"
-        data-level="6"
-        data-chapter-title="Questions and Answers"
-        data-filepath="questions-and-answers.md"
+        data-level="2.2"
+        data-chapter-title="Delta Debugging"
+        data-filepath="tutorial-delta-debugging.md"
         data-basepath="."
         data-revision="Thu Jul 14 2016 20:49:22 GMT-0400 (Eastern Daylight Time)"
         data-innerlanguage="">
@@ -166,7 +166,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="tutorial-delta-debugging.html">
+        <li class="chapter active" data-level="2.2" data-path="tutorial-delta-debugging.html">
             
                 
                     <a href="./tutorial-delta-debugging.html">
@@ -533,7 +533,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="6" data-path="questions-and-answers.html">
+        <li class="chapter " data-level="6" data-path="questions-and-answers.html">
             
                 
                     <a href="./questions-and-answers.html">
@@ -624,17 +624,109 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="frequently-asked-questions">Frequently Asked Questions</h1>
-<h4 id="q-is-flix-free">Q: Is Flix free?</h4>
-<p>Yes, Flix is open source and freely available. There are no limitations on its use personally or commercially. See next question.</p>
-<h4 id="q-is-flix-open-source">Q: Is Flix open source?</h4>
-<p>Yes, Flix is dual-licened under both the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache 2.0 License</a> 
-and the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT license</a>.</p>
-<h4 id="q-on-what-platforms-does-flix-run">Q: On what platforms does Flix run?</h4>
-<p>Flix runs on any system that supports Java 8.</p>
-<h4 id="q-is-flix-related-to-netflix">Q: Is Flix related to Netflix?</h4>
-<p>No, Flix is not in any way related to movie and tv-streaming company <a href="http://netflix.com" target="_blank">Netflix</a>.</p>
+                        <h1 id="tutorial-delta-debugging">Tutorial: Delta Debugging</h1>
+<p>You can generate this tutorial file by running <code>java -jar flix.jar --tutorial delta-debugging</code>.</p>
+<pre><code>//
+// Welcome to the delta debugging tutorial!
+//
 
+//
+// Delta debugging is a general-purpose fault localization technique that
+// attempts to find the minimal input that triggers a specific bug in a program.
+//
+// In the context of Flix this means to find the minimal set of input facts
+// that triggers a specific exception, whether that be a rule integrity
+// violation, a match/switch exception, user-specified exception, or even an
+// uncaught exception in the Flix solver itself.
+//
+// Delta debugging iteratively tries to shrink the set of input facts using
+// a greedy divide-and-conquer strategy. The result produced by each
+// iteration is guaranteed to trigger the specific bug. This means that the
+// delta debugger can be stopped at any time. For example, if you get tired
+// of waiting :)
+//
+// Note 1: The greedy strategy is *NOT* guaranteed to find THE minimal solution.
+// Note 2: The delta debugger will eventually terminate when it cannot
+// remove any more facts without also preventing the error from occurring.
+//
+
+namespace Tutorial.DeltaDebugging {
+
+    //
+    // Assume we have three relations A, B, and C:
+    //
+    rel A(x: Int)
+    rel B(x: Int)
+    rel C(x: Int)
+
+    //
+    // And a whole bunch of facts:
+    //
+    A(0). A(1). A(2). A(3). A(4). A(5). A(6). A(7). A(8). A(9).
+    B(0). B(1). B(2). B(3). B(4). B(6). B(5). B(7). B(8). B(9).
+    C(0). C(1). C(2). C(3). C(4). C(5). C(6). C(7). C(8). C(9).
+
+    //
+    // We know, due to some domain knowledge, that we should never have that
+    // A(3), B(5) and C(7) are true at the same time. We can express that
+    // with what is called an integrity rule:
+    false :- A(3), B(5), C(7).
+
+    //
+    // The false value, which appears in the head of this rule, tells Flix to
+    // throw a `RuleException` if the body of the rule is ever true.
+    //
+
+    //
+    // We can run this program with:
+    //
+    //  $ java -jar flix.jar delta-debugging.flix
+    //
+    // which should produce a result like:
+    //
+    //     Integrity rule violated delta.flix:45:5
+    //
+    //     45|    false :-  A(3), B(5), C(7).
+    //            ^^^^^
+
+    //
+    // OK, good? Flix should see the error.
+    //
+
+    //
+    // Try to remove the fact B(5), run the program again and observe that the
+    // integrity rule is no longer violated (no exception is thrown).
+    //
+
+    //
+    // We have thirty input facts A(0) ... A(9), B(0) ... B(9). and C(0) ... C(9).
+    //
+    // We can use delta debugging to reduce this to a smaller set of input facts
+    // that will still trigger the same exception. To do so, run:
+    //
+    //  $ java -jar flix.jar --delta out.flix delta-debugging.flix
+    //
+    // The output should look something like:
+    //
+    //   Caught `ca.uwaterloo.flix.api.RuleException&apos; with message:
+    //       `The integrity rule defined at delta-debugging.flix:45:5 is violated.&apos;
+    //   Delta Debugging Started. Trying to minimize 30 facts.
+    //
+    // After each iteration, the current set of facts is written to `out.flix`.
+    //
+    // You can inspect this file as the delta debugger is running.
+    //
+    // Open `out.flix` and you should see:
+    //
+    //   Tutorial.DeltaDebugging/A(3i32).
+    //   Tutorial.DeltaDebugging/B(5i32).
+    //   Tutorial.DeltaDebugging/C(7i32).
+    //
+    // which is what we expected.
+    //
+
+}
+</code></pre>
                     
                     </section>
                 
@@ -644,10 +736,10 @@ and the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT licens
         </div>
 
         
-        <a href="./code-generator.html" class="navigation navigation-prev " aria-label="Previous page: Code Generator"><i class="fa fa-angle-left"></i></a>
+        <a href="./tutorial-introduction.html" class="navigation navigation-prev " aria-label="Previous page: Introduction"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="./contributors.html" class="navigation navigation-next " aria-label="Next page: Contributors"><i class="fa fa-angle-right"></i></a>
+        <a href="./syntax-and-semantics.html" class="navigation navigation-next " aria-label="Next page: Syntax and Semantics"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
