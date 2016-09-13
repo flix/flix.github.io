@@ -39,13 +39,18 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <h2>The elegance of functional programming with the conciseness of logic programming.</h2>
-                <h2>Think <em>SQL</em>, but on steroids.</h2>
+                <h2>A logic and functional programming language for the implementation of static analyses.</h2>
 
                 <div class="panel panel-info" style="margin-top: 30px;">
                     <div class="panel-heading"> Recent News</div>
                     <div class="panel-body">
                         <ul>
+                            <li>2016-09-13 The extended abstract
+                                <a href="https://flix.github.io/pub/tapas2016/abstract.pdf">
+                                    Programming a Dataflow Analysis in Flix
+                                </a>
+                                from <a href="http://staticanalysis.org/tapas2016/">TAPAS 2016</a> is now available.
+                            </li>
                             <li>2016-07-14 The poster <a href="https://flix.github.io/pub/ecoop2016/poster.pdf">
                                 Flix and its Implementation: A Language for Static Analysis</a> from ECOOP 2016
                                 is now available!
@@ -60,7 +65,8 @@
                                     style="font-style: italic;">Note that Flix is still
                                 under heavy development and some aspects of the languages are expected to change.</span>
                             </li>
-                            <li>2016-06-10 The paper <a href="https://flix.github.io/pub/pldi2016/paper.pdf">From Datalog to
+                            <li>2016-06-10 The paper <a href="https://flix.github.io/pub/pldi2016/paper.pdf">From
+                                Datalog to
                                 Flix: A Declarative Language for Fixed
                                 Points on Lattices</a> is now available.
                             </li>
@@ -107,12 +113,12 @@
 
             <div class="col-md-4">
                 <h3>Graph Reachability</h3>
-<pre class="code">
+                <pre class="code">
 Path(x, y) :- Edge(x, y).
 Path(x, z) :- Path(x, y), Edge(y, z).
 </pre>
                 <h3>Shortest Paths</h3>
-<pre class="code">
+                <pre class="code">
 Dist(origin, 0).
 Dist(y, dx + d) :-
     Edge(x, d, y),
@@ -189,7 +195,7 @@ Dist(y, dx + d) :-
 
             <div class="col-md-4">
                 <h3>Points-To Analysis</h3>
-<pre class="code">
+                <pre class="code">
 VarPointsTo(v, o) :- NewObj(v, o).
 
 VarPointsTo(v1, o) :-
@@ -214,7 +220,7 @@ HeapPointsTo(o1, f, o2) :-
 
             <div class="col-md-4">
                 <h3>IFDS</h3>
-<pre class="code">
+                <pre class="code">
 PathEdge(d1,m,d3) :-
     PathEdge(d1,n,d2),
     EshIntra(n,d2,d3),
