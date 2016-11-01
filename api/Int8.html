@@ -18,6 +18,18 @@
 <!-- Menu Data -->
 <script type="application/ecmascript">
 window.menu = [{
+  "name":"Float64"
+},{
+  "name":"Float32"
+},{
+  "name":"BigInt"
+},{
+  "name":"Int32"
+},{
+  "name":"Int16"
+},{
+  "name":"Int64"
+},{
   "name":"Int8"
 }];
 </script>
@@ -35,7 +47,7 @@ window.page = {
       "tpe":"Int8"
     }],
     "result":"Int8",
-    "comment":"  Returns the absolute value of `x`.  If the absolute value exceeds maxValue(), -1 is returned "
+    "comment":"  Returns the absolute value of `x`.  If the absolute value exceeds maxValue(), -1 is returned. "
   },{
     "name":"bit",
     "tparams":[],
@@ -47,7 +59,7 @@ window.page = {
       "tpe":"Int32"
     }],
     "result":"Int32",
-    "comment":"  Returns the bit of `x` at `position` (either 0 or 1).  Considers the 6 rightmost bits of `position` (`position` mod 64).  The bits of x have positions: 0 (rightmost bit) - 7 (leftmost bit) "
+    "comment":"  Returns the bit of `x` at `position` (either 0 or 1).  Considers the 5 rightmost bits of `position` (`position` mod 32).  The bits of x have positions: 0 (rightmost bit) - 7 (leftmost bit) "
   },{
     "name":"numberOfTrailingZeros",
     "tparams":[],
@@ -56,7 +68,7 @@ window.page = {
       "tpe":"Int8"
     }],
     "result":"Int32",
-    "comment":"  Returns the number of zero bits following the  lowest-order/rightmost one-bit in `x`.  Returns 16 if x=0. "
+    "comment":"  Returns the number of zero bits following the  lowest-order/rightmost one-bit in `x`.  Returns 8 if x=0. "
   },{
     "name":"size",
     "tparams":[],
@@ -77,7 +89,7 @@ window.page = {
       "tpe":"Int8"
     }],
     "result":"Int32",
-    "comment":"  Returns the number of zero bits preceding the  highest-order/leftmost one-bit in `x`.  Returns 16 if x=0. "
+    "comment":"  Returns the number of zero bits preceding the  highest-order/leftmost one-bit in `x`.  Returns 8 if x=0. "
   },{
     "name":"dist",
     "tparams":[],
@@ -89,7 +101,7 @@ window.page = {
       "tpe":"Int8"
     }],
     "result":"Int8",
-    "comment":"  Returns the distance between `x` and `y`.  If this distance exceeds maxValue(), -1 is returned "
+    "comment":"  Returns the distance between `x` and `y`.  If this distance exceeds maxValue(), -1 is returned. "
   },{
     "name":"highestOneBitPosition",
     "tparams":[],
@@ -98,7 +110,7 @@ window.page = {
       "tpe":"Int8"
     }],
     "result":"Int32",
-    "comment":"  Returns the position of the highest-order/leftmost one-bit in `x`  Possible return values: 0 (rightmost bit) - 7 (leftmost bit)                          -1 if x = 0 "
+    "comment":"  Returns the position of the highest-order/leftmost one-bit in `x`.  Possible return values: 0 (rightmost bit) - 7 (leftmost bit)                          -1 if x = 0 "
   },{
     "name":"compare",
     "tparams":[],
@@ -110,7 +122,7 @@ window.page = {
       "tpe":"Int8"
     }],
     "result":"Int32",
-    "comment":"  Returns 1 if x > y, -1 if x < y, and 0 if x = y.  The sign of x - y "
+    "comment":"  Returns 1 if x > y, -1 if x < y, and 0 if x = y.  The sign of x - y. "
   },{
     "name":"max",
     "tparams":[],
@@ -131,7 +143,7 @@ window.page = {
       "tpe":"Int8"
     }],
     "result":"Int32",
-    "comment":"  Returns the position of the lowest-order/rightmost one-bit in `x`  Possible return values: 0 (rightmost bit) - 7 (leftmost bit)                          -1 if x = 0 "
+    "comment":"  Returns the position of the lowest-order/rightmost one-bit in `x`.  Possible return values: 0 (rightmost bit) - 7 (leftmost bit)                          -1 if x = 0 "
   },{
     "name":"lowestOneBit",
     "tparams":[],
@@ -140,7 +152,7 @@ window.page = {
       "tpe":"Int8"
     }],
     "result":"Int8",
-    "comment":"  Returns a value with at most a single one-bit, in the position  of the highest-order/leftmost one-bit in `x`  Returns 0 if x=0 "
+    "comment":"  Returns a value with at most a single one-bit, in the position  of the highest-order/leftmost one-bit in `x`.  Returns 0 if x=0. "
   },{
     "name":"min",
     "tparams":[],
@@ -161,7 +173,7 @@ window.page = {
       "tpe":"Int8"
     }],
     "result":"Int8",
-    "comment":"  Returns a value with at most a single one-bit, in the position  of the highest-order/leftmost one-bit in `x`  Returns 0 if x=0 "
+    "comment":"  Returns a value with at most a single one-bit, in the position  of the highest-order/leftmost one-bit in `x`.  Returns 0 if x=0. "
   },{
     "name":"minValue",
     "tparams":[],
@@ -176,7 +188,7 @@ window.page = {
       "tpe":"Int32"
     }],
     "result":"Int8",
-    "comment":"  Helper function for highestOneBit and lowestOneBit  Returns a value with a single one-bit at bit number `position`  Returns 0 if `position` is outside the range 0-7 inclusive "
+    "comment":"  Helper function for highestOneBit and lowestOneBit.  Returns a value with a single one-bit at bit number `position`.  Returns 0 if `position` is outside the range 0-7 inclusive. "
   },{
     "name":"signum",
     "tparams":[],
@@ -185,7 +197,7 @@ window.page = {
       "tpe":"Int8"
     }],
     "result":"Int32",
-    "comment":"  Returns 1 if x > 0, -1 if x < 0, and 0 if x = 0.  This sign of x "
+    "comment":"  Returns 1 if x > 0, -1 if x < 0, and 0 if x = 0.  The sign of x. "
   },{
     "name":"oneBitPositionHelper",
     "tparams":[],
@@ -200,7 +212,7 @@ window.page = {
       "tpe":"Int32"
     }],
     "result":"Int32",
-    "comment":"  Helper function for highestOneBitPosition and lowestOneBitPosition  If `x` has a one-bit at `position`, return that position  Otherwise recursively check the next bit in the same way "
+    "comment":"  Helper function for highestOneBitPosition and lowestOneBitPosition.  If `x` has a one-bit at `position`, return that position.  Otherwise recursively check the next bit in the same way. "
   }],
   "relations":[],
   "lattices":[]

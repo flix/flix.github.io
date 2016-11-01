@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flix Standard Library: Float32</title>
+    <link href="__app__.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<!-- Application Element -->
+<div id="app">
+  <div id="navbar"></div>
+</div>
+
+<!-- Menu Data -->
+<script type="application/ecmascript">
+window.menu = [{
+  "name":"Float64"
+},{
+  "name":"Float32"
+},{
+  "name":"BigInt"
+},{
+  "name":"Int32"
+},{
+  "name":"Int16"
+},{
+  "name":"Int64"
+},{
+  "name":"Int8"
+}];
+</script>
+
+<!-- Page Data -->
+<script type="application/ecmascript">
+window.page = {
+  "namespace":"Float32",
+  "types":[],
+  "definitions":[{
+    "name":"minValue",
+    "tparams":[],
+    "fparams":[],
+    "result":"Float32",
+    "comment":"  Returns the minimum number representable by a `Float32`. "
+  },{
+    "name":"minExponent",
+    "tparams":[],
+    "fparams":[],
+    "result":"Int32",
+    "comment":"  Returns the minimum exponent that a `Float32` may have. "
+  },{
+    "name":"max",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Float32"
+    },{
+      "name":"y",
+      "tpe":"Float32"
+    }],
+    "result":"Float32",
+    "comment":"  Returns the larger of `x` and `y`. "
+  },{
+    "name":"positiveInfinity",
+    "tparams":[],
+    "fparams":[],
+    "result":"Float32",
+    "comment":"  Returns the positive infinity value of type `Float32`. "
+  },{
+    "name":"min",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Float32"
+    },{
+      "name":"y",
+      "tpe":"Float32"
+    }],
+    "result":"Float32",
+    "comment":"  Returns the smaller of `x` and `y`. "
+  },{
+    "name":"maxValue",
+    "tparams":[],
+    "fparams":[],
+    "result":"Float32",
+    "comment":"  Returns the maximum number representable by a `Float32`. "
+  },{
+    "name":"undefined",
+    "tparams":[],
+    "fparams":[],
+    "result":"Float32",
+    "comment":"  Returns the NaN (not a number) value of type `Float32`. "
+  },{
+    "name":"negativeInfinity",
+    "tparams":[],
+    "fparams":[],
+    "result":"Float32",
+    "comment":"  Returns the negative infinity value of type `Float32`. "
+  },{
+    "name":"minPositiveValue",
+    "tparams":[],
+    "fparams":[],
+    "result":"Float32",
+    "comment":"  Returns the minimum positive number representable by a `Float32`. "
+  },{
+    "name":"size",
+    "tparams":[],
+    "fparams":[],
+    "result":"Int32",
+    "comment":"  Returns the number of bits used to represent a `Float32`. "
+  },{
+    "name":"maxExponent",
+    "tparams":[],
+    "fparams":[],
+    "result":"Int32",
+    "comment":"  Returns the maximum exponent that a `Float32` may have. "
+  }],
+  "relations":[],
+  "lattices":[]
+};
+</script>
+
+<!-- JavaScript Resource -->
+<script src="__app__.js" type="application/ecmascript">
+</script>
+
+<!-- Trigger Boot -->
+<script type="application/ecmascript">
+    bootstrap("./Float32.json");
+</script>
+
+</body>
+</html>
+   

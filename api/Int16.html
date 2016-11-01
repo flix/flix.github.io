@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flix Standard Library: Int16</title>
+    <link href="__app__.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<!-- Application Element -->
+<div id="app">
+  <div id="navbar"></div>
+</div>
+
+<!-- Menu Data -->
+<script type="application/ecmascript">
+window.menu = [{
+  "name":"Float64"
+},{
+  "name":"Float32"
+},{
+  "name":"BigInt"
+},{
+  "name":"Int32"
+},{
+  "name":"Int16"
+},{
+  "name":"Int64"
+},{
+  "name":"Int8"
+}];
+</script>
+
+<!-- Page Data -->
+<script type="application/ecmascript">
+window.page = {
+  "namespace":"Int16",
+  "types":[],
+  "definitions":[{
+    "name":"abs",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    }],
+    "result":"Int16",
+    "comment":"  Returns the absolute value of `x`.  If the absolute value exceeds maxValue(), -1 is returned. "
+  },{
+    "name":"oneBitPositionHelper",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    },{
+      "name":"position",
+      "tpe":"Int32"
+    },{
+      "name":"delta",
+      "tpe":"Int32"
+    }],
+    "result":"Int32",
+    "comment":"  Helper function for highestOneBitPosition and lowestOneBitPosition.  If `x` has a one-bit at `position`, return that position.  Otherwise recursively check the next bit in the same way. "
+  },{
+    "name":"numberOfTrailingZeros",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    }],
+    "result":"Int32",
+    "comment":"  Returns the number of zero bits following the  lowest-order/rightmost one-bit in `x`.  Returns 16 if x=0. "
+  },{
+    "name":"minValue",
+    "tparams":[],
+    "fparams":[],
+    "result":"Int16",
+    "comment":"  Returns the minimum number representable by an `Int16`. "
+  },{
+    "name":"max",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    },{
+      "name":"y",
+      "tpe":"Int16"
+    }],
+    "result":"Int16",
+    "comment":"  Returns the larger of `x` and `y`. "
+  },{
+    "name":"bit",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    },{
+      "name":"position",
+      "tpe":"Int32"
+    }],
+    "result":"Int32",
+    "comment":"  Returns the bit of `x` at `position` (either 0 or 1).  Considers the 5 rightmost bits of `position` (`position` mod 32).  The bits of x have positions: 0 (rightmost bit) - 15 (leftmost bit) "
+  },{
+    "name":"size",
+    "tparams":[],
+    "fparams":[],
+    "result":"Int32",
+    "comment":"  Returns the number of bits used to represent an `Int16`. "
+  },{
+    "name":"bitPositionToInt",
+    "tparams":[],
+    "fparams":[{
+      "name":"position",
+      "tpe":"Int32"
+    }],
+    "result":"Int16",
+    "comment":"  Helper function for highestOneBit and lowestOneBit.  Returns a value with a single one-bit at bit number `position`.  Returns 0 if `position` is outside the range 0-15 inclusive. "
+  },{
+    "name":"lowestOneBitPosition",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    }],
+    "result":"Int32",
+    "comment":"  Returns the position of the lowest-order/rightmost one-bit in `x`.  Possible return values: 0 (rightmost bit) - 15 (leftmost bit)                          -1 if x = 0 "
+  },{
+    "name":"numberOfLeadingZeros",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    }],
+    "result":"Int32",
+    "comment":"  Returns the number of zero bits preceding the  highest-order/leftmost one-bit in `x`.  Returns 16 if x=0. "
+  },{
+    "name":"dist",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    },{
+      "name":"y",
+      "tpe":"Int16"
+    }],
+    "result":"Int16",
+    "comment":"  Returns the distance between `x` and `y`.  If this distance exceeds maxValue(), -1 is returned. "
+  },{
+    "name":"signum",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    }],
+    "result":"Int32",
+    "comment":"  Returns 1 if x > 0, -1 if x < 0, and 0 if x = 0.  The sign of x. "
+  },{
+    "name":"highestOneBit",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    }],
+    "result":"Int16",
+    "comment":"  Returns a value with at most a single one-bit, in the position  of the highest-order/leftmost one-bit in `x`.  Returns 0 if x=0. "
+  },{
+    "name":"highestOneBitPosition",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    }],
+    "result":"Int32",
+    "comment":"  Returns the position of the highest-order/leftmost one-bit in `x`.  Possible return values: 0 (rightmost bit) - 15 (leftmost bit)                          -1 if x = 0 "
+  },{
+    "name":"lowestOneBit",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    }],
+    "result":"Int16",
+    "comment":"  Returns a value with at most a single one-bit, in the position  of the highest-order/leftmost one-bit in `x`.  Returns 0 if x=0. "
+  },{
+    "name":"maxValue",
+    "tparams":[],
+    "fparams":[],
+    "result":"Int16",
+    "comment":"  Returns the maximum number representable by an `Int16`. "
+  },{
+    "name":"min",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    },{
+      "name":"y",
+      "tpe":"Int16"
+    }],
+    "result":"Int16",
+    "comment":"  Returns the smaller of `x` and `y`. "
+  },{
+    "name":"compare",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    },{
+      "name":"y",
+      "tpe":"Int16"
+    }],
+    "result":"Int32",
+    "comment":"  Returns 1 if x > y, -1 if x < y, and 0 if x = y.  The sign of x - y. "
+  }],
+  "relations":[],
+  "lattices":[]
+};
+</script>
+
+<!-- JavaScript Resource -->
+<script src="__app__.js" type="application/ecmascript">
+</script>
+
+<!-- Trigger Boot -->
+<script type="application/ecmascript">
+    bootstrap("./Int16.json");
+</script>
+
+</body>
+</html>
+   
