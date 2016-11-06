@@ -7,6 +7,7 @@
     <link href="css/stylesheet.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Palanquin' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/highlight/idea.css">
 </head>
 
 <body role="document">
@@ -33,7 +34,7 @@
     <div id="banner1"></div>
 
     <div class="slogan">
-        <span class="flix">Flix.</span> Functional. Logical.
+        <span style="font-weight: bold;">Flix.</span> Functional. Logical.
     </div>
 
     <div class="container">
@@ -118,17 +119,15 @@
 
             <div class="col-md-4">
                 <h3>Graph Reachability</h3>
-                <pre class="code">
-Path(x, y) :- Edge(x, y).
+                <pre><code class="flix">Path(x, y) :- Edge(x, y).
 Path(x, z) :- Path(x, y), Edge(y, z).
-</pre>
+</code></pre>
                 <h3>Shortest Paths</h3>
-                <pre class="code">
-Dist(origin, 0).
+                <pre><code class="flix">Dist(origin, 0).
 Dist(y, dx + d) :-
     Edge(x, d, y),
     Dist(x, dx).
-</pre>
+</code></pre>
 
                 <p>Examples of how to compute the transitive closure and shortest paths of graphs.</p>
             </div>
@@ -150,11 +149,9 @@ Dist(y, dx + d) :-
                     <li><h4>Declarative and Functional</h4></li>
                     <li><h4>Algebraic Data Types</h4></li>
                     <li><h4>Pattern Matching</h4></li>
-                    <!-- <li><h4>Rich Standard Library</h4></li> -->
-                    <!-- <li><h4>Type Classes</h4></li> -->
                     <li><h4>Namespaces</h4></li>
                     <li><h4>Parallel Rule Evaluation</h4></li>
-                    <!-- <li><h4>Tail call optimization*</h4></li> -->
+                    <li><h4>Tail call optimization*</h4></li>
                 </ul>
             </div>
 
@@ -164,7 +161,6 @@ Dist(y, dx + d) :-
                     <li><h4>Datalog Support</h4></li>
                     <li><h4>Static Type System</h4></li>
                     <li><h4>Formal Semantics</h4></li>
-                    <!-- <li><h4>Space-efficient Datastructures</h4></li> -->
                     <li><h4>Scala and Prolog-style Syntax</h4></li>
                     <li><h4>Free &amp; Open Source</h4></li>
                 </ul>
@@ -178,7 +174,6 @@ Dist(y, dx + d) :-
                     <li><h4>Built-in QuickChecker</h4></li>
                     <li><h4>Built-in Static Program Verifier</h4></li>
                     <li><h4>Runs on the Java Virtual Machine</h4></li>
-                    <!-- <li><h4>Java and Scala APIs</h4></li> -->
                     <li><h4>Tutorials &amp; Documentation</h4></li>
                 </ul>
             </div>
@@ -202,8 +197,7 @@ Dist(y, dx + d) :-
 
             <div class="col-md-4">
                 <h3>Points-To Analysis</h3>
-                <pre class="code">
-VarPointsTo(v, o) :- NewObj(v, o).
+                <pre><code class="flix">VarPointsTo(v, o) :- NewObj(v, o).
 
 VarPointsTo(v1, o) :-
     Assign(s, v1, v2),
@@ -218,7 +212,7 @@ HeapPointsTo(o1, f, o2) :-
     Store(f, v2),
     VarPointsTo(v1, o1),
     VarPointsTo(v2, o2).
-</pre>
+</code></pre>
                 <p>A points-to analysis aims to discover to what object(s) every local variable and field of an object
                     can point-to.
                     The mutually recursive dependencies between local variables and the heap is easy to express in
@@ -227,8 +221,7 @@ HeapPointsTo(o1, f, o2) :-
 
             <div class="col-md-4">
                 <h3>IFDS</h3>
-                <pre class="code">
-PathEdge(d1,m,d3) :-
+                <pre><code class="flix">PathEdge(d1,m,d3) :-
     PathEdge(d1,n,d2),
     EshIntra(n,d2,d3),
     CFG(n,m).
@@ -251,7 +244,7 @@ SummaryEdge(call, d4, d5s) :-
     EshCallStart(call,d4,target,d1),
     PathEdge(d1,end,d2),
     EshEndReturn(target,d2,call,d5s).
-</pre>
+                        </code></pre>
                 <p>The IFDS analysis by Reps et al. is a graph reachability problem that can be used to solve certain
                     static analyses. Both IFDS and its extension IDE can be expressed in Flix. Something which is not
                     possible in pure
@@ -261,14 +254,13 @@ SummaryEdge(call, d4, d5s) :-
 
             <div class="col-md-4">
                 <h3>Parity Analysis</h3>
-                <pre class="code">
-enum Parity {
+                <pre><code class="flix">enum Parity {
             case Top,
   case Odd,          case Even,
             case Bot
 }
 
-fn leq(e1: Parity, e2: Parity): Bool =
+def leq(e1: Parity, e2: Parity): Bool =
   match (e1, e2) with {
     case (Bot, _)       => true
     case (Odd, Odd)     => true
@@ -277,7 +269,7 @@ fn leq(e1: Parity, e2: Parity): Bool =
     case _              => false
 }
 
-fn lub(e1: Parity, e2: Parity): Parity =
+def lub(e1: Parity, e2: Parity): Parity =
   match (e1, e2) with {
     case (Bot, x)       => x
     case (x, Bot)       => x
@@ -285,7 +277,7 @@ fn lub(e1: Parity, e2: Parity): Parity =
     case (Even, Even)   => Even
     case _              => Top
 }
-                </pre>
+</code></pre>
 
                 <p>A parity analysis aims to discover, for every local variable in a program, whether it is odd or even.
                     We can conveniently express such an analysis as several constraints over a lattice (see above for
@@ -343,6 +335,9 @@ fn lub(e1: Parity, e2: Parity): Parity =
     <div id="banner5"></div>
 
 </div>
+
+<script src="js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 
 </body>
 </html>
