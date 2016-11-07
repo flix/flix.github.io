@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>The Flix Programming Language · Flix</title>
+        <title>Delta Debugging · Flix</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -54,8 +54,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="ch01-00-getting-started.html" />
+    <link rel="next" href="ch03-00-syntax-and-semantics.html" />
     
+    
+    <link rel="prev" href="ch02-02-interpreter.html" />
     
 
     </head>
@@ -84,7 +86,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -182,7 +184,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3" data-path="ch02-03-delta-debugging.html">
+        <li class="chapter active" data-level="1.3.3" data-path="ch02-03-delta-debugging.html">
             
                 <a href="ch02-03-delta-debugging.html">
             
@@ -456,7 +458,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >The Flix Programming Language</a>
+        <a href="." >Delta Debugging</a>
     </h1>
 </div>
 
@@ -471,28 +473,106 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="the-flix-programming-language">The Flix Programming Language</h1>
-<p>Welcome to the official website for the documentation of the <a href="https://github.com/flix" target="_blank">Flix</a> programming language.</p>
-<p><strong><em>NB: Flix is still under major development and the language is expected to change.</em></strong></p>
-<p>Flix is a <a href="https://en.wikipedia.org/wiki/Functional_programming" target="_blank">functional</a> and 
-<a href="https://en.wikipedia.org/wiki/Logic_programming" target="_blank">logic</a> programming language for 
-<a href="https://en.wikipedia.org/wiki/Fixed_point_mathematics" target="_blank">fixpoint</a> computations on 
-<a href="https://en.wikipedia.org/wiki/Lattice_order" target="_blank">lattices</a>.</p>
-<p>Flix is heavily inspired by the <a href="https://en.wikipedia.org/wiki/Datalog" target="_blank">Datalog</a> language,
-but extends its expressive power by adding support for user-defined lattices and operations on them.
-The primary use case of Flix is for development and implementation of scalable 
-<a href="https://en.wikipedia.org/wiki/Static_analysis" target="_blank">static analysis</a> tools,
-especially <a href="https://en.wikipedia.org/wiki/Pointer_analysis" target="_blank">points-to analysis</a> and 
-<a href="https://en.wikipedia.org/wiki/Data-flow_analysis" target="_blank">dataflow analysis</a>.</p>
-<p>As a special case, Flix can be used as a general-purpose Datalog solver with the benefits of
-a type system plus an integrated profiler and debugger.</p>
-<p>Unlike <a href="https://en.wikipedia.org/wiki/General-purpose_programming_language" target="_blank">general-purpose</a> languages such as
-C++ and Java, Flix is a special-purpose (<a href="https://en.wikipedia.org/wiki/Domain-specific_language" target="_blank">domain-specific</a>)
-programming language. Flix is intended for (recursive) constraints on relations and lattices. In other words,
-you cannot write a web server or a video game in Flix.</p>
-<p>A Flix program is a set of facts and a set of constraints (rules) for deriving new facts. 
-The computation of a Flix programs determines all possible facts that can be derived from the initial facts
-and the constraints.</p>
+                                <h1 id="tutorial-delta-debugging">Tutorial: Delta Debugging</h1>
+<p>You can generate this tutorial file by running <code>flix --tutorial delta-debugging</code>.</p>
+<pre><code class="lang-flix">//
+// Welcome to the delta debugging tutorial!
+//
+
+//
+// Delta debugging is a general-purpose fault localization technique that
+// attempts to find the minimal input that triggers a specific bug in a program.
+//
+// In the context of Flix this means to find the minimal set of input facts
+// that triggers a specific exception, whether that be a rule integrity
+// violation, a match/switch exception, user-specified exception, or even an
+// uncaught exception in the Flix solver itself.
+//
+// Delta debugging iteratively tries to shrink the set of input facts using
+// a greedy divide-and-conquer strategy. The result produced by each
+// iteration is guaranteed to trigger the specific bug. This means that the
+// delta debugger can be stopped at any time. For example, if you get tired
+// of waiting :)
+//
+// Note 1: The greedy strategy is *NOT* guaranteed to find THE minimal solution.
+// Note 2: The delta debugger will eventually terminate when it cannot
+// remove any more facts without also preventing the error from occurring.
+//
+
+//
+// Assume we have three relations A, B, and C:
+//
+rel A(x: Int)
+rel B(x: Int)
+rel C(x: Int)
+
+//
+// And a whole bunch of facts:
+//
+A(0). A(1). A(2). A(3). A(4). A(5). A(6). A(7). A(8). A(9).
+B(0). B(1). B(2). B(3). B(4). B(6). B(5). B(7). B(8). B(9).
+C(0). C(1). C(2). C(3). C(4). C(5). C(6). C(7). C(8). C(9).
+
+//
+// We know, due to some domain knowledge, that we should never have that
+// A(3), B(5) and C(7) are true at the same time. We can express that
+// with what is called an integrity rule:
+//
+false :- A(3), B(5), C(7).
+
+//
+// The false value, which appears in the head of this rule, tells Flix to
+// throw a `RuleException` if the body of the rule is ever true.
+//
+
+//
+// We can run this program with:
+//
+//  $ flix delta-debugging.flix
+//
+// which should produce a result like:
+//
+//     Integrity rule violated delta.flix:44:5
+//
+//     45|    false :-  A(3), B(5), C(7).
+//            ^^^^^
+
+//
+// OK, good? Flix should see the error.
+//
+
+//
+// Try to remove the fact B(5), run the program again and observe that the
+// integrity rule is no longer violated (no exception is thrown).
+//
+
+//
+// We have thirty input facts A(0) ... A(9), B(0) ... B(9). and C(0) ... C(9).
+//
+// We can use delta debugging to reduce this to a smaller set of input facts
+// that will still trigger the same exception. To do so, run:
+//
+//  $ flix --delta out.flix delta-debugging.flix
+//
+// The output should look something like:
+//
+//   Caught `ca.uwaterloo.flix.api.RuleException&apos; with message:
+//       `The integrity rule defined at delta-debugging.flix:44:5 is violated.&apos;
+//   Delta Debugging Started. Trying to minimize 30 facts.
+//
+// After each iteration, the current set of facts is written to `out.flix`.
+//
+// You can inspect this file as the delta debugger is running.
+//
+// Open `out.flix` and you should see:
+//
+//   A(3i32).
+//   B(5i32).
+//   C(7i32).
+//
+// which is what we expected.
+//
+</code></pre>
 
                                 
                                 </section>
@@ -520,8 +600,12 @@ and the constraints.</p>
 
             
                 
+                <a href="ch02-02-interpreter.html" class="navigation navigation-prev " aria-label="Previous page: Interpreter">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="ch01-00-getting-started.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Getting Started">
+                
+                <a href="ch03-00-syntax-and-semantics.html" class="navigation navigation-next " aria-label="Next page: Syntax and Semantics">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -532,7 +616,7 @@ and the constraints.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"The Flix Programming Language","level":"1.1","depth":1,"next":{"title":"Getting Started","level":"1.2","depth":1,"path":"ch01-00-getting-started.md","ref":"ch01-00-getting-started.md","articles":[{"title":"Installation","level":"1.2.1","depth":2,"path":"ch01-01-installation.md","ref":"ch01-01-installation.md","articles":[]},{"title":"IDE Support","level":"1.2.2","depth":2,"path":"ch01-02-ide-support.md","ref":"ch01-02-ide-support.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["addcssjs","-sharing","livereload"],"styles":{"website":"css/style.css"},"pluginsConfig":{"addcssjs":{"css":["css/highlight/idea.css"],"js":["js/highlight.pack.js","js/boot.js"]},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Flix","gitbook":"3.2.x","description":"The Flix Programming Language"},"file":{"path":"README.md","mtime":"2016-07-01T03:40:33.410Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-07T22:55:21.219Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Delta Debugging","level":"1.3.3","depth":2,"next":{"title":"Syntax and Semantics","level":"1.4","depth":1,"path":"ch03-00-syntax-and-semantics.md","ref":"ch03-00-syntax-and-semantics.md","articles":[{"title":"Primitive Types","level":"1.4.1","depth":2,"path":"ch03-01-primitive-types.md","ref":"ch03-01-primitive-types.md","articles":[]},{"title":"Compound Types","level":"1.4.2","depth":2,"path":"ch03-02-compound-types.md","ref":"ch03-02-compound-types.md","articles":[]},{"title":"Enumerations","level":"1.4.3","depth":2,"path":"ch03-03-enumerations.md","ref":"ch03-03-enumerations.md","articles":[]},{"title":"Pattern Matching","level":"1.4.4","depth":2,"path":"ch03-04-pattern-matching.md","ref":"ch03-04-pattern-matching.md","articles":[]},{"title":"Namespaces","level":"1.4.5","depth":2,"path":"ch03-05-namespaces.md","ref":"ch03-05-namespaces.md","articles":[]},{"title":"Relations and Lattices","level":"1.4.6","depth":2,"path":"ch03-06-relations-and-lattices.md","ref":"ch03-06-relations-and-lattices.md","articles":[]},{"title":"Rules and Facts","level":"1.4.7","depth":2,"path":"ch03-07-rules-and-facts.md","ref":"ch03-07-rules-and-facts.md","articles":[]}]},"previous":{"title":"Interpreter","level":"1.3.2","depth":2,"path":"ch02-02-interpreter.md","ref":"ch02-02-interpreter.md","articles":[]},"dir":"ltr"},"config":{"plugins":["addcssjs","-sharing","livereload"],"styles":{"website":"css/style.css"},"pluginsConfig":{"addcssjs":{"css":["css/highlight/idea.css"],"js":["js/highlight.pack.js","js/boot.js"]},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Flix","gitbook":"3.2.x","description":"The Flix Programming Language"},"file":{"path":"ch02-03-delta-debugging.md","mtime":"2016-11-07T22:28:45.302Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-07T22:55:21.219Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>The Flix Programming Language · Flix</title>
+        <title>Bibliography · Flix</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -54,8 +54,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="ch01-00-getting-started.html" />
     
+    <link rel="prev" href="ch06-01-authors.html" />
     
 
     </head>
@@ -84,7 +84,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -413,7 +413,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8" data-path="ch07-00-bibliography.html">
+        <li class="chapter active" data-level="1.8" data-path="ch07-00-bibliography.html">
             
                 <a href="ch07-00-bibliography.html">
             
@@ -456,7 +456,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >The Flix Programming Language</a>
+        <a href="." >Bibliography</a>
     </h1>
 </div>
 
@@ -471,28 +471,98 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="the-flix-programming-language">The Flix Programming Language</h1>
-<p>Welcome to the official website for the documentation of the <a href="https://github.com/flix" target="_blank">Flix</a> programming language.</p>
-<p><strong><em>NB: Flix is still under major development and the language is expected to change.</em></strong></p>
-<p>Flix is a <a href="https://en.wikipedia.org/wiki/Functional_programming" target="_blank">functional</a> and 
-<a href="https://en.wikipedia.org/wiki/Logic_programming" target="_blank">logic</a> programming language for 
-<a href="https://en.wikipedia.org/wiki/Fixed_point_mathematics" target="_blank">fixpoint</a> computations on 
-<a href="https://en.wikipedia.org/wiki/Lattice_order" target="_blank">lattices</a>.</p>
-<p>Flix is heavily inspired by the <a href="https://en.wikipedia.org/wiki/Datalog" target="_blank">Datalog</a> language,
-but extends its expressive power by adding support for user-defined lattices and operations on them.
-The primary use case of Flix is for development and implementation of scalable 
-<a href="https://en.wikipedia.org/wiki/Static_analysis" target="_blank">static analysis</a> tools,
-especially <a href="https://en.wikipedia.org/wiki/Pointer_analysis" target="_blank">points-to analysis</a> and 
-<a href="https://en.wikipedia.org/wiki/Data-flow_analysis" target="_blank">dataflow analysis</a>.</p>
-<p>As a special case, Flix can be used as a general-purpose Datalog solver with the benefits of
-a type system plus an integrated profiler and debugger.</p>
-<p>Unlike <a href="https://en.wikipedia.org/wiki/General-purpose_programming_language" target="_blank">general-purpose</a> languages such as
-C++ and Java, Flix is a special-purpose (<a href="https://en.wikipedia.org/wiki/Domain-specific_language" target="_blank">domain-specific</a>)
-programming language. Flix is intended for (recursive) constraints on relations and lattices. In other words,
-you cannot write a web server or a video game in Flix.</p>
-<p>A Flix program is a set of facts and a set of constraints (rules) for deriving new facts. 
-The computation of a Flix programs determines all possible facts that can be derived from the initial facts
-and the constraints.</p>
+                                <h1 id="bibliography">Bibliography</h1>
+<h3 id="research-on-flix">Research on Flix</h3>
+<ul>
+<li><p><a href="https://flix.github.io/pub/pldi2016/paper.pdf" target="_blank"><strong>From Datalog to Flix: A Declarative Language for Fixed Points on Lattices</strong></a>
+by Magnus Madsen, Ming-Ho Yee, and Ond&#x159;ej Lhot&#xE1;k.</p>
+</li>
+<li><p><a href="https://flix.github.io/pub/tapas2016/abstract.pdf" target="_blank"><strong> Programming a Dataflow Analysis in Flix</strong></a>
+by Magnus Madsen, Ming-Ho Yee, and Ond&#x159;ej Lhot&#xE1;k.</p>
+</li>
+</ul>
+<h3 id="theoretical-foundations">Theoretical Foundations</h3>
+<ul>
+<li><p><a href="http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=43410" target="_blank"><strong>What You Always Wanted to Know About Datalog (and Never Dared to Ask)</strong></a>
+by Stefano Ceri, Georg Gottlob, and Letizia Tanca.</p>
+</li>
+<li><p><a href="http://db.cs.berkeley.edu/papers/datalog2011-dedalus.pdf" target="_blank"><strong>Dedalus: Datalog in Time and Space</strong></a>
+by Peter Alvaro, William R. Marczak, Neil Conway, Joseph M. Hellerstein, David Maier, and Russell Sears.</p>
+</li>
+<li><p><a href="http://db.cs.berkeley.edu/papers/UCB-lattice-tr.pdf" target="_blank"><strong>Logic and Lattices for Distributed Programming</strong></a>
+by Neil Conway, William Marczak, Peter Alvaro, Joseph M. Hellerstein, and David Maier.</p>
+</li>
+</ul>
+<h3 id="related-languages-and-systems">Related Languages and Systems</h3>
+<ul>
+<li><p><a href="https://github.com/witheve/Eve" target="_blank"><strong>The Eve programming language</strong></a>, a language for new programmers.</p>
+</li>
+<li><p><a href="http://bloom-lang.net/" target="_blank"><strong>The Bloom programming language</strong></a>, a language for distributed programming.</p>
+</li>
+<li><p><a href="http://www.logicblox.com/" target="_blank"><strong>LogicBlox</strong></a>, a commercial scalable Datalog engine.</p>
+</li>
+<li><p><a href="http://bddbddb.sourceforge.net/" target="_blank"><strong>bddbddb</strong></a>, a Datalog engine based on binary decision diagrams.</p>
+</li>
+</ul>
+<h3 id="motivation-and-inspiration">Motivation and Inspiration</h3>
+<ul>
+<li><p><a href="http://www.shaffner.us/cs/papers/tarpit.pdf" target="_blank"><strong>Out of the Tar Pit</strong></a> 
+by Ben Moseley and Peter Marks.</p>
+</li>
+<li><p><a href="http://dl.acm.org/citation.cfm?id=2185939" target="_blank"><strong>Using Datalog for Fast and Easy Program Analysis</strong></a>
+by Yannis Smaragdakis and Martin Bravenboer.</p>
+</li>
+<li><p><a href="http://dl.acm.org/citation.cfm?id=1640108" target="_blank"><strong>Strictly Declarative Specification of Sophisticated Points-to Analyses</strong></a>
+by Martin Bravenboer and Yannis Smaragdakis.</p>
+</li>
+<li><p><a href="http://link.springer.com/chapter/10.1007/11785477_2" target="_blank"><strong>CodeQuest: Scalable Source Code Queries with Datalog</strong></a>
+Elnar Hajiyev, Mathieu Verbaere, and Oege de Moor.</p>
+</li>
+<li><p><a href="http://link.springer.com/article/10.1007/s100090050017" target="_blank"><strong>PAG - An Efficient Program Analyzer Generator</strong></a>
+by Florian Martin.</p>
+</li>
+<li><p><a href="http://dl.acm.org/citation.cfm?id=1863539" target="_blank"><strong>Hoopl: A Modular, Reusable Library for Dataflow Analysis and Transformation</strong></a>
+by Norman Ramsey, Joao Dias, and Simon Peyton Jones.</p>
+</li>
+</ul>
+<h3 id="debugging">Debugging</h3>
+<ul>
+<li><a href="https://yanniss.github.io/DeclarativeDebugging.pdf" target="_blank"><strong>Declarative Datalog Debugging for Mere Mortals</strong></a>
+by Sven Kohler, Bertram Ludascher, and Yannis Smaragdakis.</li>
+</ul>
+<h3 id="quickchecking">QuickChecking</h3>
+<ul>
+<li><p><a href="http://www.cs.tufts.edu/~nr/cs257/archive/john-hughes/quick.pdf" target="_blank"><strong>QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs</strong></a>
+by Koen Claessen and John Hughes.</p>
+</li>
+<li><p><a href="http://cs.au.dk/~amoeller/papers/lcheck/paper.pdf" target="_blank"><strong>QuickChecking Static Analysis Properties</strong></a>
+by Jan Midtgaard and Anders M&#xF8;ller.</p>
+</li>
+</ul>
+<h3 id="type-classes">Type Classes</h3>
+<ul>
+<li><p><a href="http://dl.acm.org/citation.cfm?id=75283" target="_blank"><strong>How to make ad-hoc Polymorphism less ad hoc</strong></a>
+by Philip Wadler and Stephen Blott.</p>
+</li>
+<li><p><a href="http://research.microsoft.com/apps/pubs/default.aspx?id=67019" target="_blank"><strong>Type Classes: Exploring the Design Space</strong></a>
+by Simon Peyton Jones, Mark Jones, and Erik Meijer.</p>
+</li>
+<li><p><a href="http://journals.cambridge.org/action/displayAbstract?fromPage=online&amp;aid=1349700&amp;fileId=S0956796800001210" target="_blank"><strong>A System of Constructor Classes: Overloading and Implicit Higher-Order Polymorphism</strong></a>
+by Mark P. Jones.</p>
+</li>
+<li><p><a href="http://link.springer.com/chapter/10.1007/3-540-46425-5_15" target="_blank"><strong>Type Classes with Functional Dependencies</strong></a>
+by Mark P. Jones.</p>
+</li>
+</ul>
+<h3 id="human-friendly-compilers">Human Friendly Compilers</h3>
+<ul>
+<li><p><a href="http://clang.llvm.org/diagnostics.html" target="_blank"><strong>Expressive Diagnostics</strong></a> in Clang.</p>
+</li>
+<li><p><a href="http://elm-lang.org/blog/compiler-errors-for-humans" target="_blank"><strong>Compiler Errors for Humans</strong></a> in Elm by Evan Czaplicki.</p>
+</li>
+<li><p><a href="http://elm-lang.org/blog/compilers-as-assistants" target="_blank"><strong>Compilers as Assistants</strong></a> in the Elm by Evan Czaplicki.</p>
+</li>
+</ul>
 
                                 
                                 </section>
@@ -520,10 +590,10 @@ and the constraints.</p>
 
             
                 
-                
-                <a href="ch01-00-getting-started.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Getting Started">
-                    <i class="fa fa-angle-right"></i>
+                <a href="ch06-01-authors.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Authors">
+                    <i class="fa fa-angle-left"></i>
                 </a>
+                
                 
             
         
@@ -532,7 +602,7 @@ and the constraints.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"The Flix Programming Language","level":"1.1","depth":1,"next":{"title":"Getting Started","level":"1.2","depth":1,"path":"ch01-00-getting-started.md","ref":"ch01-00-getting-started.md","articles":[{"title":"Installation","level":"1.2.1","depth":2,"path":"ch01-01-installation.md","ref":"ch01-01-installation.md","articles":[]},{"title":"IDE Support","level":"1.2.2","depth":2,"path":"ch01-02-ide-support.md","ref":"ch01-02-ide-support.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["addcssjs","-sharing","livereload"],"styles":{"website":"css/style.css"},"pluginsConfig":{"addcssjs":{"css":["css/highlight/idea.css"],"js":["js/highlight.pack.js","js/boot.js"]},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Flix","gitbook":"3.2.x","description":"The Flix Programming Language"},"file":{"path":"README.md","mtime":"2016-07-01T03:40:33.410Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-07T22:55:21.219Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Bibliography","level":"1.8","depth":1,"previous":{"title":"Authors","level":"1.7.1","depth":2,"path":"ch06-01-authors.md","ref":"ch06-01-authors.md","articles":[]},"dir":"ltr"},"config":{"plugins":["addcssjs","-sharing","livereload"],"styles":{"website":"css/style.css"},"pluginsConfig":{"addcssjs":{"css":["css/highlight/idea.css"],"js":["js/highlight.pack.js","js/boot.js"]},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Flix","gitbook":"3.2.x","description":"The Flix Programming Language"},"file":{"path":"ch07-00-bibliography.md","mtime":"2016-11-07T21:23:07.403Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-07T22:55:21.219Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

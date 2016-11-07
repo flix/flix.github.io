@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>The Flix Programming Language · Flix</title>
+        <title>Introduction · Flix</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -54,8 +54,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="ch01-00-getting-started.html" />
+    <link rel="next" href="ch02-02-interpreter.html" />
     
+    
+    <link rel="prev" href="ch02-00-tutorials.html" />
     
 
     </head>
@@ -84,7 +86,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -156,7 +158,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="ch02-01-introduction.html">
+        <li class="chapter active" data-level="1.3.1" data-path="ch02-01-introduction.html">
             
                 <a href="ch02-01-introduction.html">
             
@@ -456,7 +458,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >The Flix Programming Language</a>
+        <a href="." >Introduction</a>
     </h1>
 </div>
 
@@ -471,28 +473,239 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="the-flix-programming-language">The Flix Programming Language</h1>
-<p>Welcome to the official website for the documentation of the <a href="https://github.com/flix" target="_blank">Flix</a> programming language.</p>
-<p><strong><em>NB: Flix is still under major development and the language is expected to change.</em></strong></p>
-<p>Flix is a <a href="https://en.wikipedia.org/wiki/Functional_programming" target="_blank">functional</a> and 
-<a href="https://en.wikipedia.org/wiki/Logic_programming" target="_blank">logic</a> programming language for 
-<a href="https://en.wikipedia.org/wiki/Fixed_point_mathematics" target="_blank">fixpoint</a> computations on 
-<a href="https://en.wikipedia.org/wiki/Lattice_order" target="_blank">lattices</a>.</p>
-<p>Flix is heavily inspired by the <a href="https://en.wikipedia.org/wiki/Datalog" target="_blank">Datalog</a> language,
-but extends its expressive power by adding support for user-defined lattices and operations on them.
-The primary use case of Flix is for development and implementation of scalable 
-<a href="https://en.wikipedia.org/wiki/Static_analysis" target="_blank">static analysis</a> tools,
-especially <a href="https://en.wikipedia.org/wiki/Pointer_analysis" target="_blank">points-to analysis</a> and 
-<a href="https://en.wikipedia.org/wiki/Data-flow_analysis" target="_blank">dataflow analysis</a>.</p>
-<p>As a special case, Flix can be used as a general-purpose Datalog solver with the benefits of
-a type system plus an integrated profiler and debugger.</p>
-<p>Unlike <a href="https://en.wikipedia.org/wiki/General-purpose_programming_language" target="_blank">general-purpose</a> languages such as
-C++ and Java, Flix is a special-purpose (<a href="https://en.wikipedia.org/wiki/Domain-specific_language" target="_blank">domain-specific</a>)
-programming language. Flix is intended for (recursive) constraints on relations and lattices. In other words,
-you cannot write a web server or a video game in Flix.</p>
-<p>A Flix program is a set of facts and a set of constraints (rules) for deriving new facts. 
-The computation of a Flix programs determines all possible facts that can be derived from the initial facts
-and the constraints.</p>
+                                <h1 id="tutorial-introduction">Tutorial: Introduction</h1>
+<p>You can generate this tutorial file by running <code>flix --tutorial introduction</code>. </p>
+<pre><code class="lang-flix">//
+// Welcome to the introduction to Flix!
+//
+// In this tutorial we will develop a simple intra-procedural dataflow analysis
+// that performs constant propagation for local variables. The program language
+// we consider is very simple, it has three types of statements:
+//
+//      x = c        [assignment statement]
+//      x = y + z    [addition statement]
+//      x = y / z    [division statement]
+//
+//
+// We begin by defining a namespace for all our declarations. We could have
+// used the root namespace, but to avoid clashes with other examples we
+// create a new namespace.
+//
+
+//
+// We will represent the program-under-analysis using three input
+// relations. One for each type of statement:
+//
+rel LitStm(r: Str, c: Int)         // r = c
+rel AddStm(r: Str, x: Str, y: Str) // r = x + y
+rel DivStm(r: Str, x: Str, y: Str) // r = x / y
+
+//
+// The next step is to define the lattice LocalVar which maps every local
+// variable to an element of the constant propagation lattice (which we
+// define below.)
+//
+// We can think of this lattice the result of the analysis.
+//
+lat LocalVar(k: Str, v: Constant)
+
+//
+// To define the constant propagation lattice, we begin by defining the
+// type of constants. We define an enum with three variants: bottom and
+// top elements, and a constructor Cst(i) for any integer i.
+//
+enum Constant {
+      case Top,
+
+    case Cst(Int),
+
+      case Bot
+}
+
+//
+// The next task is to define the partial order on Constant.
+// This is straightforward with pattern matching on the arguments:
+//
+def leq(e1: Constant, e2: Constant): Bool = match (e1, e2) with {
+    case (Bot, _)           =&gt; true
+    case (Cst(n1), Cst(n2)) =&gt; n1 == n2
+    case (_, Top)           =&gt; true
+    case _                  =&gt; false
+}
+
+//
+// Then its on to the least upper bound:
+//
+def lub(e1: Constant, e2: Constant): Constant = match (e1, e2) with {
+    case (Bot, x)           =&gt; x
+    case (x, Bot)           =&gt; x
+    case (Cst(n1), Cst(n2)) =&gt; if (n1 == n2) e1 else Top
+    case _                  =&gt; Top
+}
+
+//
+// ... and the greatest lower bound:
+//
+def glb(e1: Constant, e2: Constant): Constant = match (e1, e2) with {
+    case (Top, x)           =&gt; x
+    case (x, Top)           =&gt; x
+    case (Cst(n1), Cst(n2)) =&gt; if (n1 == n2) e1 else Bot
+    case _                  =&gt; Bot
+}
+
+//
+// This complete the specification of the lattice. We associate the
+// lattice components with the Constant type in the following way:
+//
+let Constant&lt;&gt; = (Bot, Top, leq, lub, glb)
+// NB: In the future, this syntax is subject to change.
+
+//
+// Finally it is handy to have a small function to lift an integer into
+// an element of the constant propagation lattice. Strictly speaking,
+// this is not necessary.
+//
+def alpha(i: Int): Constant = Cst(i)
+
+//
+// We can now define the semantic rules of the analysis.
+//
+
+//
+// The first rule models literal statements r = c and lifts the constant
+// into the constant propagation lattice. Intuitively, if the body of
+// the rule (whatever is to the right of &apos;:-&apos;) then the head (what is on
+// the left of &apos;:-&apos;) is inferred.
+//
+LocalVar(r, alpha(c)) :- LitStm(r, c).
+
+//
+// The second rule is more interesting. This says that if we have an
+// addition statement r = x + y, and the value of x is v1 and of y is v2
+// then the value of r is at least the value of the sum of v1 and v2.
+//
+// Here sum is a reference to a transfer function implemented below.
+//
+LocalVar(r, sum(v1, v2)) :- AddStm(r, x, y),
+                            LocalVar(x, v1),
+                            LocalVar(y, v2).
+
+//
+// The third rule is similar, but for division:
+//
+LocalVar(r, div(v1, v2)) :- DivStm(r, x, y),
+                            LocalVar(x, v1),
+                            LocalVar(y, v2).
+
+//
+// We must define the sum transfer function:
+//
+def sum(e1: Constant, e2: Constant): Constant = match (e1, e2) with {
+    case (Bot, _)           =&gt; Bot
+    case (_, Bot)           =&gt; Bot
+    case (Cst(n1), Cst(n2)) =&gt; Cst(n1 + n2)
+    case _                  =&gt; Top
+}
+
+//
+// And the div transfer function:
+//
+def div(e1: Constant, e2: Constant): Constant = match (e1, e2) with {
+    case (_, Bot)           =&gt; Bot
+    case (Bot, _)           =&gt; Bot
+    case (Cst(n1), Cst(n2)) =&gt; if (n2 == 0) Bot else Cst(n1 / n2)
+    case _                  =&gt; Top
+}
+
+// !! Notice the special case to avoid division-by-zero in the analysis itself !!
+
+//
+// This complete the analysis itself. But before we try to run it, let us
+// add some features to look for a simple type of bugs: Possible division-
+// by-zero errors.
+//
+
+//
+// We define a relation to hold the names of local variables possibly
+// involved in a division-by-zero error:
+//
+rel ArithmeticError(r: Str)
+
+//
+// We populate this relation with the rule below. This rule states that if
+// there is a division statement r = n / d, the value of the local variable
+// d is y, and y is possibly zero according to the `isMaybeZero` filter
+// function then we infer a possible error for `r`.
+//
+ArithmeticError(r) :- isMaybeZero(y),
+                      DivStm(r, n, d),
+                      LocalVar(d, y).
+
+//
+// Defining the filter function is straightforward:
+//
+def isMaybeZero(e: Constant): Bool = match e with {
+    case Bot    =&gt; false
+    case Cst(n) =&gt; n == 0
+    case Top    =&gt; true
+}
+
+//
+// Let us now try to analyse the following small program:
+//
+// x = 3;
+// y = 7;
+// z = 0;
+// w = x + y;
+// v = w / z;
+
+//
+// We encode this program using the input facts:
+//
+LitStm(&quot;x&quot;, 3).        // x = 3
+LitStm(&quot;y&quot;, 7).        // y = 7
+LitStm(&quot;z&quot;, 0).        // z = 0
+AddStm(&quot;w&quot;, &quot;x&quot;, &quot;y&quot;). // w = x + y
+DivStm(&quot;v&quot;, &quot;w&quot;, &quot;z&quot;). // v = w / z
+
+//
+// We can now run our program with Flix and inspect the output!
+//
+// Run: flix --print LocalVar,ArithmeticError tutorial.flix
+//
+// This should produce output like:
+//
+
+// LocalVar:
+//
+//    +---+---------+
+//    | k | v       |
+//    +---+---------+
+//    | x | Cst(3)  |
+//    | y | Cst(7)  |
+//    | z | Cst(0)  |
+//    | w | Cst(10) |
+//    +---+---------+
+
+// ArithmeticError
+//
+//    +---+
+//    | r |
+//    +---+
+//    | v |
+//    +---+
+
+//
+// Here are some exercises for learning Flix:
+//
+// (0) Write some input programs and run the analysis on them.
+// (1) Extend the analysis with a variable assignment statement: x = y.
+// (2) Extend the analysis with operators for subtraction and multiplication.
+// (3) Modify the (constant propagation) lattice to have two extra elements Neg and Pos,
+//     and re-implement the partial order, least upper bound, greatest lower bound,
+//     and operations on the lattice to support these two new elements.
+//
+</code></pre>
 
                                 
                                 </section>
@@ -520,8 +733,12 @@ and the constraints.</p>
 
             
                 
+                <a href="ch02-00-tutorials.html" class="navigation navigation-prev " aria-label="Previous page: Tutorials">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="ch01-00-getting-started.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Getting Started">
+                
+                <a href="ch02-02-interpreter.html" class="navigation navigation-next " aria-label="Next page: Interpreter">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -532,7 +749,7 @@ and the constraints.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"The Flix Programming Language","level":"1.1","depth":1,"next":{"title":"Getting Started","level":"1.2","depth":1,"path":"ch01-00-getting-started.md","ref":"ch01-00-getting-started.md","articles":[{"title":"Installation","level":"1.2.1","depth":2,"path":"ch01-01-installation.md","ref":"ch01-01-installation.md","articles":[]},{"title":"IDE Support","level":"1.2.2","depth":2,"path":"ch01-02-ide-support.md","ref":"ch01-02-ide-support.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["addcssjs","-sharing","livereload"],"styles":{"website":"css/style.css"},"pluginsConfig":{"addcssjs":{"css":["css/highlight/idea.css"],"js":["js/highlight.pack.js","js/boot.js"]},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Flix","gitbook":"3.2.x","description":"The Flix Programming Language"},"file":{"path":"README.md","mtime":"2016-07-01T03:40:33.410Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-07T22:55:21.219Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.3.1","depth":2,"next":{"title":"Interpreter","level":"1.3.2","depth":2,"path":"ch02-02-interpreter.md","ref":"ch02-02-interpreter.md","articles":[]},"previous":{"title":"Tutorials","level":"1.3","depth":1,"path":"ch02-00-tutorials.md","ref":"ch02-00-tutorials.md","articles":[{"title":"Introduction","level":"1.3.1","depth":2,"path":"ch02-01-introduction.md","ref":"ch02-01-introduction.md","articles":[]},{"title":"Interpreter","level":"1.3.2","depth":2,"path":"ch02-02-interpreter.md","ref":"ch02-02-interpreter.md","articles":[]},{"title":"Delta Debugging","level":"1.3.3","depth":2,"path":"ch02-03-delta-debugging.md","ref":"ch02-03-delta-debugging.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["addcssjs","-sharing","livereload"],"styles":{"website":"css/style.css"},"pluginsConfig":{"addcssjs":{"css":["css/highlight/idea.css"],"js":["js/highlight.pack.js","js/boot.js"]},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Flix","gitbook":"3.2.x","description":"The Flix Programming Language"},"file":{"path":"ch02-01-introduction.md","mtime":"2016-11-07T22:32:33.785Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-07T22:55:21.219Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

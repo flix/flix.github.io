@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>The Flix Programming Language · Flix</title>
+        <title>Namespaces · Flix</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -54,8 +54,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="ch01-00-getting-started.html" />
+    <link rel="next" href="ch03-06-relations-and-lattices.md" />
     
+    
+    <link rel="prev" href="ch03-04-pattern-matching.html" />
     
 
     </head>
@@ -84,7 +86,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -266,7 +268,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.5" data-path="ch03-05-namespaces.html">
+        <li class="chapter active" data-level="1.4.5" data-path="ch03-05-namespaces.html">
             
                 <a href="ch03-05-namespaces.html">
             
@@ -456,7 +458,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >The Flix Programming Language</a>
+        <a href="." >Namespaces</a>
     </h1>
 </div>
 
@@ -471,28 +473,64 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="the-flix-programming-language">The Flix Programming Language</h1>
-<p>Welcome to the official website for the documentation of the <a href="https://github.com/flix" target="_blank">Flix</a> programming language.</p>
-<p><strong><em>NB: Flix is still under major development and the language is expected to change.</em></strong></p>
-<p>Flix is a <a href="https://en.wikipedia.org/wiki/Functional_programming" target="_blank">functional</a> and 
-<a href="https://en.wikipedia.org/wiki/Logic_programming" target="_blank">logic</a> programming language for 
-<a href="https://en.wikipedia.org/wiki/Fixed_point_mathematics" target="_blank">fixpoint</a> computations on 
-<a href="https://en.wikipedia.org/wiki/Lattice_order" target="_blank">lattices</a>.</p>
-<p>Flix is heavily inspired by the <a href="https://en.wikipedia.org/wiki/Datalog" target="_blank">Datalog</a> language,
-but extends its expressive power by adding support for user-defined lattices and operations on them.
-The primary use case of Flix is for development and implementation of scalable 
-<a href="https://en.wikipedia.org/wiki/Static_analysis" target="_blank">static analysis</a> tools,
-especially <a href="https://en.wikipedia.org/wiki/Pointer_analysis" target="_blank">points-to analysis</a> and 
-<a href="https://en.wikipedia.org/wiki/Data-flow_analysis" target="_blank">dataflow analysis</a>.</p>
-<p>As a special case, Flix can be used as a general-purpose Datalog solver with the benefits of
-a type system plus an integrated profiler and debugger.</p>
-<p>Unlike <a href="https://en.wikipedia.org/wiki/General-purpose_programming_language" target="_blank">general-purpose</a> languages such as
-C++ and Java, Flix is a special-purpose (<a href="https://en.wikipedia.org/wiki/Domain-specific_language" target="_blank">domain-specific</a>)
-programming language. Flix is intended for (recursive) constraints on relations and lattices. In other words,
-you cannot write a web server or a video game in Flix.</p>
-<p>A Flix program is a set of facts and a set of constraints (rules) for deriving new facts. 
-The computation of a Flix programs determines all possible facts that can be derived from the initial facts
-and the constraints.</p>
+                                <h1 id="namespaces">Namespaces</h1>
+<p>Namespaces allow the same name to be used in different contexts. 
+Namespaces are <em>not</em> objects, classes, or modules. 
+They are simply a fancy way of sticking one name in front of another.</p>
+<p>As a concrete example, we can define two <em>different</em> functions both named <code>f</code> in different namespaces:</p>
+<pre><code class="lang-flix">namespace a {
+    def f: Bool = true
+}
+
+namespace b {
+    def f: Char = &apos;a&apos;
+}
+</code></pre>
+<p>Inside the namespace <code>a</code> the function <code>f</code> is visible with type <code>Bool</code>, 
+whereas inside the namespace <code>b</code> the function <code>f</code> is visible with type <code>Char</code>.</p>
+<p>We can explicitly refer to a function (or other declaration) in a namespace 
+by prefixing it with its fully qualified name. In this case, we have the two 
+functions <code>a/f</code> and <code>b/f</code>.</p>
+<p>A namespace can use multiple identifiers, for example:</p>
+<pre><code class="lang-flix">namespace a.b.c {
+    def f: Bool = true
+}
+</code></pre>
+<p>this is equivalent to:</p>
+<pre><code class="lang-flix">namespace a {
+    namespace b {
+        namespace c {
+            def f: Bool = true
+        }
+    }
+}
+</code></pre>
+<p>In both cases we can explicitly refer to the function <code>f</code> as <code>a.b.c/f</code>.</p>
+<p>It is common, but not required, that a namespace such as <code>a.b.c</code>. reside in a file called <code>a/b/c.flix</code>.</p>
+<p>The members of a namespace does not have to be declared in a single declaration.
+For example, the following is perfectly legal:</p>
+<pre><code class="lang-flix">namespace a {
+    def f: Int = 21
+    def g: Int = 42
+}
+
+namespace a {
+    def h: Bool = f + g
+}
+</code></pre>
+<p>Although possible, adding members to a Flix standard library namespace is not recommended.</p>
+<h2 id="importing-namespaces">Importing Namespaces</h2>
+<p>Namespaces can be imported in three different ways:</p>
+<pre><code class="lang-flix">import a.b.c/_
+import a.b.c/fooBar
+import a.b.c
+</code></pre>
+<p>The first imports every definition inside the <code>a.b.c</code> namespace.
+The second imports the definition named <code>fooBar</code> in the <code>a.b.c</code> namespace.
+The third imports the <code>a.b.c</code> namespace.</p>
+<h2 id="type-classes">Type Classes</h2>
+<p>Namespace and type classes do not interact: Type class names (and instances) are always globally visible, 
+regardless of what namespace they are declared in. </p>
 
                                 
                                 </section>
@@ -520,8 +558,12 @@ and the constraints.</p>
 
             
                 
+                <a href="ch03-04-pattern-matching.html" class="navigation navigation-prev " aria-label="Previous page: Pattern Matching">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="ch01-00-getting-started.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Getting Started">
+                
+                <a href="ch03-06-relations-and-lattices.md" class="navigation navigation-next " aria-label="Next page: Relations and Lattices">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -532,7 +574,7 @@ and the constraints.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"The Flix Programming Language","level":"1.1","depth":1,"next":{"title":"Getting Started","level":"1.2","depth":1,"path":"ch01-00-getting-started.md","ref":"ch01-00-getting-started.md","articles":[{"title":"Installation","level":"1.2.1","depth":2,"path":"ch01-01-installation.md","ref":"ch01-01-installation.md","articles":[]},{"title":"IDE Support","level":"1.2.2","depth":2,"path":"ch01-02-ide-support.md","ref":"ch01-02-ide-support.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["addcssjs","-sharing","livereload"],"styles":{"website":"css/style.css"},"pluginsConfig":{"addcssjs":{"css":["css/highlight/idea.css"],"js":["js/highlight.pack.js","js/boot.js"]},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Flix","gitbook":"3.2.x","description":"The Flix Programming Language"},"file":{"path":"README.md","mtime":"2016-07-01T03:40:33.410Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-07T22:55:21.219Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Namespaces","level":"1.4.5","depth":2,"next":{"title":"Relations and Lattices","level":"1.4.6","depth":2,"path":"ch03-06-relations-and-lattices.md","ref":"ch03-06-relations-and-lattices.md","articles":[]},"previous":{"title":"Pattern Matching","level":"1.4.4","depth":2,"path":"ch03-04-pattern-matching.md","ref":"ch03-04-pattern-matching.md","articles":[]},"dir":"ltr"},"config":{"plugins":["addcssjs","-sharing","livereload"],"styles":{"website":"css/style.css"},"pluginsConfig":{"addcssjs":{"css":["css/highlight/idea.css"],"js":["js/highlight.pack.js","js/boot.js"]},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Flix","gitbook":"3.2.x","description":"The Flix Programming Language"},"file":{"path":"ch03-05-namespaces.md","mtime":"2016-11-07T21:23:07.372Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-07T22:55:21.219Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
