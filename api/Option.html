@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flix Standard Library: Option</title>
+    <link href="__app__.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<!-- Application Element -->
+<div id="app">
+  <div id="navbar"></div>
+</div>
+
+<!-- Menu Data -->
+<script type="application/ecmascript">
+window.menu = [{
+  "name":"Prelude",
+  "link":"index.html"
+},{
+  "name":"Int64",
+  "link":"Int64.html"
+},{
+  "name":"Int8",
+  "link":"Int8.html"
+},{
+  "name":"Set",
+  "link":"Set.html"
+},{
+  "name":"Result",
+  "link":"Result.html"
+},{
+  "name":"Float32",
+  "link":"Float32.html"
+},{
+  "name":"Map",
+  "link":"Map.html"
+},{
+  "name":"Float64",
+  "link":"Float64.html"
+},{
+  "name":"Int32",
+  "link":"Int32.html"
+},{
+  "name":"BigInt",
+  "link":"BigInt.html"
+},{
+  "name":"Int16",
+  "link":"Int16.html"
+},{
+  "name":"List",
+  "link":"List.html"
+},{
+  "name":"Option",
+  "link":"Option.html"
+}];
+</script>
+
+<!-- Page Data -->
+<script type="application/ecmascript">
+window.page = {
+  "namespace":"Option",
+  "types":[],
+  "definitions":[{
+    "name":"isNone",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` iff `o` is `None`. "
+  },{
+    "name":"zip",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"o1",
+      "tpe":"Option[a]"
+    },{
+      "name":"o2",
+      "tpe":"Option[b]"
+    }],
+    "result":"Option[(a, b)]",
+    "comment":"  Returns `Some((v1, v2))` if `o1` is `Some(v1)` and `o2` is `Some(v2)`. Otherwise returns `None`. "
+  },{
+    "name":"filter",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Returns `o` if `o` is `Some(v)` and the predicate `f(v)` is true. Otherwise returns `None`. "
+  },{
+    "name":"find",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Returns `o` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `None`. "
+  },{
+    "name":"toOk",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"o",
+      "tpe":"Option[t]"
+    },{
+      "name":"z",
+      "tpe":"e"
+    }],
+    "result":"Result[t, e]",
+    "comment":"  Returns `Ok(v)` if `o` is `Some(v)`. Otherwise returns `Err(z)`. "
+  },{
+    "name":"exists",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `false`. "
+  },{
+    "name":"flatMap",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Option[b]"
+    },{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"Option[b]",
+    "comment":"  Returns `f(v)` if `o` is `Some(v)`. Otherwise returns `None`. "
+  },{
+    "name":"get",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"a",
+    "comment":"  Returns `v` if `o` is `Some(v)`. Undefined semantics if `o` is `None`. "
+  },{
+    "name":"count",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"Int32",
+    "comment":"  Returns `1` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `0`. "
+  },{
+    "name":"null",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` iff `o` is `None`. "
+  },{
+    "name":"toErr",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"o",
+      "tpe":"Option[e]"
+    },{
+      "name":"z",
+      "tpe":"t"
+    }],
+    "result":"Result[t, e]",
+    "comment":"  Returns `Err(v)` if `o` is `Some(v)`. Otherwise returns `Ok(z)`. "
+  },{
+    "name":"isSome",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` iff `o` is `Some(v)`. "
+  },{
+    "name":"withDefault",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"o1",
+      "tpe":"Option[a]"
+    },{
+      "name":"o2",
+      "tpe":"Option[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Returns `o1` if it is `Some(v)`. Otherwise returns `o2`. "
+  },{
+    "name":"flatten",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"o",
+      "tpe":"Option[Option[a]]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Returns `v` if `o` is `Some(v)`. Otherwise returns `None`. "
+  },{
+    "name":"toSet",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"Set[a]",
+    "comment":"  Returns a one-element set of the value `v` if `o` is `Some(v)`. Otherwise returns the empty set. "
+  },{
+    "name":"flatMap2",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    },{
+      "name":"c"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b -> Option[c]"
+    },{
+      "name":"o1",
+      "tpe":"Option[a]"
+    },{
+      "name":"o2",
+      "tpe":"Option[b]"
+    }],
+    "result":"Option[c]",
+    "comment":"  Returns `f(v1, v2)` if `o1` is `Some(v1)` and `o2` is `Some(v2)`. Otherwise returns `None`. "
+  },{
+    "name":"map2",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    },{
+      "name":"c"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b -> c"
+    },{
+      "name":"o1",
+      "tpe":"Option[a]"
+    },{
+      "name":"o2",
+      "tpe":"Option[b]"
+    }],
+    "result":"Option[c]",
+    "comment":"  Returns `Some(f(v1, v2))` if `o1` is `Some(v1)` and `o2` is `Some(v2)`. Otherwise returns `None`. "
+  },{
+    "name":"foldRight",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b -> b"
+    },{
+      "name":"o",
+      "tpe":"Option[a]"
+    },{
+      "name":"z",
+      "tpe":"b"
+    }],
+    "result":"b",
+    "comment":"  Returns `f(v, z)` if `o` is `Some(v)`. Otherwise returns `z`. "
+  },{
+    "name":"foldLeft",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"b -> a -> b"
+    },{
+      "name":"z",
+      "tpe":"b"
+    },{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"b",
+    "comment":"  Returns `f(z, v)` if `o` is `Some(v)`. Otherwise returns `z`. "
+  },{
+    "name":"map",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b"
+    },{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"Option[b]",
+    "comment":"  Returns `Some(f(v))` if `o` is `Some(v)`. Otherwise returns `None`. "
+  },{
+    "name":"forall",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true` or if `o` is `None`.  Otherwise returns `false`. "
+  },{
+    "name":"toList",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns a one-element list of the value `v` if `o` is `Some(v)`. Otherwise returns the empty list. "
+  },{
+    "name":"unzip",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"o",
+      "tpe":"Option[(a, b)]"
+    }],
+    "result":"(Option[a], Option[b])",
+    "comment":"  Returns `(Some(v1), Some(v2))` if `o` is `Some((v1, v2))`. Otherwise returns `(None, None)`. "
+  },{
+    "name":"getWithDefault",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"o",
+      "tpe":"Option[a]"
+    },{
+      "name":"d",
+      "tpe":"a"
+    }],
+    "result":"a",
+    "comment":"  Returns `v` if `o` is `Some(v).` Otherwise returns `d`. "
+  }],
+  "relations":[],
+  "lattices":[]
+};
+</script>
+
+<!-- JavaScript Resource -->
+<script src="__app__.js" type="application/ecmascript">
+</script>
+
+<!-- Trigger Boot -->
+<script type="application/ecmascript">
+    bootstrap("./Option.json");
+</script>
+
+</body>
+</html>
+   

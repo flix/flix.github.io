@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flix Standard Library: Result</title>
+    <link href="__app__.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<!-- Application Element -->
+<div id="app">
+  <div id="navbar"></div>
+</div>
+
+<!-- Menu Data -->
+<script type="application/ecmascript">
+window.menu = [{
+  "name":"Prelude",
+  "link":"index.html"
+},{
+  "name":"Int64",
+  "link":"Int64.html"
+},{
+  "name":"Int8",
+  "link":"Int8.html"
+},{
+  "name":"Set",
+  "link":"Set.html"
+},{
+  "name":"Result",
+  "link":"Result.html"
+},{
+  "name":"Float32",
+  "link":"Float32.html"
+},{
+  "name":"Map",
+  "link":"Map.html"
+},{
+  "name":"Float64",
+  "link":"Float64.html"
+},{
+  "name":"Int32",
+  "link":"Int32.html"
+},{
+  "name":"BigInt",
+  "link":"BigInt.html"
+},{
+  "name":"Int16",
+  "link":"Int16.html"
+},{
+  "name":"List",
+  "link":"List.html"
+},{
+  "name":"Option",
+  "link":"Option.html"
+}];
+</script>
+
+<!-- Page Data -->
+<script type="application/ecmascript">
+window.page = {
+  "namespace":"Result",
+  "types":[],
+  "definitions":[{
+    "name":"withDefault",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e1"
+    },{
+      "name":"e2"
+    }],
+    "fparams":[{
+      "name":"r1",
+      "tpe":"Result[t, e1]"
+    },{
+      "name":"r2",
+      "tpe":"Result[t, e2]"
+    }],
+    "result":"Result[t, e2]",
+    "comment":"  Returns `Ok(v)` if `r1` is `Ok(v)`. Otherwise returns `r2`. "
+  },{
+    "name":"foldRight",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    },{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"t -> a -> a"
+    },{
+      "name":"r",
+      "tpe":"Result[t, e]"
+    },{
+      "name":"z",
+      "tpe":"a"
+    }],
+    "result":"a",
+    "comment":"  Returns `f(v, z)` if `r` is `Ok(v)`. Otherwise returns `z`. "
+  },{
+    "name":"getWithDefault",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"r",
+      "tpe":"Result[t, e]"
+    },{
+      "name":"d",
+      "tpe":"t"
+    }],
+    "result":"t",
+    "comment":"  Returns `v` if `r` is `Ok(v)`. Otherwise returns `d`. "
+  },{
+    "name":"exists",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"t -> Bool"
+    },{
+      "name":"r",
+      "tpe":"Result[t, e]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `false`. "
+  },{
+    "name":"foldLeft",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    },{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> t -> a"
+    },{
+      "name":"z",
+      "tpe":"a"
+    },{
+      "name":"r",
+      "tpe":"Result[t, e]"
+    }],
+    "result":"a",
+    "comment":"  Returns `f(z, v)` if `r` is `Ok(v)`. Otherwise returns `z`. "
+  },{
+    "name":"toList",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"r",
+      "tpe":"Result[t, e]"
+    }],
+    "result":"List[t]",
+    "comment":"  Returns a one-element list of the value `v` if `r` is `Ok(v)`. Otherwise returns the empty list. "
+  },{
+    "name":"toOption",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"r",
+      "tpe":"Result[t, e]"
+    }],
+    "result":"Option[t]",
+    "comment":"  Returns `Some(v)` if `r` is `Ok(v)`. Otherwise returns `None`. "
+  },{
+    "name":"map",
+    "tparams":[{
+      "name":"t1"
+    },{
+      "name":"t2"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"t1 -> t2"
+    },{
+      "name":"r",
+      "tpe":"Result[t1, e]"
+    }],
+    "result":"Result[t2, e]",
+    "comment":"  Returns `Ok(f(v))` if `r` is `Ok(v)`. Returns `Err(w)` if `r` is `Err(w)`. "
+  },{
+    "name":"toSet",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"r",
+      "tpe":"Result[t, e]"
+    }],
+    "result":"Set[t]",
+    "comment":"  Returns a one-element set of the value `v` if `r` is `Ok(v)`. Otherwise returns the empty set. "
+  },{
+    "name":"find",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"t -> Bool"
+    },{
+      "name":"r",
+      "tpe":"Result[t, e]"
+    }],
+    "result":"Option[t]",
+    "comment":"  Returns `Some(v)` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `None`. "
+  },{
+    "name":"isOk",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"r",
+      "tpe":"Result[t, e]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` iff `r` is `Ok(v)`. "
+  },{
+    "name":"isErr",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"r",
+      "tpe":"Result[t, e]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` iff `r` is `Err(w)`. "
+  },{
+    "name":"forall",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"t -> Bool"
+    },{
+      "name":"r",
+      "tpe":"Result[t, e]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true` or if `r` is `Err(w)`.  Otherwise returns `false`. "
+  },{
+    "name":"or",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"r1",
+      "tpe":"Result[t, e]"
+    },{
+      "name":"r2",
+      "tpe":"Result[t, e]"
+    }],
+    "result":"Result[t, e]",
+    "comment":"  Returns `r1` if `r1` is `Ok(v)`. Otherwise returns `r2`. "
+  },{
+    "name":"and",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"r1",
+      "tpe":"Result[t, e]"
+    },{
+      "name":"r2",
+      "tpe":"Result[t, e]"
+    }],
+    "result":"Result[t, e]",
+    "comment":"  Returns `r2` if `r1` is `Ok(v)`. Otherwise returns `r1`. "
+  },{
+    "name":"count",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"t -> Bool"
+    },{
+      "name":"r",
+      "tpe":"Result[t, e]"
+    }],
+    "result":"Int32",
+    "comment":"  Returns `1` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `0`. "
+  },{
+    "name":"get",
+    "tparams":[{
+      "name":"t"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"r",
+      "tpe":"Result[t, e]"
+    }],
+    "result":"t",
+    "comment":"  Returns `v` if `r` is `Ok(v)`. Undefined semantics if `r` is `Err(w)`. "
+  },{
+    "name":"flatMap",
+    "tparams":[{
+      "name":"t1"
+    },{
+      "name":"t2"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"t1 -> Result[t2, e]"
+    },{
+      "name":"r",
+      "tpe":"Result[t1, e]"
+    }],
+    "result":"Result[t2, e]",
+    "comment":"  Returns `f(v)` if `r` is `Ok(v)`. Returns `Err(w)` if `r` is `Err(w)`. "
+  }],
+  "relations":[],
+  "lattices":[]
+};
+</script>
+
+<!-- JavaScript Resource -->
+<script src="__app__.js" type="application/ecmascript">
+</script>
+
+<!-- Trigger Boot -->
+<script type="application/ecmascript">
+    bootstrap("./Result.json");
+</script>
+
+</body>
+</html>
+   

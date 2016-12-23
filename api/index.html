@@ -6,6 +6,7 @@
     <link href="__app__.css" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -18,19 +19,44 @@
 <!-- Menu Data -->
 <script type="application/ecmascript">
 window.menu = [{
-  "name":"Float64"
+  "name":"Prelude",
+  "link":"index.html"
 },{
-  "name":"Float32"
+  "name":"Int64",
+  "link":"Int64.html"
 },{
-  "name":"BigInt"
+  "name":"Int8",
+  "link":"Int8.html"
 },{
-  "name":"Int32"
+  "name":"Set",
+  "link":"Set.html"
 },{
-  "name":"Int16"
+  "name":"Result",
+  "link":"Result.html"
 },{
-  "name":"Int64"
+  "name":"Float32",
+  "link":"Float32.html"
 },{
-  "name":"Int8"
+  "name":"Map",
+  "link":"Map.html"
+},{
+  "name":"Float64",
+  "link":"Float64.html"
+},{
+  "name":"Int32",
+  "link":"Int32.html"
+},{
+  "name":"BigInt",
+  "link":"BigInt.html"
+},{
+  "name":"Int16",
+  "link":"Int16.html"
+},{
+  "name":"List",
+  "link":"List.html"
+},{
+  "name":"Option",
+  "link":"Option.html"
 }];
 </script>
 
@@ -39,16 +65,119 @@ window.menu = [{
 window.page = {
   "namespace":"",
   "types":[{
-    "name":"Option",
-    "comment":"  The Option type. "
+    "name":"Map",
+    "comment":"  The Map type.   A map is currently represented internally as a list. "
   },{
-    "name":"Result",
-    "comment":"  The Result type. "
+    "name":"Set",
+    "comment":"  The Set type.   A set is currently represented internally as a list. "
   },{
     "name":"List",
-    "comment":"  The List type. "
+    "comment":"  The List type.   A list is either the empty list represented by `Nil`, or  an element `v` followed by a list `vs` represented by `v :: vs`. "
+  },{
+    "name":"Option",
+    "comment":"  The Option type.   An option represents an optional value.  The constructor `None` represents an absent value,  whereas the constructor `Some(v)` represents the value `v`. "
+  },{
+    "name":"Result",
+    "comment":"  The Result type.   A result represents a successful value or an error value.  The constructor `Ok(v)` represents the successful value `v`,  whereas the constructor `Err(v)` represents the error value `v`. "
   }],
-  "definitions":[],
+  "definitions":[{
+    "name":"println!",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"a",
+      "tpe":"Int32"
+    }],
+    "result":"Int32",
+    "comment":"  Prints the given value `a` on a new line. (NB: Requires the --Ximpure feature flag.) "
+  },{
+    "name":"∧",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Bool"
+    },{
+      "name":"y",
+      "tpe":"Bool"
+    }],
+    "result":"Bool",
+    "comment":"  Alias for logical conjunction. "
+  },{
+    "name":"assertEq!",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Bool"
+    },{
+      "name":"y",
+      "tpe":"Bool"
+    }],
+    "result":"Bool",
+    "comment":"  Asserts that the given values `x` and `y` are equal. "
+  },{
+    "name":"print!",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"a",
+      "tpe":"Int32"
+    }],
+    "result":"Int32",
+    "comment":"  Prints the given value `a`. (NB: Requires the --Ximpure feature flag.) "
+  },{
+    "name":"↔",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Bool"
+    },{
+      "name":"y",
+      "tpe":"Bool"
+    }],
+    "result":"Bool",
+    "comment":"  Alias for logical biconditional. "
+  },{
+    "name":"assert!",
+    "tparams":[],
+    "fparams":[{
+      "name":"b",
+      "tpe":"Bool"
+    }],
+    "result":"Bool",
+    "comment":"  Asserts that the given boolean `b` is `true`. "
+  },{
+    "name":"→",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Bool"
+    },{
+      "name":"y",
+      "tpe":"Bool"
+    }],
+    "result":"Bool",
+    "comment":"  Alias for logical implication. "
+  },{
+    "name":"∨",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Bool"
+    },{
+      "name":"y",
+      "tpe":"Bool"
+    }],
+    "result":"Bool",
+    "comment":"  Alias for logical disjunction. "
+  },{
+    "name":"genSym!",
+    "tparams":[],
+    "fparams":[],
+    "result":"Int32",
+    "comment":"  Returns a freshly generated integer. (NB: Requires the --Ximpure feature flag.) "
+  }],
   "relations":[],
   "lattices":[]
 };

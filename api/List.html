@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flix Standard Library: List</title>
+    <link href="__app__.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<!-- Application Element -->
+<div id="app">
+  <div id="navbar"></div>
+</div>
+
+<!-- Menu Data -->
+<script type="application/ecmascript">
+window.menu = [{
+  "name":"Prelude",
+  "link":"index.html"
+},{
+  "name":"Int64",
+  "link":"Int64.html"
+},{
+  "name":"Int8",
+  "link":"Int8.html"
+},{
+  "name":"Set",
+  "link":"Set.html"
+},{
+  "name":"Result",
+  "link":"Result.html"
+},{
+  "name":"Float32",
+  "link":"Float32.html"
+},{
+  "name":"Map",
+  "link":"Map.html"
+},{
+  "name":"Float64",
+  "link":"Float64.html"
+},{
+  "name":"Int32",
+  "link":"Int32.html"
+},{
+  "name":"BigInt",
+  "link":"BigInt.html"
+},{
+  "name":"Int16",
+  "link":"Int16.html"
+},{
+  "name":"List",
+  "link":"List.html"
+},{
+  "name":"Option",
+  "link":"Option.html"
+}];
+</script>
+
+<!-- Page Data -->
+<script type="application/ecmascript">
+window.page = {
+  "namespace":"List",
+  "types":[],
+  "definitions":[{
+    "name":"uniformHelper",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[List[a]]"
+    },{
+      "name":"l",
+      "tpe":"Int32"
+    }],
+    "result":"Bool",
+    "comment":"  Helper function for `transpose`. "
+  },{
+    "name":"mapWithIndex",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Int32 -> b"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[b]",
+    "comment":"  Returns the result of applying `f` to every element in `xs` along with that element's index.  That is, the result is of the form: `f(x1, 0) :: f(x2, 1) :: ...`. "
+  },{
+    "name":"find",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Alias for `findLeft`. "
+  },{
+    "name":"filterMap",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Option[b]"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[b]",
+    "comment":"  Collects the results of applying the partial function `f` to every element in `xs`. "
+  },{
+    "name":"reverse",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns the reverse of `xs`. "
+  },{
+    "name":"zipWith",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    },{
+      "name":"c"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b -> c"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[b]"
+    }],
+    "result":"List[c]",
+    "comment":"  Returns a list where the element at index `i` is `f(a, b)` where  `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.  If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list. "
+  },{
+    "name":"forall",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if and only if all elements in `xs` satisfy the predicate `f`. "
+  },{
+    "name":"isPrefixOf",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[a]"
+    }],
+    "result":"Bool",
+    "comment":""
+  },{
+    "name":"findLeft",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from left to right. "
+  },{
+    "name":"range",
+    "tparams":[],
+    "fparams":[{
+      "name":"b",
+      "tpe":"Int32"
+    },{
+      "name":"e",
+      "tpe":"Int32"
+    }],
+    "result":"List[Int32]",
+    "comment":""
+  },{
+    "name":"remove",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"a",
+      "tpe":"a"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns `xs` with the first occurrence of `a` removed.  Returns `xs` if `a` does not exist in `xs`. "
+  },{
+    "name":"reverseHelper",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"acc",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Helper function for `reverse`. "
+  },{
+    "name":"drop",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"n",
+      "tpe":"Int32"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns `xs` with the first `n` elements removed.  Returns `Nil` if `n > length(xs)`.  Returns `xs` if `n < 0`. "
+  },{
+    "name":"fold",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"b -> a -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"b",
+    "comment":""
+  },{
+    "name":"scanRight",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[b]",
+    "comment":"  Accumulates the result of applying `f` to `xs` going right to left.  That is, the result is of the form: `... f(xn-1, f(xn, s)) :: f(xn, s) :: s`. "
+  },{
+    "name":"map2",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    },{
+      "name":"c"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b -> c"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[b]"
+    }],
+    "result":"List[c]",
+    "comment":""
+  },{
+    "name":"and",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[Bool]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if and only if all elements in `xs` are `true`. "
+  },{
+    "name":"sliceHelper",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"b",
+      "tpe":"Int32"
+    },{
+      "name":"e",
+      "tpe":"Int32"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"i",
+      "tpe":"Int32"
+    }],
+    "result":"List[a]",
+    "comment":"  Helper function for `slice`. "
+  },{
+    "name":"permutations",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[List[a]]",
+    "comment":"  Returns all permutations of `xs` in lexicographical order by element indices in `xs`.  That is, `xs` is the first permutation and `reverse(xs)` is the last permutation. "
+  },{
+    "name":"permutationHelper",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"i",
+      "tpe":"Int32"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[List[a]]",
+    "comment":"  Helper function for `permutations`.  Returns all permutations of `xs` starting with an element at or after index `i`. "
+  },{
+    "name":"exists",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if and only if at least one element in `xs` satisfies the predicate `f`. "
+  },{
+    "name":"repeat",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"a",
+      "tpe":"a"
+    },{
+      "name":"n",
+      "tpe":"Int32"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns a list with the element `a` repeated `n` times.  Returns `Nil` if `n < 0`. "
+  },{
+    "name":"concatMap",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> List[b]"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[b]",
+    "comment":""
+  },{
+    "name":"findRight",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from right to left. "
+  },{
+    "name":"findMap",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Option[b]"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Option[b]",
+    "comment":"  Returns the first non-None result of applying the partial function `f` to each element of `xs`.  Returns `None` if every element of `xs` is `None`. "
+  },{
+    "name":"headOpt",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Returns `Some(x)` if `x` is the first element of `xs`.  Returns `None` if `xs` is empty. "
+  },{
+    "name":"reduceOpt",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> a -> a"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Alias for reduceLeftOpt. "
+  },{
+    "name":"length",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Int32",
+    "comment":"  Returns the length of `xs`. "
+  },{
+    "name":"fold2",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    },{
+      "name":"c"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"c -> a -> b -> c"
+    },{
+      "name":"c",
+      "tpe":"c"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[b]"
+    }],
+    "result":"c",
+    "comment":"  Accumulates the result of applying `f` pairwise to the elements of `xs` and `ys`  starting with the initial value `c` and going from left to right.  Alias for foldLeft2. "
+  },{
+    "name":"subsequences",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[List[a]]",
+    "comment":"  Returns all subsequences of `xs` in lexicographical order by element indices in `xs`.  That is, `xs` is the first subsequence and `Nil` is the last subsequence. "
+  },{
+    "name":"count",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Int32",
+    "comment":""
+  },{
+    "name":"transpose",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[List[a]]"
+    }],
+    "result":"List[List[a]]",
+    "comment":"  Returns the transpose of `xs`.  Returns `xs` if the dimensions of the elements of `xs` are mismatched. "
+  },{
+    "name":"indexOfHelper",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"a",
+      "tpe":"a"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"acc",
+      "tpe":"Int32"
+    }],
+    "result":"Int32",
+    "comment":"  Helper function for `indexOf`. "
+  },{
+    "name":"foldRight",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"b",
+    "comment":"  Applies `f` to a start value `s` and all elements in `xs` going from right to left.  That is, the result is of the form: `f(x1, ...f(xn-1, f(xn, s))...)`. "
+  },{
+    "name":"flatMap",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> List[b]"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[b]",
+    "comment":"  Returns the result of applying `f` to every element in `xs` and concatenating the results. "
+  },{
+    "name":"takeWhile",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns the longest prefix of `xs` that satisfies the predicate `f`."
+  },{
+    "name":"rotateRight",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"n",
+      "tpe":"Int32"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns `xs` with its elements rotated `n` positions to the right.  That is, returns a new list where the last `n mod length(xs)` elements in `xs`  are the first `n mod length(xs)` elements of the new list. "
+  },{
+    "name":"scanLeft",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"b -> a -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[b]",
+    "comment":"  Accumulates the result of applying `f` to `xs` going left to right.  That is, the result is of the form: `s :: f(s, x1) :: f(f(s, x1), x2)  ...`. "
+  },{
+    "name":"map",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[b]",
+    "comment":""
+  },{
+    "name":"applyHelper",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"a",
+      "tpe":"a"
+    },{
+      "name":"xs",
+      "tpe":"List[List[a]]"
+    }],
+    "result":"List[List[a]]",
+    "comment":"  Helper function for `permutations` and `subsequences`.  Returns `xs` with `a` added to the beginning of each element in `xs`. "
+  },{
+    "name":"patch",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"i",
+      "tpe":"Int32"
+    },{
+      "name":"n",
+      "tpe":"Int32"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns `ys` with the `n` elements starting at index `i` replaced with the elements of `xs`.  If any of the indices `i, i+1, i+2, ... , i+n-1` are out of range in `ys` then no patching is done at these indices.  If `xs` becomes depleted then no further patching is done.  If patching occurs at index `i+j` in `ys`, then the element at index `j` in `xs` is used. "
+  },{
+    "name":"foldLeft",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"b -> a -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"b",
+    "comment":"  Applies `f` to a start value `s` and all elements in `xs` going from left to right.  That is, the result is of the form: `f(...f(f(s, x1), x2)..., xn)`. "
+  },{
+    "name":"applyListHelper",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[List[a]]"
+    }],
+    "result":"List[List[a]]",
+    "comment":"  Helper function for `transpose`. "
+  },{
+    "name":"reduceRightOpt",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> a -> a"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Applies `f` to all elements in `xs` going from right to left until a single value `v` is obtained.  Returns `Some(v)`.  That is, the result is of the form: `Some(f(x1, ...f(xn-2, f(xn-1, xn))...))`  Returns `None` is `xs` is empty. "
+  },{
+    "name":"foldLeft2",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    },{
+      "name":"c"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"c -> a -> b -> c"
+    },{
+      "name":"c",
+      "tpe":"c"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[b]"
+    }],
+    "result":"c",
+    "comment":"  Accumulates the result of applying `f` pairwise to the elements of `xs` and `ys`  starting with the initial value `c` and going from left to right. "
+  },{
+    "name":"scanLeftHelper",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"b -> a -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[b]",
+    "comment":"  Helper function for `scanLeft`. "
+  },{
+    "name":"isEmpty",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns true if and only if `xs` is the empty list, i.e. `Nil`. "
+  },{
+    "name":"intersperse",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"a",
+      "tpe":"a"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns `xs` with `a` inserted between every two adjacent elements. "
+  },{
+    "name":"rotateLeft",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"n",
+      "tpe":"Int32"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns `xs` with its elements rotated `n` positions to the left.  That is, returns a new list where the first `n mod length(xs)` elements in `xs`  are the last `n mod length(xs)` elements of the new list. "
+  },{
+    "name":"dropWhile",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns `xs` with the longest prefix that satisfies the predicate `f` removed."
+  },{
+    "name":"at",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"i",
+      "tpe":"Int32"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"a",
+    "comment":"  Returns the element at index `i` in `xs`.  If `i < 0` or `i > length(xs)-1` the semantics are undefined. "
+  },{
+    "name":"foldRight2Helper",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    },{
+      "name":"c"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b -> c -> c"
+    },{
+      "name":"c",
+      "tpe":"c"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[b]"
+    }],
+    "result":"c",
+    "comment":"  Helper function for `foldRight2`. "
+  },{
+    "name":"take",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"n",
+      "tpe":"Int32"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns the first `n` elements of `xs`.  Returns `xs` if `n > length(xs)`.  Returns `Nil` if `n < 0`. "
+  },{
+    "name":"concat",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[List[a]]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns the concatenation of the elements in `xs`. "
+  },{
+    "name":"slice",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"b",
+      "tpe":"Int32"
+    },{
+      "name":"e",
+      "tpe":"Int32"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns the sublist of `xs` from index `b` (inclusive) to index `e` (exclusive). "
+  },{
+    "name":"indexOf",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"a",
+      "tpe":"a"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Int32",
+    "comment":"  Returns the position of `a` in `xs`.  Returns -1 if `a` does not exist in `xs`. "
+  },{
+    "name":"extractHelper",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ps",
+      "tpe":"List[a]"
+    },{
+      "name":"ns",
+      "tpe":"List[a]"
+    }],
+    "result":"(List[a], List[a])",
+    "comment":"  Helper function for `groupBy`. "
+  },{
+    "name":"isInfixOf",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if and only if `xs` is an infix of `ys`. "
+  },{
+    "name":"groupBy",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[List[a]]",
+    "comment":""
+  },{
+    "name":"transposeHelper",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[List[a]]"
+    },{
+      "name":"l",
+      "tpe":"Int32"
+    }],
+    "result":"List[List[a]]",
+    "comment":"  Helper function for `transpose`. "
+  },{
+    "name":"append",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns `ys` appended to `xs`. "
+  },{
+    "name":"foldRight2",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    },{
+      "name":"c"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b -> c -> c"
+    },{
+      "name":"c",
+      "tpe":"c"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[b]"
+    }],
+    "result":"c",
+    "comment":"  Accumulates the result of applying `f` pairwise to the elements of `xs` and `ys`  starting with the initial value `c` and going from right to left. "
+  },{
+    "name":"intercalate",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[List[a]]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns the concatenation of the elements in `ys` with the elements of `xs` inserted between every two adjacent elements.  That is, returns y1 + x + y2 + x + ... + x + yn. "
+  },{
+    "name":"agreeHelper",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> a -> Bool"
+    },{
+      "name":"a",
+      "tpe":"a"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Helper function for `groupBy`. "
+  },{
+    "name":"unzip",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[(a, b)]"
+    }],
+    "result":"(List[a], List[b])",
+    "comment":"  Returns a pair of lists, the first containing all first components in `xs`  and the second containing all second components in `xs`. "
+  },{
+    "name":"mapWithIndexHelper",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Int32 -> b"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"i",
+      "tpe":"Int32"
+    }],
+    "result":"List[b]",
+    "comment":"  Helper function for `mapWithIndex`. "
+  },{
+    "name":"patchHelper",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"i",
+      "tpe":"Int32"
+    },{
+      "name":"n",
+      "tpe":"Int32"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[a]"
+    },{
+      "name":"c",
+      "tpe":"Int32"
+    }],
+    "result":"List[a]",
+    "comment":"  Helper function for `patch`. "
+  },{
+    "name":"zip",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[b]"
+    }],
+    "result":"List[(a, b)]",
+    "comment":""
+  },{
+    "name":"memberOf",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"a",
+      "tpe":"a"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns true if and only if `xs` contains the element `a`. "
+  },{
+    "name":"or",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[Bool]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if and only if at least one element in `xs` is `true`. "
+  },{
+    "name":"removeIndex",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"i",
+      "tpe":"Int32"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns `xs` with the element at index `i` removed.  Returns `xs` if `i < 0` or `i > length(xs)-1`. "
+  },{
+    "name":"span",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"(List[a], List[a])",
+    "comment":"  Returns a pair of lists `(ys, zs)`.  `ys` is the longest prefix of `xs` that satisfies the predicate `f`.  `zs` is the remainder of `xs`. "
+  },{
+    "name":"isSuffixOf",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if and only if `xs` is a suffix of `ys`. "
+  },{
+    "name":"lastOpt",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Returns `Some(x)` if `x` is the last element of `xs`.  Returns `None` if `xs` is empty. "
+  },{
+    "name":"replace",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"i",
+      "tpe":"Int32"
+    },{
+      "name":"a",
+      "tpe":"a"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns `xs` with the element at index `i` replaced by `a`.  Returns `xs` if `i < 0` or `i > length(xs)-1`. "
+  },{
+    "name":"filter",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":""
+  },{
+    "name":"scan",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"b -> a -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[b]",
+    "comment":"  Alias for `scanLeft`. "
+  },{
+    "name":"flatMap2",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    },{
+      "name":"c"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b -> List[c]"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[b]"
+    }],
+    "result":"List[c]",
+    "comment":"  Concatenates the results of applying `f` pairwise to the elements of `xs` and `ys`. "
+  },{
+    "name":"reduceLeftOpt",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> a -> a"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Applies `f` to all elements in `xs` going from left to right until a single value `v` is obtained.  Returns `Some(v)`.  That is, the result is of the form: `Some(f(...f(f(x1, x2), x3)..., xn))`  Returns `None` is `xs` is empty. "
+  },{
+    "name":"partition",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"(List[a], List[a])",
+    "comment":"  Returns a pair of lists `(ys, zs)`.  `ys` contains all elements of `xs` that satisfy the predicate `f`.  `zs` contains all elements of `xs` that do not satisfy the predicate `f`. "
+  }],
+  "relations":[],
+  "lattices":[]
+};
+</script>
+
+<!-- JavaScript Resource -->
+<script src="__app__.js" type="application/ecmascript">
+</script>
+
+<!-- Trigger Boot -->
+<script type="application/ecmascript">
+    bootstrap("./List.json");
+</script>
+
+</body>
+</html>
+   
