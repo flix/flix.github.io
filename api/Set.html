@@ -34,6 +34,18 @@ window.menu = [{
   "name":"Result",
   "link":"Result.html"
 },{
+  "name":"Bounded",
+  "link":"Bounded.html"
+},{
+  "name":"MeetLattice",
+  "link":"MeetLattice.html"
+},{
+  "name":"PartialOrder",
+  "link":"PartialOrder.html"
+},{
+  "name":"JoinLattice",
+  "link":"JoinLattice.html"
+},{
   "name":"Float32",
   "link":"Float32.html"
 },{
@@ -49,8 +61,14 @@ window.menu = [{
   "name":"BigInt",
   "link":"BigInt.html"
 },{
+  "name":"Char",
+  "link":"Char.html"
+},{
   "name":"Int16",
   "link":"Int16.html"
+},{
+  "name":"TotalOrder",
+  "link":"TotalOrder.html"
 },{
   "name":"List",
   "link":"List.html"
@@ -66,28 +84,274 @@ window.page = {
   "namespace":"Set",
   "types":[],
   "definitions":[{
+    "name":"eq",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"Set[a]"
+    },{
+      "name":"ys",
+      "tpe":"Set[a]"
+    }],
+    "result":"Bool",
+    "comment":""
+  },{
+    "name":"map",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Set[b]",
+    "comment":"  Returns the result of applying `f` to every element in `xs`.  Note: The returned set may be smaller than `xs`. "
+  },{
+    "name":"difference",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"Set[a]"
+    },{
+      "name":"ys",
+      "tpe":"Set[a]"
+    }],
+    "result":"Set[a]",
+    "comment":"  Returns the difference of `xs` and `ys`, i.e. `xs - ys`. "
+  },{
+    "name":"flatMap",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Set[b]"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Set[b]",
+    "comment":"  Returns the result of applying `f` to every element in `xs` and taking the union. "
+  },{
     "name":"empty",
     "tparams":[{
-      "name":"t"
+      "name":"a"
     }],
     "fparams":[],
-    "result":"Set['4376]",
+    "result":"Set['6341]",
+    "comment":""
+  },{
+    "name":"singleton",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"x",
+      "tpe":"a"
+    }],
+    "result":"Set[a]",
+    "comment":"  Returns the singleton set containing `x`. "
+  },{
+    "name":"isProperSubsetOf",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"Set[a]"
+    },{
+      "name":"ys",
+      "tpe":"Set[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns true if and only if every element in `xs` appears in `ys` and `xs != ys`. "
+  },{
+    "name":"union",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"Set[a]"
+    },{
+      "name":"ys",
+      "tpe":"Set[a]"
+    }],
+    "result":"Set[a]",
     "comment":""
   },{
     "name":"insert",
     "tparams":[{
-      "name":"t"
+      "name":"a"
     }],
     "fparams":[{
       "name":"x",
-      "tpe":"t"
+      "tpe":"a"
     },{
-      "name":"s",
-      "tpe":"Set[t]"
+      "name":"xs",
+      "tpe":"Set[a]"
     }],
-    "result":"Set[t]",
+    "result":"Set[a]",
+    "comment":"  Adds `x` to `xs`. "
+  },{
+    "name":"partition",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"(Set[a], Set[a])",
+    "comment":"  Returns a pair of sets `(ys, zs)`.  `ys` contains all elements of `xs` that satisfy the predicate `f`.  `zs` contains all elements of `xs` that do not satisfy the predicate `f`. "
+  },{
+    "name":"size",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Int32",
+    "comment":"  Returns the size of `xs`. "
+  },{
+    "name":"delete",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"x",
+      "tpe":"a"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Set[a]",
+    "comment":"  Removes `x` from `xs`. "
+  },{
+    "name":"intersection",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"Set[a]"
+    },{
+      "name":"ys",
+      "tpe":"Set[a]"
+    }],
+    "result":"Set[a]",
+    "comment":"  Returns the intersection of `xs` and `ys`. "
+  },{
+    "name":"exists",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if and only if at least one element in `xs` satisfies the predicate `f`. "
+  },{
+    "name":"forall",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if and only if all elements in `xs` satisfy the predicate `f`. "
+  },{
+    "name":"isSubsetOf",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"Set[a]"
+    },{
+      "name":"ys",
+      "tpe":"Set[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns true if and only if every element in `xs` appears in `ys`. "
+  },{
+    "name":"memberOf",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"x",
+      "tpe":"a"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns true if and only if `x` is a member of `xs`. "
+  },{
+    "name":"null",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Bool",
+    "comment":""
+  },{
+    "name":"subsets",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Set[Set[a]]",
+    "comment":"  Returns all subsets of `xs`. "
+  },{
+    "name":"filter",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Set[a]",
     "comment":""
   }],
+  "laws":[],
+  "tests":[],
   "relations":[],
   "lattices":[]
 };

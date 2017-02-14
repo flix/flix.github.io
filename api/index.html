@@ -34,6 +34,18 @@ window.menu = [{
   "name":"Result",
   "link":"Result.html"
 },{
+  "name":"Bounded",
+  "link":"Bounded.html"
+},{
+  "name":"MeetLattice",
+  "link":"MeetLattice.html"
+},{
+  "name":"PartialOrder",
+  "link":"PartialOrder.html"
+},{
+  "name":"JoinLattice",
+  "link":"JoinLattice.html"
+},{
   "name":"Float32",
   "link":"Float32.html"
 },{
@@ -49,8 +61,14 @@ window.menu = [{
   "name":"BigInt",
   "link":"BigInt.html"
 },{
+  "name":"Char",
+  "link":"Char.html"
+},{
   "name":"Int16",
   "link":"Int16.html"
+},{
+  "name":"TotalOrder",
+  "link":"TotalOrder.html"
 },{
   "name":"List",
   "link":"List.html"
@@ -87,10 +105,26 @@ window.page = {
     }],
     "fparams":[{
       "name":"a",
-      "tpe":"Int32"
+      "tpe":"a"
     }],
-    "result":"Int32",
+    "result":"a",
     "comment":"  Prints the given value `a` on a new line. (NB: Requires the --Ximpure feature flag.) "
+  },{
+    "name":"|>",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"x",
+      "tpe":"a"
+    },{
+      "name":"f",
+      "tpe":"a -> b"
+    }],
+    "result":"b",
+    "comment":"  Pipes the given value `x` into the function `f`.   Given a value `x: a` and a function `f: a -> b` returns `f(x)`. "
   },{
     "name":"∧",
     "tparams":[],
@@ -104,7 +138,18 @@ window.page = {
     "result":"Bool",
     "comment":"  Alias for logical conjunction. "
   },{
-    "name":"assertEq!",
+    "name":"identity",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"x",
+      "tpe":"a"
+    }],
+    "result":"a",
+    "comment":"  The identity function. "
+  },{
+    "name":"↑",
     "tparams":[],
     "fparams":[{
       "name":"x",
@@ -112,6 +157,20 @@ window.page = {
     },{
       "name":"y",
       "tpe":"Bool"
+    }],
+    "result":"Bool",
+    "comment":"  Alias for the Sheffer stroke. "
+  },{
+    "name":"assertEq!",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"x",
+      "tpe":"a"
+    },{
+      "name":"y",
+      "tpe":"a"
     }],
     "result":"Bool",
     "comment":"  Asserts that the given values `x` and `y` are equal. "
@@ -122,10 +181,53 @@ window.page = {
     }],
     "fparams":[{
       "name":"a",
-      "tpe":"Int32"
+      "tpe":"a"
     }],
-    "result":"Int32",
+    "result":"a",
     "comment":"  Prints the given value `a`. (NB: Requires the --Ximpure feature flag.) "
+  },{
+    "name":"assertNot!",
+    "tparams":[],
+    "fparams":[{
+      "name":"b",
+      "tpe":"Bool"
+    }],
+    "result":"Bool",
+    "comment":"  Asserts that the given boolean `b` is `false`. "
+  },{
+    "name":">>",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    },{
+      "name":"c"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b"
+    },{
+      "name":"g",
+      "tpe":"b -> c"
+    }],
+    "result":"a -> c",
+    "comment":"  Forwards function composition. Applies the function on the left first.   Given the functions `f: a -> b` and `g: b -> c` returns a function `a -> c` "
+  },{
+    "name":"<|",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b"
+    },{
+      "name":"x",
+      "tpe":"a"
+    }],
+    "result":"b",
+    "comment":"  Pipes the given value `x` into the function `f`.   Given a value `x: a` and a function `f: a -> b` returns `f(x)`. "
   },{
     "name":"↔",
     "tparams":[],
@@ -146,7 +248,25 @@ window.page = {
       "tpe":"Bool"
     }],
     "result":"Bool",
-    "comment":"  Asserts that the given boolean `b` is `true`. "
+    "comment":"  Returns `true` iff `x` is not equal to `y`. "
+  },{
+    "name":"<||",
+    "tparams":[{
+      "name":"a1"
+    },{
+      "name":"a2"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"(a1, a2) -> b"
+    },{
+      "name":"x",
+      "tpe":"(a1, a2)"
+    }],
+    "result":"b",
+    "comment":"  Pipes the given pair `p` into the function `f`.   Given a pair `x: (a1, a1)` and a function `f: ((a1, a2)) -> b` returns `f(x)`. "
   },{
     "name":"→",
     "tparams":[],
@@ -172,12 +292,159 @@ window.page = {
     "result":"Bool",
     "comment":"  Alias for logical disjunction. "
   },{
+    "name":"eq",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"x",
+      "tpe":"a"
+    },{
+      "name":"y",
+      "tpe":"a"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` iff `x` is equal to `y`. "
+  },{
+    "name":"<<",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    },{
+      "name":"c"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"b -> c"
+    },{
+      "name":"g",
+      "tpe":"a -> b"
+    }],
+    "result":"a -> c",
+    "comment":"  Backwards function composition. Applies the function on the right first.   Given the functions `f: b -> c` and `g: a -> b` returns a function `a -> c` "
+  },{
+    "name":"||>",
+    "tparams":[{
+      "name":"a1"
+    },{
+      "name":"a2"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"x",
+      "tpe":"(a1, a2)"
+    },{
+      "name":"f",
+      "tpe":"(a1, a2) -> b"
+    }],
+    "result":"b",
+    "comment":"  Pipes the given pair `p` into the function `f`.   Given a pair `x: (a1, a1)` and a function `f: ((a1, a2)) -> b` returns `f(x)`. "
+  },{
+    "name":"⊕",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Bool"
+    },{
+      "name":"y",
+      "tpe":"Bool"
+    }],
+    "result":"Bool",
+    "comment":"  Alias for exclusive disjunction. "
+  },{
+    "name":"snd",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"t",
+      "tpe":"(a, b)"
+    }],
+    "result":"b",
+    "comment":"  Returns the second component of `t`. "
+  },{
+    "name":"fst",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"t",
+      "tpe":"(a, b)"
+    }],
+    "result":"a",
+    "comment":"  Returns the first component of `t`. "
+  },{
     "name":"genSym!",
     "tparams":[],
     "fparams":[],
     "result":"Int32",
     "comment":"  Returns a freshly generated integer. (NB: Requires the --Ximpure feature flag.) "
   }],
+  "laws":[{
+    "name":"commutative",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> a -> b"
+    }],
+    "result":"Bool",
+    "comment":"  The commutative law asserts that for a binary operator `f` the result of `f(x, y)` is equal to `f(y, x)`. "
+  },{
+    "name":"antiSymmetric",
+    "tparams":[{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"⊑",
+      "tpe":"e -> e -> Bool"
+    }],
+    "result":"Bool",
+    "comment":"  The anti-symmetry law asserts that if `x` is less than or equal to `y` and vice versa then the  two elements must be equal. "
+  },{
+    "name":"associative",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> a -> a"
+    }],
+    "result":"Bool",
+    "comment":"  The associative law asserts that for a binary operator `f` the result of `f(x, f(y, z))` is equal to `f(f(x, y), z)`. "
+  },{
+    "name":"reflexive",
+    "tparams":[{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"⊑",
+      "tpe":"e -> e -> Bool"
+    }],
+    "result":"Bool",
+    "comment":"  The reflexivity law asserts that any element is less than or equal to itself. "
+  },{
+    "name":"transitive",
+    "tparams":[{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"⊑",
+      "tpe":"e -> e -> Bool"
+    }],
+    "result":"Bool",
+    "comment":"  The transitivity law asserts that if `x` less than or equal to `y` and `y` is less than or equal  to `z` then `x` must be less than or equal to `z`. "
+  }],
+  "tests":[],
   "relations":[],
   "lattices":[]
 };

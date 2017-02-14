@@ -34,6 +34,18 @@ window.menu = [{
   "name":"Result",
   "link":"Result.html"
 },{
+  "name":"Bounded",
+  "link":"Bounded.html"
+},{
+  "name":"MeetLattice",
+  "link":"MeetLattice.html"
+},{
+  "name":"PartialOrder",
+  "link":"PartialOrder.html"
+},{
+  "name":"JoinLattice",
+  "link":"JoinLattice.html"
+},{
   "name":"Float32",
   "link":"Float32.html"
 },{
@@ -49,8 +61,14 @@ window.menu = [{
   "name":"BigInt",
   "link":"BigInt.html"
 },{
+  "name":"Char",
+  "link":"Char.html"
+},{
   "name":"Int16",
   "link":"Int16.html"
+},{
+  "name":"TotalOrder",
+  "link":"TotalOrder.html"
 },{
   "name":"List",
   "link":"List.html"
@@ -66,20 +84,6 @@ window.page = {
   "namespace":"List",
   "types":[],
   "definitions":[{
-    "name":"uniformHelper",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"xs",
-      "tpe":"List[List[a]]"
-    },{
-      "name":"l",
-      "tpe":"Int32"
-    }],
-    "result":"Bool",
-    "comment":"  Helper function for `transpose`. "
-  },{
     "name":"mapWithIndex",
     "tparams":[{
       "name":"a"
@@ -226,20 +230,6 @@ window.page = {
     "result":"List[a]",
     "comment":"  Returns `xs` with the first occurrence of `a` removed.  Returns `xs` if `a` does not exist in `xs`. "
   },{
-    "name":"reverseHelper",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"xs",
-      "tpe":"List[a]"
-    },{
-      "name":"acc",
-      "tpe":"List[a]"
-    }],
-    "result":"List[a]",
-    "comment":"  Helper function for `reverse`. "
-  },{
     "name":"drop",
     "tparams":[{
       "name":"a"
@@ -314,35 +304,13 @@ window.page = {
     "comment":""
   },{
     "name":"and",
-    "tparams":[{
-      "name":"a"
-    }],
+    "tparams":[],
     "fparams":[{
       "name":"xs",
       "tpe":"List[Bool]"
     }],
     "result":"Bool",
     "comment":"  Returns `true` if and only if all elements in `xs` are `true`. "
-  },{
-    "name":"sliceHelper",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"b",
-      "tpe":"Int32"
-    },{
-      "name":"e",
-      "tpe":"Int32"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    },{
-      "name":"i",
-      "tpe":"Int32"
-    }],
-    "result":"List[a]",
-    "comment":"  Helper function for `slice`. "
   },{
     "name":"permutations",
     "tparams":[{
@@ -354,20 +322,6 @@ window.page = {
     }],
     "result":"List[List[a]]",
     "comment":"  Returns all permutations of `xs` in lexicographical order by element indices in `xs`.  That is, `xs` is the first permutation and `reverse(xs)` is the last permutation. "
-  },{
-    "name":"permutationHelper",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"i",
-      "tpe":"Int32"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    }],
-    "result":"List[List[a]]",
-    "comment":"  Helper function for `permutations`.  Returns all permutations of `xs` starting with an element at or after index `i`. "
   },{
     "name":"exists",
     "tparams":[{
@@ -539,23 +493,6 @@ window.page = {
     "result":"List[List[a]]",
     "comment":"  Returns the transpose of `xs`.  Returns `xs` if the dimensions of the elements of `xs` are mismatched. "
   },{
-    "name":"indexOfHelper",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"a",
-      "tpe":"a"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    },{
-      "name":"acc",
-      "tpe":"Int32"
-    }],
-    "result":"Int32",
-    "comment":"  Helper function for `indexOf`. "
-  },{
     "name":"foldRight",
     "tparams":[{
       "name":"a"
@@ -654,20 +591,6 @@ window.page = {
     "result":"List[b]",
     "comment":""
   },{
-    "name":"applyHelper",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"a",
-      "tpe":"a"
-    },{
-      "name":"xs",
-      "tpe":"List[List[a]]"
-    }],
-    "result":"List[List[a]]",
-    "comment":"  Helper function for `permutations` and `subsequences`.  Returns `xs` with `a` added to the beginning of each element in `xs`. "
-  },{
     "name":"patch",
     "tparams":[{
       "name":"a"
@@ -707,20 +630,6 @@ window.page = {
     "result":"b",
     "comment":"  Applies `f` to a start value `s` and all elements in `xs` going from left to right.  That is, the result is of the form: `f(...f(f(s, x1), x2)..., xn)`. "
   },{
-    "name":"applyListHelper",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"xs",
-      "tpe":"List[a]"
-    },{
-      "name":"ys",
-      "tpe":"List[List[a]]"
-    }],
-    "result":"List[List[a]]",
-    "comment":"  Helper function for `transpose`. "
-  },{
     "name":"reduceRightOpt",
     "tparams":[{
       "name":"a"
@@ -758,25 +667,6 @@ window.page = {
     }],
     "result":"c",
     "comment":"  Accumulates the result of applying `f` pairwise to the elements of `xs` and `ys`  starting with the initial value `c` and going from left to right. "
-  },{
-    "name":"scanLeftHelper",
-    "tparams":[{
-      "name":"a"
-    },{
-      "name":"b"
-    }],
-    "fparams":[{
-      "name":"f",
-      "tpe":"b -> a -> b"
-    },{
-      "name":"s",
-      "tpe":"b"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    }],
-    "result":"List[b]",
-    "comment":"  Helper function for `scanLeft`. "
   },{
     "name":"isEmpty",
     "tparams":[{
@@ -925,25 +815,18 @@ window.page = {
     "result":"Int32",
     "comment":"  Returns the position of `a` in `xs`.  Returns -1 if `a` does not exist in `xs`. "
   },{
-    "name":"extractHelper",
+    "name":"toMap",
     "tparams":[{
       "name":"a"
+    },{
+      "name":"b"
     }],
     "fparams":[{
-      "name":"f",
-      "tpe":"a -> a -> Bool"
-    },{
       "name":"xs",
-      "tpe":"List[a]"
-    },{
-      "name":"ps",
-      "tpe":"List[a]"
-    },{
-      "name":"ns",
-      "tpe":"List[a]"
+      "tpe":"List[(a, b)]"
     }],
-    "result":"(List[a], List[a])",
-    "comment":"  Helper function for `groupBy`. "
+    "result":"Map[a, b]",
+    "comment":"  Returns the association list `xs` as a map.  If `xs` contains multiple values for the same key, the value appearing latest in `xs` is used. "
   },{
     "name":"isInfixOf",
     "tparams":[{
@@ -972,20 +855,6 @@ window.page = {
     }],
     "result":"List[List[a]]",
     "comment":""
-  },{
-    "name":"transposeHelper",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"xs",
-      "tpe":"List[List[a]]"
-    },{
-      "name":"l",
-      "tpe":"Int32"
-    }],
-    "result":"List[List[a]]",
-    "comment":"  Helper function for `transpose`. "
   },{
     "name":"append",
     "tparams":[{
@@ -1039,23 +908,6 @@ window.page = {
     "result":"List[a]",
     "comment":"  Returns the concatenation of the elements in `ys` with the elements of `xs` inserted between every two adjacent elements.  That is, returns y1 + x + y2 + x + ... + x + yn. "
   },{
-    "name":"agreeHelper",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"f",
-      "tpe":"a -> a -> Bool"
-    },{
-      "name":"a",
-      "tpe":"a"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    }],
-    "result":"Bool",
-    "comment":"  Helper function for `groupBy`. "
-  },{
     "name":"unzip",
     "tparams":[{
       "name":"a"
@@ -1068,48 +920,6 @@ window.page = {
     }],
     "result":"(List[a], List[b])",
     "comment":"  Returns a pair of lists, the first containing all first components in `xs`  and the second containing all second components in `xs`. "
-  },{
-    "name":"mapWithIndexHelper",
-    "tparams":[{
-      "name":"a"
-    },{
-      "name":"b"
-    }],
-    "fparams":[{
-      "name":"f",
-      "tpe":"a -> Int32 -> b"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    },{
-      "name":"i",
-      "tpe":"Int32"
-    }],
-    "result":"List[b]",
-    "comment":"  Helper function for `mapWithIndex`. "
-  },{
-    "name":"patchHelper",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"i",
-      "tpe":"Int32"
-    },{
-      "name":"n",
-      "tpe":"Int32"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    },{
-      "name":"ys",
-      "tpe":"List[a]"
-    },{
-      "name":"c",
-      "tpe":"Int32"
-    }],
-    "result":"List[a]",
-    "comment":"  Helper function for `patch`. "
   },{
     "name":"zip",
     "tparams":[{
@@ -1142,9 +952,7 @@ window.page = {
     "comment":"  Returns true if and only if `xs` contains the element `a`. "
   },{
     "name":"or",
-    "tparams":[{
-      "name":"a"
-    }],
+    "tparams":[],
     "fparams":[{
       "name":"xs",
       "tpe":"List[Bool]"
@@ -1236,6 +1044,17 @@ window.page = {
     "result":"List[a]",
     "comment":""
   },{
+    "name":"toSet",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Set[a]",
+    "comment":""
+  },{
     "name":"scan",
     "tparams":[{
       "name":"a"
@@ -1304,6 +1123,8 @@ window.page = {
     "result":"(List[a], List[a])",
     "comment":"  Returns a pair of lists `(ys, zs)`.  `ys` contains all elements of `xs` that satisfy the predicate `f`.  `zs` contains all elements of `xs` that do not satisfy the predicate `f`. "
   }],
+  "laws":[],
+  "tests":[],
   "relations":[],
   "lattices":[]
 };

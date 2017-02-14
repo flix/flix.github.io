@@ -34,6 +34,18 @@ window.menu = [{
   "name":"Result",
   "link":"Result.html"
 },{
+  "name":"Bounded",
+  "link":"Bounded.html"
+},{
+  "name":"MeetLattice",
+  "link":"MeetLattice.html"
+},{
+  "name":"PartialOrder",
+  "link":"PartialOrder.html"
+},{
+  "name":"JoinLattice",
+  "link":"JoinLattice.html"
+},{
   "name":"Float32",
   "link":"Float32.html"
 },{
@@ -49,8 +61,14 @@ window.menu = [{
   "name":"BigInt",
   "link":"BigInt.html"
 },{
+  "name":"Char",
+  "link":"Char.html"
+},{
   "name":"Int16",
   "link":"Int16.html"
+},{
+  "name":"TotalOrder",
+  "link":"TotalOrder.html"
 },{
   "name":"List",
   "link":"List.html"
@@ -224,22 +242,9 @@ window.page = {
     }],
     "result":"Int32",
     "comment":"  Returns 1 if x > 0, -1 if x < 0, and 0 if x = 0.  The sign of x. "
-  },{
-    "name":"oneBitPositionHelper",
-    "tparams":[],
-    "fparams":[{
-      "name":"x",
-      "tpe":"Int8"
-    },{
-      "name":"position",
-      "tpe":"Int32"
-    },{
-      "name":"delta",
-      "tpe":"Int32"
-    }],
-    "result":"Int32",
-    "comment":"  Helper function for highestOneBitPosition and lowestOneBitPosition.  If `x` has a one-bit at `position`, return that position.  Otherwise recursively check the next bit in the same way. "
   }],
+  "laws":[],
+  "tests":[],
   "relations":[],
   "lattices":[]
 };

@@ -34,6 +34,18 @@ window.menu = [{
   "name":"Result",
   "link":"Result.html"
 },{
+  "name":"Bounded",
+  "link":"Bounded.html"
+},{
+  "name":"MeetLattice",
+  "link":"MeetLattice.html"
+},{
+  "name":"PartialOrder",
+  "link":"PartialOrder.html"
+},{
+  "name":"JoinLattice",
+  "link":"JoinLattice.html"
+},{
   "name":"Float32",
   "link":"Float32.html"
 },{
@@ -49,8 +61,14 @@ window.menu = [{
   "name":"BigInt",
   "link":"BigInt.html"
 },{
+  "name":"Char",
+  "link":"Char.html"
+},{
   "name":"Int16",
   "link":"Int16.html"
+},{
+  "name":"TotalOrder",
+  "link":"TotalOrder.html"
 },{
   "name":"List",
   "link":"List.html"
@@ -66,6 +84,291 @@ window.page = {
   "namespace":"Map",
   "types":[],
   "definitions":[{
+    "name":"foldWithKey",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"k -> b -> v -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"b",
+    "comment":"  Alias for `foldLeftWithKey`. "
+  },{
+    "name":"null",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Bool",
+    "comment":""
+  },{
+    "name":"insertWith",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"v -> v -> v"
+    },{
+      "name":"k",
+      "tpe":"k"
+    },{
+      "name":"v",
+      "tpe":"v"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Updates `m` with `k -> f(v, v1)` if `k -> v1` is in `m`.  Otherwise, updates `m` with `k -> v`. "
+  },{
+    "name":"differenceWithKey",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"k -> v -> v -> Option[v]"
+    },{
+      "name":"m1",
+      "tpe":"Map[k, v]"
+    },{
+      "name":"m2",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Returns the difference of `m1` and `m2`, i.e. `m1 - m2`.  When a key `k` is in both `m1` and `m2`, `k` and the associated values are passed to the merge function `f`.  If `f` returns `None` the mapping with `k` is thrown away (proper set difference).  If `f` returns `Some(v)` the mapping `k -> v` is included in the result. "
+  },{
+    "name":"intersectionWithKey",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"k -> v -> v -> v"
+    },{
+      "name":"m1",
+      "tpe":"Map[k, v]"
+    },{
+      "name":"m2",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Returns the intersection of `m1` and `m2` where key collisions are resolved with the merge function `f`, taking both the key and values. "
+  },{
+    "name":"differenceWith",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"v -> v -> Option[v]"
+    },{
+      "name":"m1",
+      "tpe":"Map[k, v]"
+    },{
+      "name":"m2",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Returns the difference of `m1` and `m2`, i.e. `m1 - m2`.  When a key `k` is in both `m1` and `m2`, the associated values are passed to the merge function `f`.  If `f` returns `None` the mapping with `k` is thrown away (proper set difference).  If `f` returns `Some(v)` the mapping `k -> v` is included in the result. "
+  },{
+    "name":"singleton",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"k",
+      "tpe":"k"
+    },{
+      "name":"v",
+      "tpe":"v"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Returns the singleton map where key `k` is mapped to value `v`. "
+  },{
+    "name":"intersection",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"m1",
+      "tpe":"Map[k, v]"
+    },{
+      "name":"m2",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Returns the left-biased intersection of `m1` and `m2`.  That is, key collisions are resolved by taking the mapping from `m1`. "
+  },{
+    "name":"keysOf",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Set[k]",
+    "comment":"  Returns the keys of `m`. "
+  },{
+    "name":"difference",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"m1",
+      "tpe":"Map[k, v]"
+    },{
+      "name":"m2",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Returns the difference of `m1` and `m2`, i.e. `m1 - m2`.  That is, returns the map `m1` with the keys removed that are in `m2`. "
+  },{
+    "name":"foldLeftWithKey",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"k -> b -> v -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"b",
+    "comment":"  Applies `f` to a start value `s` and all key-value pairs in `m` going from left to right.  That is, the result is of the form: `f(...f(k2, f(k1, s, v1), v2)..., vn)`. "
+  },{
+    "name":"delete",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"k",
+      "tpe":"k"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":""
+  },{
+    "name":"foldLeft",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"b -> v -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"b",
+    "comment":"  Applies `f` to a start value `s` and all values in `m` going from left to right.  That is, the result is of the form: `f(...f(f(s, v1), v2)..., vn)`. "
+  },{
+    "name":"foldRightWithKey",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"k -> v -> b -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"b",
+    "comment":"  Applies `f` to a start value `s` and all values in `m` going from right to left.  That is, the result is of the form: `f(v1, ...f(vn-1, f(vn, s)))`. "
+  },{
+    "name":"filterWithKey",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"k -> v -> Bool"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Returns a map of all mappings `k -> v` in `m` where `(k, v)` satisfies the predicate `f`. "
+  },{
+    "name":"eq",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"m1",
+      "tpe":"Map[k, v]"
+    },{
+      "name":"m2",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Bool",
+    "comment":""
+  },{
     "name":"empty",
     "tparams":[{
       "name":"k"
@@ -73,7 +376,7 @@ window.page = {
       "name":"v"
     }],
     "fparams":[],
-    "result":"Map['3599, '3600]",
+    "result":"Map['5224, '5225]",
     "comment":""
   },{
     "name":"insert",
@@ -94,7 +397,396 @@ window.page = {
     }],
     "result":"Map[k, v]",
     "comment":""
+  },{
+    "name":"memberOf",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"k",
+      "tpe":"k"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if and only if `m` contains the key `k`. "
+  },{
+    "name":"foldRight",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"v -> b -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"b",
+    "comment":"  Applies `f` to a start value `s` and all values in `m` going from right to left.  That is, the result is of the form: `f(v1, ...f(vn-1, f(vn, s)))`. "
+  },{
+    "name":"toSet",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Set[(k, v)]",
+    "comment":""
+  },{
+    "name":"updateWithKey",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"k -> v -> Option[v]"
+    },{
+      "name":"k",
+      "tpe":"k"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Updates `m` with `k -> v1` if `k -> v` is in `m` and `f(k, v) = Some(v1).  Otherwise, returns `m`. "
+  },{
+    "name":"adjust",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"v -> v"
+    },{
+      "name":"k",
+      "tpe":"k"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":""
+  },{
+    "name":"isSubmapOf",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"m1",
+      "tpe":"Map[k, v]"
+    },{
+      "name":"m2",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Bool",
+    "comment":""
+  },{
+    "name":"valuesOf",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"List[v]",
+    "comment":"  Returns the values of `m`. "
+  },{
+    "name":"getWithDefault",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"k",
+      "tpe":"k"
+    },{
+      "name":"d",
+      "tpe":"v"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"v",
+    "comment":"  Returns `v` if `k -> v` is in `m`.  Otherwise, returns `d`. "
+  },{
+    "name":"isProperSubmapOf",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"m1",
+      "tpe":"Map[k, v]"
+    },{
+      "name":"m2",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if and only if all mappings in `m1` occur in `m2` and `m1 != m2`. "
+  },{
+    "name":"mapWithKey",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v1"
+    },{
+      "name":"v2"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"k -> v1 -> v2"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v1]"
+    }],
+    "result":"Map[k, v2]",
+    "comment":"  Returns a map with mappings `k -> f(k, v)` for every `k -> v` in `m`. "
+  },{
+    "name":"map",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v1"
+    },{
+      "name":"v2"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"v1 -> v2"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v1]"
+    }],
+    "result":"Map[k, v2]",
+    "comment":"  Returns a map with mappings `k -> f(v)` for every `k -> v` in `m`. "
+  },{
+    "name":"unionWith",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"v -> v -> v"
+    },{
+      "name":"m1",
+      "tpe":"Map[k, v]"
+    },{
+      "name":"m2",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Returns the union of `m1` and `m2` where key collisions are resolved with the merge function `f`. "
+  },{
+    "name":"adjustWithKey",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"k -> v -> v"
+    },{
+      "name":"k",
+      "tpe":"k"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Updates `m` with `k -> f(k, v)` if `k -> v` is in `m`.  Otherwise, returns `m`. "
+  },{
+    "name":"intersectionWith",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"v -> v -> v"
+    },{
+      "name":"m1",
+      "tpe":"Map[k, v]"
+    },{
+      "name":"m2",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Returns the intersection of `m1` and `m2` where key collisions are resolved with the merge function `f`. "
+  },{
+    "name":"size",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Int32",
+    "comment":"  Returns the size of `m`. "
+  },{
+    "name":"update",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"v -> Option[v]"
+    },{
+      "name":"k",
+      "tpe":"k"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Updates `m` with `k -> v1` if `k -> v` is in `m` and `f(v) = Some(v1).  Otherwise, returns `m`. "
+  },{
+    "name":"fold",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"b -> v -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"b",
+    "comment":""
+  },{
+    "name":"filter",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"v -> Bool"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":""
+  },{
+    "name":"unionWithKey",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"k -> v -> v -> v"
+    },{
+      "name":"m1",
+      "tpe":"Map[k, v]"
+    },{
+      "name":"m2",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Returns the union of `m1` and `m2` where key collisions are resolved with the merge function `f`, taking both the key and values. "
+  },{
+    "name":"get",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"k",
+      "tpe":"k"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Option[v]",
+    "comment":"  Returns `Some(v)` if `k -> v` is in `m`.  Otherwise returns `None`. "
+  },{
+    "name":"union",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"m1",
+      "tpe":"Map[k, v]"
+    },{
+      "name":"m2",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":""
+  },{
+    "name":"insertWithKey",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"k -> v -> v -> v"
+    },{
+      "name":"k",
+      "tpe":"k"
+    },{
+      "name":"v",
+      "tpe":"v"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Updates `m` with `k -> f(k, v, v1)` if `k -> v1` is in `m`.  Otherwise, updates `m` with `k -> v`. "
   }],
+  "laws":[],
+  "tests":[],
   "relations":[],
   "lattices":[]
 };

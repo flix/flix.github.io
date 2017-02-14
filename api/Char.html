@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Flix Standard Library: Float64</title>
+    <title>Flix Standard Library: Char</title>
     <link href="__app__.css" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
@@ -81,86 +81,98 @@ window.menu = [{
 <!-- Page Data -->
 <script type="application/ecmascript">
 window.page = {
-  "namespace":"Float64",
+  "namespace":"Char",
   "types":[],
   "definitions":[{
-    "name":"negativeInfinity",
-    "tparams":[],
-    "fparams":[],
-    "result":"Float64",
-    "comment":"  Returns the negative infinity value of type `Float64`. "
-  },{
-    "name":"undefined",
-    "tparams":[],
-    "fparams":[],
-    "result":"Float64",
-    "comment":"  Returns the NaN (not a number) value of type `Float64`. "
-  },{
-    "name":"min",
+    "name":"isAscii",
     "tparams":[],
     "fparams":[{
-      "name":"x",
-      "tpe":"Float64"
-    },{
-      "name":"y",
-      "tpe":"Float64"
+      "name":"c",
+      "tpe":"Char"
     }],
-    "result":"Float64",
-    "comment":"  Returns the smaller of `x` and `y`. "
+    "result":"Bool",
+    "comment":"   Returns `true` if the given char `c` is an ascii character. "
   },{
-    "name":"minPositiveValue",
-    "tparams":[],
-    "fparams":[],
-    "result":"Float64",
-    "comment":"  Returns the minimum positive number representable by a `Float64`. "
-  },{
-    "name":"size",
-    "tparams":[],
-    "fparams":[],
-    "result":"Int32",
-    "comment":"  Returns the number of bits used to represent a `Float64`. "
-  },{
-    "name":"maxExponent",
-    "tparams":[],
-    "fparams":[],
-    "result":"Int32",
-    "comment":"  Returns the maximum exponent that a `Float64` may have. "
-  },{
-    "name":"minExponent",
-    "tparams":[],
-    "fparams":[],
-    "result":"Int32",
-    "comment":"  Returns the minimum exponent that a `Float64` may have. "
-  },{
-    "name":"minValue",
-    "tparams":[],
-    "fparams":[],
-    "result":"Float64",
-    "comment":"  Returns the minimum number representable by a `Float64`. "
-  },{
-    "name":"maxValue",
-    "tparams":[],
-    "fparams":[],
-    "result":"Float64",
-    "comment":"  Returns the maximum number representable by a `Float64`. "
-  },{
-    "name":"max",
+    "name":"toUpper",
     "tparams":[],
     "fparams":[{
-      "name":"x",
-      "tpe":"Float64"
-    },{
-      "name":"y",
-      "tpe":"Float64"
+      "name":"c",
+      "tpe":"Char"
     }],
-    "result":"Float64",
-    "comment":"  Returns the larger of `x` and `y`. "
+    "result":"Char",
+    "comment":"  Converts a letter to its uppercase version.   Returns the original character if it does not have a uppercase version. "
   },{
-    "name":"positiveInfinity",
+    "name":"isLower",
     "tparams":[],
-    "fparams":[],
-    "result":"Float64",
-    "comment":"  Returns the positive infinity value of type `Float64`. "
+    "fparams":[{
+      "name":"c",
+      "tpe":"Char"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if the given char `c` is lowercase. "
+  },{
+    "name":"isDigit",
+    "tparams":[],
+    "fparams":[{
+      "name":"c",
+      "tpe":"Char"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if the given char `c` is in the range 0...9. "
+  },{
+    "name":"isOctDigit",
+    "tparams":[],
+    "fparams":[{
+      "name":"c",
+      "tpe":"Char"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if the given char `c` is in the range 0...7. "
+  },{
+    "name":"toLower",
+    "tparams":[],
+    "fparams":[{
+      "name":"c",
+      "tpe":"Char"
+    }],
+    "result":"Char",
+    "comment":"  Converts a letter to its lowercase version.   Returns the original character if it does not have a lowercase version. "
+  },{
+    "name":"isWhiteSpace",
+    "tparams":[],
+    "fparams":[{
+      "name":"c",
+      "tpe":"Char"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if the given char `c` is a white space character. "
+  },{
+    "name":"isLetter",
+    "tparams":[],
+    "fparams":[{
+      "name":"c",
+      "tpe":"Char"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if the given char `c` is a letter character. "
+  },{
+    "name":"isUpper",
+    "tparams":[],
+    "fparams":[{
+      "name":"c",
+      "tpe":"Char"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if the given char `c` is uppercase. "
+  },{
+    "name":"isHexDigit",
+    "tparams":[],
+    "fparams":[{
+      "name":"c",
+      "tpe":"Char"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if the given char `c` is in the range 0...F. "
   }],
   "laws":[],
   "tests":[],
@@ -175,7 +187,7 @@ window.page = {
 
 <!-- Trigger Boot -->
 <script type="application/ecmascript">
-    bootstrap("./Float64.json");
+    bootstrap("./Char.json");
 </script>
 
 </body>
