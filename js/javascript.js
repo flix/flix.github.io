@@ -18,8 +18,34 @@ function mkEditor(editorId, buttonId, outputId) {
             data: input,
             success: function (output) {
                 var json = JSON.parse(output);
+                console.log(json);
+
                 if (json.status == "success") {
-                    $("#" + outputId).html("Result: " + json.result);
+                    var buffer = "Result: " + json.result + "\n";
+
+                    if (json.relations.length != 0) {
+                        buffer += "\nRelations:\n";
+                        json.relations.forEach(function (rel) {
+                            rel.rows.forEach(function (row) {
+                                buffer += "  " + rel.name + "(";
+                                buffer += row.join(", ");
+                                buffer += ").\n";
+                            });
+                        });
+                    }
+
+                    if (json.lattices.length != 0) {
+                        buffer += "\nLattices:\n";
+                        json.lattices.forEach(function (lat) {
+                            lat.rows.forEach(function (row) {
+                                buffer += "  " + lat.name + "(";
+                                buffer += row.join(", ");
+                                buffer += ").\n";
+                            });
+                        });
+                    }
+
+                    $("#" + outputId).html(buffer);
                 } else {
                     $("#" + outputId).html(json.message);
                 }

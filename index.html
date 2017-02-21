@@ -308,13 +308,13 @@ def lub(e1: Parity, e2: Parity): Parity =
 
         <div class="row" style="padding-bottom: 2rem;">
             <div class="col-md-8">
-                <pre id="example-1-editor" class="editor">def main: Bool = List.exists(x -> x % 42 == 0, List.range(1, 100))</pre>
+                <pre id="example-1-editor" class="editor">def f: Bool = List.exists(x -> x % 42 == 0, List.range(1, 100))</pre>
             </div>
             <div class="col-md-4">
                 <div>
                     <button id="example-1-button" type="button" class="btn btn-primary">Run!</button>
                 </div>
-                <div id="example-1-output" class="output"></div>
+                <pre id="example-1-output" class="output"></pre>
             </div>
             <script type="text/javascript">
                 $(document).ready(function () {
@@ -325,7 +325,7 @@ def lub(e1: Parity, e2: Parity): Parity =
 
         <div class="row" style="padding-bottom: 2rem;">
             <div class="col-md-8">
-                <pre id="example-2-editor" class="editor">def main: Int =
+                <pre id="example-2-editor" class="editor">def f: Int =
     List.foldLeft((x, y) -> x + y, 0,
         List.map(x -> x + 1,
             List.range(1, 10)))</pre>
@@ -334,7 +334,7 @@ def lub(e1: Parity, e2: Parity): Parity =
                 <div>
                     <button id="example-2-button" type="button" class="btn btn-primary">Run!</button>
                 </div>
-                <div id="example-2-output" class="output"></div>
+                <pre id="example-2-output" class="output"></pre>
             </div>
             <script type="text/javascript">
                 $(document).ready(function () {
@@ -357,18 +357,44 @@ def area(s: Shape): Int = match s with {
   case Rectangle(l, w) => l * w
 }
 
-def main: Int = area(Rectangle(10, 20))
+def f: Int = area(Rectangle(10, 20))
 </pre>
             </div>
             <div class="col-md-4">
                 <div>
                     <button id="example-3-button" type="button" class="btn btn-primary">Run!</button>
                 </div>
-                <div id="example-3-output" class="output"></div>
+                <pre id="example-3-output" class="output"></pre>
             </div>
             <script type="text/javascript">
                 $(document).ready(function () {
                     mkEditor("example-3-editor", "example-3-button", "example-3-output");
+                });
+            </script>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <pre id="example-4-editor" class="editor" style="height: 18rem;">rel Edge(x: Int, y: Int)
+rel Path(x: Int, y: Int)
+Edge(1, 2).
+Edge(2, 3).
+
+Path(x, y) :- Edge(x, y).
+Path(x, z) :- Path(x, y), Edge(y, z).
+
+def f: Int = 42
+</pre>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <button id="example-4-button" type="button" class="btn btn-primary">Run!</button>
+                </div>
+                <pre id="example-4-output" class="output"></pre>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    mkEditor("example-4-editor", "example-4-button", "example-4-output");
                 });
             </script>
         </div>
