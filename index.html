@@ -11,8 +11,8 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-scala.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/theme-monokai.js"></script>
+    <script type="text/javascript" src="js/lib/ace/mode-scala.js"></script>
 
     <script type="text/javascript" src="js/javascript.js"></script>
 
@@ -306,9 +306,9 @@ def lub(e1: Parity, e2: Parity): Parity =
 
     <div class="container">
 
-        <div class="row">
+        <div class="row" style="padding-bottom: 2rem;">
             <div class="col-md-8">
-                <div id="example-1-editor" class="editor">def main: Int = 1 + 2 + 3</div>
+                <pre id="example-1-editor" class="editor">def main: Bool = List.exists(x -> x % 42 == 0, List.range(1, 100))</pre>
             </div>
             <div class="col-md-4">
                 <div>
@@ -319,6 +319,56 @@ def lub(e1: Parity, e2: Parity): Parity =
             <script type="text/javascript">
                 $(document).ready(function () {
                     mkEditor("example-1-editor", "example-1-button", "example-1-output");
+                });
+            </script>
+        </div>
+
+        <div class="row" style="padding-bottom: 2rem;">
+            <div class="col-md-8">
+                <pre id="example-2-editor" class="editor">def main: Int =
+    List.foldLeft((x, y) -> x + y, 0,
+        List.map(x -> x + 1,
+            List.range(1, 10)))</pre>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <button id="example-2-button" type="button" class="btn btn-primary">Run!</button>
+                </div>
+                <div id="example-2-output" class="output"></div>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    mkEditor("example-2-editor", "example-2-button", "example-2-output");
+                });
+            </script>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <pre id="example-3-editor" class="editor" style="height: 24rem;">enum Shape {
+    case Circle(Int),
+    case Square(Int),
+    case Rectangle(Int, Int)
+}
+
+def area(s: Shape): Int = match s with {
+  case Circle(r)       => 3 * r * r
+  case Square(l)       => l * l
+  case Rectangle(l, w) => l * w
+}
+
+def main: Int = area(Rectangle(10, 20))
+</pre>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <button id="example-3-button" type="button" class="btn btn-primary">Run!</button>
+                </div>
+                <div id="example-3-output" class="output"></div>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    mkEditor("example-3-editor", "example-3-button", "example-3-output");
                 });
             </script>
         </div>
