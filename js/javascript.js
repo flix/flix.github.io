@@ -4,6 +4,8 @@ function mkEditor(editorId, buttonId, outputId) {
     var editor = ace.edit(editorId);
     editor.setShowPrintMargin(false);
     editor.renderer.setShowGutter(false);
+    editor.renderer.setPadding(20);
+    editor.renderer.setScrollMargin(10, 10);
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/scala");
 
