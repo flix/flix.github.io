@@ -1,0 +1,59 @@
+body {
+    background-color: black;
+}
+
+#editor {
+    position: absolute;
+    top: 2vh;
+    left: 2vw;
+    right: 2vw;
+    bottom: 20vh;
+}
+
+#left-pane {
+    position: absolute;
+    top: 80vh;
+    left: 2vw;
+    right: 19vw;
+    bottom: 2vh;
+}
+
+#right-pane {
+    position: absolute;
+    top: 80vh;
+    left: 82vw;
+    right: 2vw;
+    bottom: 2vh;
+}
+
+#console {
+    height: 18vh;
+}
+
+#run-button {
+    float: right;
+    width: 16vw;
+    height: 5vh;
+    min-height: 50px;
+}
+
+#save-button {
+    float: left;
+    width: 7.5vw;
+    margin-top: 1vw;
+
+}
+
+#reset-button {
+    float: right;
+    width: 7.5vw;
+    margin-top: 1vw;
+}
+
+pre {
+    background-color: #1c1f2b;
+    color: #e7e7e7;
+    font-family: "Droid Sans Mono", monospace;
+    font-weight: bold;
+    border: none;
+}

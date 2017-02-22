@@ -58,4 +58,5 @@ function mkEditor(editorId, buttonId, outputId) {
         });
     });
 
+    return editor;
 }
