@@ -57,3 +57,43 @@ pre {
     font-weight: bold;
     border: none;
 }
+
+span.black {
+    color: black;
+}
+
+span.blue {
+    color: #2e6da4;
+}
+
+span.cyan {
+    color: #5bc0de;
+}
+
+span.green {
+    color: green;
+}
+
+span.magenta {
+    color: #d24fd9;
+}
+
+span.red {
+    color: #d9534f;
+}
+
+span.yellow {
+    color: yellow;
+}
+
+span.white {
+    color: white;
+}
+
+span.bold {
+    font-weight: bold;
+}
+
+span.underline {
+    text-decoration: underline;
+}
