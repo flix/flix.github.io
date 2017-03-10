@@ -10,6 +10,11 @@ function mkEditor(editorId, buttonId, outputId) {
     editor.getSession().setMode("ace/mode/scala");
 
     $("#" + buttonId).click(function () {
+        if (location.protocol == "https:") {
+            alert('Unfortunately the code editor does not work over HTTPs.\n\nPlease access the site using HTTP (if you want to try the code editor).');
+            return false;
+        }
+
         var input = editor.getValue();
 
         $("#" + outputId).html("Loading...");
