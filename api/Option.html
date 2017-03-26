@@ -34,18 +34,6 @@ window.menu = [{
   "name":"Result",
   "link":"Result.html"
 },{
-  "name":"Bounded",
-  "link":"Bounded.html"
-},{
-  "name":"MeetLattice",
-  "link":"MeetLattice.html"
-},{
-  "name":"PartialOrder",
-  "link":"PartialOrder.html"
-},{
-  "name":"JoinLattice",
-  "link":"JoinLattice.html"
-},{
   "name":"Float32",
   "link":"Float32.html"
 },{
@@ -66,9 +54,6 @@ window.menu = [{
 },{
   "name":"Int16",
   "link":"Int16.html"
-},{
-  "name":"TotalOrder",
-  "link":"TotalOrder.html"
 },{
   "name":"List",
   "link":"List.html"
@@ -139,22 +124,6 @@ window.page = {
     "result":"Option[a]",
     "comment":"  Returns `o` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `None`. "
   },{
-    "name":"toOk",
-    "tparams":[{
-      "name":"t"
-    },{
-      "name":"e"
-    }],
-    "fparams":[{
-      "name":"o",
-      "tpe":"Option[t]"
-    },{
-      "name":"z",
-      "tpe":"e"
-    }],
-    "result":"Result[t, e]",
-    "comment":"  Returns `Ok(v)` if `o` is `Some(v)`. Otherwise returns `Err(z)`. "
-  },{
     "name":"exists",
     "tparams":[{
       "name":"a"
@@ -185,17 +154,6 @@ window.page = {
     "result":"Option[b]",
     "comment":"  Returns `f(v)` if `o` is `Some(v)`. Otherwise returns `None`. "
   },{
-    "name":"get",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"o",
-      "tpe":"Option[a]"
-    }],
-    "result":"a",
-    "comment":"  Returns `v` if `o` is `Some(v)`. Undefined semantics if `o` is `None`. "
-  },{
     "name":"count",
     "tparams":[{
       "name":"a"
@@ -210,33 +168,6 @@ window.page = {
     "result":"Int32",
     "comment":"  Returns `1` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `0`. "
   },{
-    "name":"null",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"o",
-      "tpe":"Option[a]"
-    }],
-    "result":"Bool",
-    "comment":"  Returns `true` iff `o` is `None`. "
-  },{
-    "name":"toErr",
-    "tparams":[{
-      "name":"t"
-    },{
-      "name":"e"
-    }],
-    "fparams":[{
-      "name":"o",
-      "tpe":"Option[e]"
-    },{
-      "name":"z",
-      "tpe":"t"
-    }],
-    "result":"Result[t, e]",
-    "comment":"  Returns `Err(v)` if `o` is `Some(v)`. Otherwise returns `Ok(z)`. "
-  },{
     "name":"isSome",
     "tparams":[{
       "name":"a"
@@ -247,6 +178,17 @@ window.page = {
     }],
     "result":"Bool",
     "comment":"  Returns `true` iff `o` is `Some(v)`. "
+  },{
+    "name":"isEmpty",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` iff `o` is `None`. "
   },{
     "name":"withDefault",
     "tparams":[{
@@ -344,6 +286,19 @@ window.page = {
     }],
     "result":"b",
     "comment":"  Returns `f(v, z)` if `o` is `Some(v)`. Otherwise returns `z`. "
+  },{
+    "name":"toMap",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"o",
+      "tpe":"Option[(k, v)]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Returns a singleton map with the mapping `k -> v` if `o` is `Some((k, v))`. Otherwise returns the empty map. "
   },{
     "name":"foldLeft",
     "tparams":[{

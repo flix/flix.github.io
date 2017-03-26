@@ -34,18 +34,6 @@ window.menu = [{
   "name":"Result",
   "link":"Result.html"
 },{
-  "name":"Bounded",
-  "link":"Bounded.html"
-},{
-  "name":"MeetLattice",
-  "link":"MeetLattice.html"
-},{
-  "name":"PartialOrder",
-  "link":"PartialOrder.html"
-},{
-  "name":"JoinLattice",
-  "link":"JoinLattice.html"
-},{
   "name":"Float32",
   "link":"Float32.html"
 },{
@@ -67,9 +55,6 @@ window.menu = [{
   "name":"Int16",
   "link":"Int16.html"
 },{
-  "name":"TotalOrder",
-  "link":"TotalOrder.html"
-},{
   "name":"List",
   "link":"List.html"
 },{
@@ -84,6 +69,18 @@ window.page = {
   "namespace":"Int16",
   "types":[],
   "definitions":[{
+    "name":"setBit",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    },{
+      "name":"position",
+      "tpe":"Int32"
+    }],
+    "result":"Int16",
+    "comment":"  Returns `x` with the bit at position `position` set (to 1).  Considers the 5 rightmost bits of `position` (`position` mod 32).  The bits of x have positions: 0 (rightmost bit) - 15 (leftmost bit) "
+  },{
     "name":"abs",
     "tparams":[],
     "fparams":[{
@@ -93,20 +90,17 @@ window.page = {
     "result":"Int16",
     "comment":"  Returns the absolute value of `x`.  If the absolute value exceeds maxValue(), -1 is returned. "
   },{
-    "name":"oneBitPositionHelper",
+    "name":"logicalRightShift",
     "tparams":[],
     "fparams":[{
       "name":"x",
       "tpe":"Int16"
     },{
-      "name":"position",
-      "tpe":"Int32"
-    },{
-      "name":"delta",
+      "name":"distance",
       "tpe":"Int32"
     }],
-    "result":"Int32",
-    "comment":"  Helper function for highestOneBitPosition and lowestOneBitPosition.  If `x` has a one-bit at `position`, return that position.  Otherwise recursively check the next bit in the same way. "
+    "result":"Int16",
+    "comment":"  Returns the logical right shift of `x` by `distance`.  Only the rightmost 5 bits of `distance` are considered (ie. `distance % 32`).  A zero is shifted into the leftmost position regardless of sign extension. "
   },{
     "name":"numberOfTrailingZeros",
     "tparams":[],
@@ -135,7 +129,7 @@ window.page = {
     "result":"Int16",
     "comment":"  Returns the larger of `x` and `y`. "
   },{
-    "name":"bit",
+    "name":"getBit",
     "tparams":[],
     "fparams":[{
       "name":"x",
@@ -153,14 +147,17 @@ window.page = {
     "result":"Int32",
     "comment":"  Returns the number of bits used to represent an `Int16`. "
   },{
-    "name":"bitPositionToInt",
+    "name":"rotateLeft",
     "tparams":[],
     "fparams":[{
-      "name":"position",
+      "name":"x",
+      "tpe":"Int16"
+    },{
+      "name":"distance",
       "tpe":"Int32"
     }],
     "result":"Int16",
-    "comment":"  Helper function for highestOneBit and lowestOneBit.  Returns a value with a single one-bit at bit number `position`.  Returns 0 if `position` is outside the range 0-15 inclusive. "
+    "comment":"  Returns the the value obtained by rotating the two's complement  binary representation of `x` left by `distance` bits. "
   },{
     "name":"lowestOneBitPosition",
     "tparams":[],
@@ -219,6 +216,18 @@ window.page = {
     "result":"Int32",
     "comment":"  Returns the position of the highest-order/leftmost one-bit in `x`.  Possible return values: 0 (rightmost bit) - 15 (leftmost bit)                          -1 if x = 0 "
   },{
+    "name":"clearBit",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    },{
+      "name":"position",
+      "tpe":"Int32"
+    }],
+    "result":"Int16",
+    "comment":"  Returns `x` with the bit at position `position` cleared (to 0).  Considers the 5 rightmost bits of `position` (`position` mod 32).  The bits of x have positions: 0 (rightmost bit) - 15 (leftmost bit) "
+  },{
     "name":"lowestOneBit",
     "tparams":[],
     "fparams":[{
@@ -234,6 +243,18 @@ window.page = {
     "result":"Int16",
     "comment":"  Returns the maximum number representable by an `Int16`. "
   },{
+    "name":"flipBit",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    },{
+      "name":"position",
+      "tpe":"Int32"
+    }],
+    "result":"Int16",
+    "comment":"  Returns `x` with the bit at position `position` flipped.  Considers the 5 rightmost bits of `position` (`position` mod 32).  The bits of x have positions: 0 (rightmost bit) - 15 (leftmost bit) "
+  },{
     "name":"min",
     "tparams":[],
     "fparams":[{
@@ -246,6 +267,15 @@ window.page = {
     "result":"Int16",
     "comment":"  Returns the smaller of `x` and `y`. "
   },{
+    "name":"reverse",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    }],
+    "result":"Int16",
+    "comment":"  Returns the value obtained by reversing the bits in the  two's complement binary representation of `x`. "
+  },{
     "name":"compare",
     "tparams":[],
     "fparams":[{
@@ -257,6 +287,27 @@ window.page = {
     }],
     "result":"Int32",
     "comment":"  Returns 1 if x > y, -1 if x < y, and 0 if x = y.  The sign of x - y. "
+  },{
+    "name":"bitCount",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    }],
+    "result":"Int32",
+    "comment":"  Returns the number of one-bits in the two's complement binary  representation of `x`. "
+  },{
+    "name":"rotateRight",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Int16"
+    },{
+      "name":"distance",
+      "tpe":"Int32"
+    }],
+    "result":"Int16",
+    "comment":"  Returns the the value obtained by rotating the two's complement  binary representation of `x` right by `distance` bits. "
   }],
   "laws":[],
   "tests":[],

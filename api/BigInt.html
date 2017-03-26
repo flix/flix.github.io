@@ -34,18 +34,6 @@ window.menu = [{
   "name":"Result",
   "link":"Result.html"
 },{
-  "name":"Bounded",
-  "link":"Bounded.html"
-},{
-  "name":"MeetLattice",
-  "link":"MeetLattice.html"
-},{
-  "name":"PartialOrder",
-  "link":"PartialOrder.html"
-},{
-  "name":"JoinLattice",
-  "link":"JoinLattice.html"
-},{
   "name":"Float32",
   "link":"Float32.html"
 },{
@@ -66,9 +54,6 @@ window.menu = [{
 },{
   "name":"Int16",
   "link":"Int16.html"
-},{
-  "name":"TotalOrder",
-  "link":"TotalOrder.html"
 },{
   "name":"List",
   "link":"List.html"
@@ -132,18 +117,6 @@ window.page = {
     "result":"BigInt",
     "comment":"  Returns the smaller of `x` and `y`. "
   },{
-    "name":"bit",
-    "tparams":[],
-    "fparams":[{
-      "name":"x",
-      "tpe":"BigInt"
-    },{
-      "name":"position",
-      "tpe":"Int32"
-    }],
-    "result":"Int32",
-    "comment":"  Returns the bit of `x` at `position` (either 0 or 1).  The bits of x have positions: 0 (rightmost bit), 1, 2, ... "
-  },{
     "name":"clearBit",
     "tparams":[],
     "fparams":[{
@@ -197,6 +170,18 @@ window.page = {
     }],
     "result":"BigInt",
     "comment":"  Returns `x` with the bit at position `position` set (to 1). "
+  },{
+    "name":"getBit",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"BigInt"
+    },{
+      "name":"position",
+      "tpe":"Int32"
+    }],
+    "result":"Int32",
+    "comment":"  Returns the bit of `x` at `position` (either 0 or 1).  The bits of x have positions: 0 (rightmost bit), 1, 2, ... "
   },{
     "name":"dist",
     "tparams":[],

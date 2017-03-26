@@ -34,18 +34,6 @@ window.menu = [{
   "name":"Result",
   "link":"Result.html"
 },{
-  "name":"Bounded",
-  "link":"Bounded.html"
-},{
-  "name":"MeetLattice",
-  "link":"MeetLattice.html"
-},{
-  "name":"PartialOrder",
-  "link":"PartialOrder.html"
-},{
-  "name":"JoinLattice",
-  "link":"JoinLattice.html"
-},{
   "name":"Float32",
   "link":"Float32.html"
 },{
@@ -66,9 +54,6 @@ window.menu = [{
 },{
   "name":"Int16",
   "link":"Int16.html"
-},{
-  "name":"TotalOrder",
-  "link":"TotalOrder.html"
 },{
   "name":"List",
   "link":"List.html"
@@ -96,7 +81,7 @@ window.page = {
       "tpe":"Set[a]"
     }],
     "result":"Bool",
-    "comment":""
+    "comment":"  Returns `true` if and only if `xs` and `ys` and equal, i.e. they have the same elements. "
   },{
     "name":"map",
     "tparams":[{
@@ -113,6 +98,17 @@ window.page = {
     }],
     "result":"Set[b]",
     "comment":"  Returns the result of applying `f` to every element in `xs`.  Note: The returned set may be smaller than `xs`. "
+  },{
+    "name":"flatten",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"Set[Set[a]]"
+    }],
+    "result":"Set[a]",
+    "comment":"  Returns the union of the elements in `xs`. "
   },{
     "name":"difference",
     "tparams":[{
@@ -144,13 +140,27 @@ window.page = {
     "result":"Set[b]",
     "comment":"  Returns the result of applying `f` to every element in `xs` and taking the union. "
   },{
+    "name":"reduceRight",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> a -> a"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Applies `f` to all elements in `xs` going from right to left until a single value `v` is obtained.  Returns `Some(v)`.  That is, the result is of the form: `Some(f(x1, ...f(xn-2, f(xn-1, xn))...))`  Returns `None` if `xs` is the empty set. "
+  },{
     "name":"empty",
     "tparams":[{
       "name":"a"
     }],
     "fparams":[],
-    "result":"Set['6341]",
-    "comment":""
+    "result":"Set['6979]",
+    "comment":"  Returns the empty set.  `#{}` is syntactic sugar for `empty` (`#{} = empty()`). "
   },{
     "name":"singleton",
     "tparams":[{
@@ -161,7 +171,26 @@ window.page = {
       "tpe":"a"
     }],
     "result":"Set[a]",
-    "comment":"  Returns the singleton set containing `x`. "
+    "comment":"  Returns the singleton set containing `x`.  `#{x}` is syntactic sugar for `singleton` (`#{x} = singleton(x)`). "
+  },{
+    "name":"fold",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"b -> a -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"b",
+    "comment":"  Alias for `foldLeft`. "
   },{
     "name":"isProperSubsetOf",
     "tparams":[{
@@ -177,6 +206,34 @@ window.page = {
     "result":"Bool",
     "comment":"  Returns true if and only if every element in `xs` appears in `ys` and `xs != ys`. "
   },{
+    "name":"findRight",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from right to left. "
+  },{
+    "name":"reduceLeft",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> a -> a"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Applies `f` to all elements in `xs` going from left to right until a single value `v` is obtained.  Returns `Some(v)`.  That is, the result is of the form: `Some(f(...f(f(x1, x2), x3)..., xn))`  Returns `None` if `xs` is the empty set. "
+  },{
     "name":"union",
     "tparams":[{
       "name":"a"
@@ -189,7 +246,7 @@ window.page = {
       "tpe":"Set[a]"
     }],
     "result":"Set[a]",
-    "comment":""
+    "comment":"  Returns the union of `xs` and `ys`. "
   },{
     "name":"insert",
     "tparams":[{
@@ -230,6 +287,25 @@ window.page = {
     "result":"Int32",
     "comment":"  Returns the size of `xs`. "
   },{
+    "name":"foldRight",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> b -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"b",
+    "comment":"  Applies `f` to a start value `s` and all elements in `xs` going from right to left.  That is, the result is of the form: `f(x1, ...f(xn-1, f(xn, s))...)`. "
+  },{
     "name":"delete",
     "tparams":[{
       "name":"a"
@@ -243,6 +319,48 @@ window.page = {
     }],
     "result":"Set[a]",
     "comment":"  Removes `x` from `xs`. "
+  },{
+    "name":"count",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Int32",
+    "comment":"  Returns the number of elements in `xs` that satisfy the predicate `f`. "
+  },{
+    "name":"reduce",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> a -> a"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Alias for `reduceLeftOpt`. "
+  },{
+    "name":"findLeft",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from left to right. "
   },{
     "name":"intersection",
     "tparams":[{
@@ -270,7 +388,7 @@ window.page = {
       "tpe":"Set[a]"
     }],
     "result":"Bool",
-    "comment":"  Returns `true` if and only if at least one element in `xs` satisfies the predicate `f`. "
+    "comment":"  Returns `true` if and only if at least one element in `xs` satisfies the predicate `f`.  Returns `false` if `xs` is the empty set. "
   },{
     "name":"forall",
     "tparams":[{
@@ -284,7 +402,7 @@ window.page = {
       "tpe":"Set[a]"
     }],
     "result":"Bool",
-    "comment":"  Returns `true` if and only if all elements in `xs` satisfy the predicate `f`. "
+    "comment":"  Returns `true` if and only if all elements in `xs` satisfy the predicate `f`.  Returns `true` if `xs` is the empty set. "
   },{
     "name":"isSubsetOf",
     "tparams":[{
@@ -300,6 +418,36 @@ window.page = {
     "result":"Bool",
     "comment":"  Returns true if and only if every element in `xs` appears in `ys`. "
   },{
+    "name":"isEmpty",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns true if and only if `xs` is the empty set, i.e. `Set(Nil)`. "
+  },{
+    "name":"foldLeft",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"b -> a -> b"
+    },{
+      "name":"s",
+      "tpe":"b"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"b",
+    "comment":"  Applies `f` to a start value `s` and all elements in `xs` going from left to right.  That is, the result is of the form: `f(...f(f(s, x1), x2)..., xn)`. "
+  },{
     "name":"memberOf",
     "tparams":[{
       "name":"a"
@@ -314,7 +462,21 @@ window.page = {
     "result":"Bool",
     "comment":"  Returns true if and only if `x` is a member of `xs`. "
   },{
-    "name":"null",
+    "name":"find",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> Bool"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Alias for `findLeft`. "
+  },{
+    "name":"toList",
     "tparams":[{
       "name":"a"
     }],
@@ -322,8 +484,21 @@ window.page = {
       "name":"xs",
       "tpe":"Set[a]"
     }],
-    "result":"Bool",
-    "comment":""
+    "result":"List[a]",
+    "comment":"  Returns the set `xs` as a list. "
+  },{
+    "name":"toMap",
+    "tparams":[{
+      "name":"a"
+    },{
+      "name":"b"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"Set[(a, b)]"
+    }],
+    "result":"Map[a, b]",
+    "comment":"  Returns the association set `xs` as a map.  If `xs` contains multiple mappings with the same key, `toMap` does not  make any guarantees about which mapping will be in the resulting map. "
   },{
     "name":"subsets",
     "tparams":[{
@@ -348,7 +523,7 @@ window.page = {
       "tpe":"Set[a]"
     }],
     "result":"Set[a]",
-    "comment":""
+    "comment":"  Returns the set of all elements of `xs` that satisfy the predicate `f`. "
   }],
   "laws":[],
   "tests":[],

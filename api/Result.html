@@ -34,18 +34,6 @@ window.menu = [{
   "name":"Result",
   "link":"Result.html"
 },{
-  "name":"Bounded",
-  "link":"Bounded.html"
-},{
-  "name":"MeetLattice",
-  "link":"MeetLattice.html"
-},{
-  "name":"PartialOrder",
-  "link":"PartialOrder.html"
-},{
-  "name":"JoinLattice",
-  "link":"JoinLattice.html"
-},{
   "name":"Float32",
   "link":"Float32.html"
 },{
@@ -66,9 +54,6 @@ window.menu = [{
 },{
   "name":"Int16",
   "link":"Int16.html"
-},{
-  "name":"TotalOrder",
-  "link":"TotalOrder.html"
 },{
   "name":"List",
   "link":"List.html"
@@ -249,6 +234,21 @@ window.page = {
     "result":"Option[t]",
     "comment":"  Returns `Some(v)` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `None`. "
   },{
+    "name":"toMap",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    },{
+      "name":"e"
+    }],
+    "fparams":[{
+      "name":"r",
+      "tpe":"Result[(k, v), e]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Returns a singleton map with the mapping `k -> v` if `o` is `Ok((k, v))`. Otherwise returns the empty map. "
+  },{
     "name":"isOk",
     "tparams":[{
       "name":"t"
@@ -291,38 +291,6 @@ window.page = {
     "result":"Bool",
     "comment":"  Returns `true` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true` or if `r` is `Err(w)`.  Otherwise returns `false`. "
   },{
-    "name":"or",
-    "tparams":[{
-      "name":"t"
-    },{
-      "name":"e"
-    }],
-    "fparams":[{
-      "name":"r1",
-      "tpe":"Result[t, e]"
-    },{
-      "name":"r2",
-      "tpe":"Result[t, e]"
-    }],
-    "result":"Result[t, e]",
-    "comment":"  Returns `r1` if `r1` is `Ok(v)`. Otherwise returns `r2`. "
-  },{
-    "name":"and",
-    "tparams":[{
-      "name":"t"
-    },{
-      "name":"e"
-    }],
-    "fparams":[{
-      "name":"r1",
-      "tpe":"Result[t, e]"
-    },{
-      "name":"r2",
-      "tpe":"Result[t, e]"
-    }],
-    "result":"Result[t, e]",
-    "comment":"  Returns `r2` if `r1` is `Ok(v)`. Otherwise returns `r1`. "
-  },{
     "name":"count",
     "tparams":[{
       "name":"t"
@@ -338,19 +306,6 @@ window.page = {
     }],
     "result":"Int32",
     "comment":"  Returns `1` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `0`. "
-  },{
-    "name":"get",
-    "tparams":[{
-      "name":"t"
-    },{
-      "name":"e"
-    }],
-    "fparams":[{
-      "name":"r",
-      "tpe":"Result[t, e]"
-    }],
-    "result":"t",
-    "comment":"  Returns `v` if `r` is `Ok(v)`. Undefined semantics if `r` is `Err(w)`. "
   },{
     "name":"flatMap",
     "tparams":[{

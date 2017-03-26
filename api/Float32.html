@@ -34,18 +34,6 @@ window.menu = [{
   "name":"Result",
   "link":"Result.html"
 },{
-  "name":"Bounded",
-  "link":"Bounded.html"
-},{
-  "name":"MeetLattice",
-  "link":"MeetLattice.html"
-},{
-  "name":"PartialOrder",
-  "link":"PartialOrder.html"
-},{
-  "name":"JoinLattice",
-  "link":"JoinLattice.html"
-},{
   "name":"Float32",
   "link":"Float32.html"
 },{
@@ -66,9 +54,6 @@ window.menu = [{
 },{
   "name":"Int16",
   "link":"Int16.html"
-},{
-  "name":"TotalOrder",
-  "link":"TotalOrder.html"
 },{
   "name":"List",
   "link":"List.html"
@@ -95,6 +80,15 @@ window.page = {
     "fparams":[],
     "result":"Int32",
     "comment":"  Returns the minimum exponent that a `Float32` may have. "
+  },{
+    "name":"isInfinite",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Float32"
+    }],
+    "result":"Bool",
+    "comment":"  Returns true if and only if `x` is an infinite and non-Nan `Float32` value. "
   },{
     "name":"max",
     "tparams":[],
@@ -126,17 +120,35 @@ window.page = {
     "result":"Float32",
     "comment":"  Returns the smaller of `x` and `y`. "
   },{
+    "name":"nan",
+    "tparams":[],
+    "fparams":[],
+    "result":"Float32",
+    "comment":"  Returns the NaN (not a number) value of type `Float32`. "
+  },{
+    "name":"isFinite",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Float32"
+    }],
+    "result":"Bool",
+    "comment":"  Returns true if and only if `x` is a non-infinite and non-Nan `Float32` value. "
+  },{
     "name":"maxValue",
     "tparams":[],
     "fparams":[],
     "result":"Float32",
     "comment":"  Returns the maximum number representable by a `Float32`. "
   },{
-    "name":"undefined",
+    "name":"isNan",
     "tparams":[],
-    "fparams":[],
-    "result":"Float32",
-    "comment":"  Returns the NaN (not a number) value of type `Float32`. "
+    "fparams":[{
+      "name":"x",
+      "tpe":"Float32"
+    }],
+    "result":"Bool",
+    "comment":"  Returns true if and only if `x` is the NaN value of type `Float32`. "
   },{
     "name":"negativeInfinity",
     "tparams":[],

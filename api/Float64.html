@@ -34,18 +34,6 @@ window.menu = [{
   "name":"Result",
   "link":"Result.html"
 },{
-  "name":"Bounded",
-  "link":"Bounded.html"
-},{
-  "name":"MeetLattice",
-  "link":"MeetLattice.html"
-},{
-  "name":"PartialOrder",
-  "link":"PartialOrder.html"
-},{
-  "name":"JoinLattice",
-  "link":"JoinLattice.html"
-},{
   "name":"Float32",
   "link":"Float32.html"
 },{
@@ -67,9 +55,6 @@ window.menu = [{
   "name":"Int16",
   "link":"Int16.html"
 },{
-  "name":"TotalOrder",
-  "link":"TotalOrder.html"
-},{
   "name":"List",
   "link":"List.html"
 },{
@@ -90,11 +75,20 @@ window.page = {
     "result":"Float64",
     "comment":"  Returns the negative infinity value of type `Float64`. "
   },{
-    "name":"undefined",
+    "name":"nan",
     "tparams":[],
     "fparams":[],
     "result":"Float64",
     "comment":"  Returns the NaN (not a number) value of type `Float64`. "
+  },{
+    "name":"isFinite",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Float64"
+    }],
+    "result":"Bool",
+    "comment":"  Returns true if and only if `x` is a non-infinite and non-Nan `Float64` value. "
   },{
     "name":"min",
     "tparams":[],
@@ -143,6 +137,24 @@ window.page = {
     "fparams":[],
     "result":"Float64",
     "comment":"  Returns the maximum number representable by a `Float64`. "
+  },{
+    "name":"isNan",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Float64"
+    }],
+    "result":"Bool",
+    "comment":"  Returns true if and only if `x` is the NaN value of type `Float64`. "
+  },{
+    "name":"isInfinite",
+    "tparams":[],
+    "fparams":[{
+      "name":"x",
+      "tpe":"Float64"
+    }],
+    "result":"Bool",
+    "comment":"  Returns true if and only if `x` is an infinite and non-Nan `Float64` value. "
   },{
     "name":"max",
     "tparams":[],

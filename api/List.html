@@ -34,18 +34,6 @@ window.menu = [{
   "name":"Result",
   "link":"Result.html"
 },{
-  "name":"Bounded",
-  "link":"Bounded.html"
-},{
-  "name":"MeetLattice",
-  "link":"MeetLattice.html"
-},{
-  "name":"PartialOrder",
-  "link":"PartialOrder.html"
-},{
-  "name":"JoinLattice",
-  "link":"JoinLattice.html"
-},{
   "name":"Float32",
   "link":"Float32.html"
 },{
@@ -67,9 +55,6 @@ window.menu = [{
   "name":"Int16",
   "link":"Int16.html"
 },{
-  "name":"TotalOrder",
-  "link":"TotalOrder.html"
-},{
   "name":"List",
   "link":"List.html"
 },{
@@ -84,6 +69,20 @@ window.page = {
   "namespace":"List",
   "types":[],
   "definitions":[{
+    "name":"reduce",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"f",
+      "tpe":"a -> a -> a"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Alias for `reduceLeftOpt`. "
+  },{
     "name":"mapWithIndex",
     "tparams":[{
       "name":"a"
@@ -174,7 +173,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"Bool",
-    "comment":"  Returns `true` if and only if all elements in `xs` satisfy the predicate `f`. "
+    "comment":"  Returns `true` if and only if all elements in `xs` satisfy the predicate `f`.  Returns `true` if `xs` is empty. "
   },{
     "name":"isPrefixOf",
     "tparams":[{
@@ -188,7 +187,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"Bool",
-    "comment":""
+    "comment":"  Returns `true` if and only if `xs` is a prefix of `ys`. "
   },{
     "name":"findLeft",
     "tparams":[{
@@ -214,21 +213,7 @@ window.page = {
       "tpe":"Int32"
     }],
     "result":"List[Int32]",
-    "comment":""
-  },{
-    "name":"remove",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"a",
-      "tpe":"a"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    }],
-    "result":"List[a]",
-    "comment":"  Returns `xs` with the first occurrence of `a` removed.  Returns `xs` if `a` does not exist in `xs`. "
+    "comment":"  Returns a list of all integers between `b` (inclusive) and `e` (exclusive).  Returns `Nil` if `b >= e`. "
   },{
     "name":"drop",
     "tparams":[{
@@ -242,7 +227,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"List[a]",
-    "comment":"  Returns `xs` with the first `n` elements removed.  Returns `Nil` if `n > length(xs)`.  Returns `xs` if `n < 0`. "
+    "comment":"  Returns `xs` without the first `n` elements.  Returns `Nil` if `n > length(xs)`.  Returns `xs` if `n < 0`. "
   },{
     "name":"fold",
     "tparams":[{
@@ -261,7 +246,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"b",
-    "comment":""
+    "comment":"  Alias for `foldLeft`. "
   },{
     "name":"scanRight",
     "tparams":[{
@@ -301,16 +286,7 @@ window.page = {
       "tpe":"List[b]"
     }],
     "result":"List[c]",
-    "comment":""
-  },{
-    "name":"and",
-    "tparams":[],
-    "fparams":[{
-      "name":"xs",
-      "tpe":"List[Bool]"
-    }],
-    "result":"Bool",
-    "comment":"  Returns `true` if and only if all elements in `xs` are `true`. "
+    "comment":"  Returns a list where the element at index `i` is `f(a, b)` where  `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.  If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list.  Functionally equivalent to zipWith. "
   },{
     "name":"permutations",
     "tparams":[{
@@ -335,7 +311,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"Bool",
-    "comment":"  Returns `true` if and only if at least one element in `xs` satisfies the predicate `f`. "
+    "comment":"  Returns `true` if and only if at least one element in `xs` satisfies the predicate `f`.  Returns `false` if `xs` is empty. "
   },{
     "name":"repeat",
     "tparams":[{
@@ -351,21 +327,19 @@ window.page = {
     "result":"List[a]",
     "comment":"  Returns a list with the element `a` repeated `n` times.  Returns `Nil` if `n < 0`. "
   },{
-    "name":"concatMap",
+    "name":"reduceLeft",
     "tparams":[{
       "name":"a"
-    },{
-      "name":"b"
     }],
     "fparams":[{
       "name":"f",
-      "tpe":"a -> List[b]"
+      "tpe":"a -> a -> a"
     },{
       "name":"xs",
       "tpe":"List[a]"
     }],
-    "result":"List[b]",
-    "comment":""
+    "result":"Option[a]",
+    "comment":"  Applies `f` to all elements in `xs` going from left to right until a single value `v` is obtained.  Returns `Some(v)`.  That is, the result is of the form: `Some(f(...f(f(x1, x2), x3)..., xn))`  Returns `None` if `xs` is empty. "
   },{
     "name":"findRight",
     "tparams":[{
@@ -396,31 +370,6 @@ window.page = {
     }],
     "result":"Option[b]",
     "comment":"  Returns the first non-None result of applying the partial function `f` to each element of `xs`.  Returns `None` if every element of `xs` is `None`. "
-  },{
-    "name":"headOpt",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"xs",
-      "tpe":"List[a]"
-    }],
-    "result":"Option[a]",
-    "comment":"  Returns `Some(x)` if `x` is the first element of `xs`.  Returns `None` if `xs` is empty. "
-  },{
-    "name":"reduceOpt",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"f",
-      "tpe":"a -> a -> a"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    }],
-    "result":"Option[a]",
-    "comment":"  Alias for reduceLeftOpt. "
   },{
     "name":"length",
     "tparams":[{
@@ -455,7 +404,7 @@ window.page = {
       "tpe":"List[b]"
     }],
     "result":"c",
-    "comment":"  Accumulates the result of applying `f` pairwise to the elements of `xs` and `ys`  starting with the initial value `c` and going from left to right.  Alias for foldLeft2. "
+    "comment":"  Alias for `foldLeft2`. "
   },{
     "name":"subsequences",
     "tparams":[{
@@ -480,7 +429,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"Int32",
-    "comment":""
+    "comment":"  Returns the number of elements in `xs` that satisfy the predicate `f`. "
   },{
     "name":"transpose",
     "tparams":[{
@@ -512,6 +461,17 @@ window.page = {
     "result":"b",
     "comment":"  Applies `f` to a start value `s` and all elements in `xs` going from right to left.  That is, the result is of the form: `f(x1, ...f(xn-1, f(xn, s))...)`. "
   },{
+    "name":"head",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Returns `Some(x)` if `x` is the first element of `xs`.  Returns `None` if `xs` is empty. "
+  },{
     "name":"flatMap",
     "tparams":[{
       "name":"a"
@@ -527,6 +487,17 @@ window.page = {
     }],
     "result":"List[b]",
     "comment":"  Returns the result of applying `f` to every element in `xs` and concatenating the results. "
+  },{
+    "name":"flatten",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[List[a]]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns the concatenation of the elements in `xs`. "
   },{
     "name":"takeWhile",
     "tparams":[{
@@ -589,7 +560,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"List[b]",
-    "comment":""
+    "comment":"  Returns the result of applying `f` to every element in `xs`.  That is, the result is of the form: `f(x1) :: f(x2) :: ...`. "
   },{
     "name":"patch",
     "tparams":[{
@@ -630,7 +601,7 @@ window.page = {
     "result":"b",
     "comment":"  Applies `f` to a start value `s` and all elements in `xs` going from left to right.  That is, the result is of the form: `f(...f(f(s, x1), x2)..., xn)`. "
   },{
-    "name":"reduceRightOpt",
+    "name":"reduceRight",
     "tparams":[{
       "name":"a"
     }],
@@ -642,7 +613,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"Option[a]",
-    "comment":"  Applies `f` to all elements in `xs` going from right to left until a single value `v` is obtained.  Returns `Some(v)`.  That is, the result is of the form: `Some(f(x1, ...f(xn-2, f(xn-1, xn))...))`  Returns `None` is `xs` is empty. "
+    "comment":"  Applies `f` to all elements in `xs` going from right to left until a single value `v` is obtained.  Returns `Some(v)`.  That is, the result is of the form: `Some(f(x1, ...f(xn-2, f(xn-1, xn))...))`  Returns `None` if `xs` is empty. "
   },{
     "name":"foldLeft2",
     "tparams":[{
@@ -693,6 +664,23 @@ window.page = {
     "result":"List[a]",
     "comment":"  Returns `xs` with `a` inserted between every two adjacent elements. "
   },{
+    "name":"update",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"i",
+      "tpe":"Int32"
+    },{
+      "name":"a",
+      "tpe":"a"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns `xs` with the element at index `i` replaced by `a`.  Returns `xs` if `i < 0` or `i > length(xs)-1`. "
+  },{
     "name":"rotateLeft",
     "tparams":[{
       "name":"a"
@@ -719,45 +707,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"List[a]",
-    "comment":"  Returns `xs` with the longest prefix that satisfies the predicate `f` removed."
-  },{
-    "name":"at",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"i",
-      "tpe":"Int32"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    }],
-    "result":"a",
-    "comment":"  Returns the element at index `i` in `xs`.  If `i < 0` or `i > length(xs)-1` the semantics are undefined. "
-  },{
-    "name":"foldRight2Helper",
-    "tparams":[{
-      "name":"a"
-    },{
-      "name":"b"
-    },{
-      "name":"c"
-    }],
-    "fparams":[{
-      "name":"f",
-      "tpe":"a -> b -> c -> c"
-    },{
-      "name":"c",
-      "tpe":"c"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    },{
-      "name":"ys",
-      "tpe":"List[b]"
-    }],
-    "result":"c",
-    "comment":"  Helper function for `foldRight2`. "
+    "comment":"  Returns `xs` without the longest prefix that satisfies the predicate `f`."
   },{
     "name":"take",
     "tparams":[{
@@ -772,17 +722,6 @@ window.page = {
     }],
     "result":"List[a]",
     "comment":"  Returns the first `n` elements of `xs`.  Returns `xs` if `n > length(xs)`.  Returns `Nil` if `n < 0`. "
-  },{
-    "name":"concat",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"xs",
-      "tpe":"List[List[a]]"
-    }],
-    "result":"List[a]",
-    "comment":"  Returns the concatenation of the elements in `xs`. "
   },{
     "name":"slice",
     "tparams":[{
@@ -799,7 +738,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"List[a]",
-    "comment":"  Returns the sublist of `xs` from index `b` (inclusive) to index `e` (exclusive). "
+    "comment":"  Returns the sublist of `xs` from index `b` (inclusive) to index `e` (exclusive).  That is, an element at index `i` in `xs` is part of the returned sublist if and only if `i >= b` and `i < e`.  Note: Indices that are out of bounds in `xs` are not considered (i.e. slice(b, e, xs) = slice(max(0,b), min(length(xs),e), xs)). "
   },{
     "name":"indexOf",
     "tparams":[{
@@ -826,7 +765,7 @@ window.page = {
       "tpe":"List[(a, b)]"
     }],
     "result":"Map[a, b]",
-    "comment":"  Returns the association list `xs` as a map.  If `xs` contains multiple values for the same key, the value appearing latest in `xs` is used. "
+    "comment":"  Returns the association list `xs` as a map.  If `xs` contains multiple mappings with the same key, `toMap` does not  make any guarantees about which mapping will be in the resulting map. "
   },{
     "name":"isInfixOf",
     "tparams":[{
@@ -854,7 +793,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"List[List[a]]",
-    "comment":""
+    "comment":"  Partitions `xs` into sublists such that for any two elements `x` and `y` in a sublist, `f(x, y)` is true.  A sublist is created by iterating through the remaining elements of `xs` from left to right and adding an  element to the sublist if and only if doing so creates no conflicts with the elements already in the sublist. "
   },{
     "name":"append",
     "tparams":[{
@@ -868,7 +807,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"List[a]",
-    "comment":"  Returns `ys` appended to `xs`. "
+    "comment":"  Returns `ys` appended to `xs`.  The infix operator `:::` is an alias for `append` (`xs ::: ys = append(xs, ys)`). "
   },{
     "name":"foldRight2",
     "tparams":[{
@@ -906,7 +845,7 @@ window.page = {
       "tpe":"List[List[a]]"
     }],
     "result":"List[a]",
-    "comment":"  Returns the concatenation of the elements in `ys` with the elements of `xs` inserted between every two adjacent elements.  That is, returns y1 + x + y2 + x + ... + x + yn. "
+    "comment":"  Returns the concatenation of the elements in `ys` with the elements of `xs` inserted between every two adjacent elements.  That is, returns y1 :: x1 ... xn :: y2 :: ... yn-1 :: x1 :: ... :: xn :: yn :: Nil. "
   },{
     "name":"unzip",
     "tparams":[{
@@ -920,6 +859,17 @@ window.page = {
     }],
     "result":"(List[a], List[b])",
     "comment":"  Returns a pair of lists, the first containing all first components in `xs`  and the second containing all second components in `xs`. "
+  },{
+    "name":"last",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Returns `Some(x)` if `x` is the last element of `xs`.  Returns `None` if `xs` is empty. "
   },{
     "name":"zip",
     "tparams":[{
@@ -935,7 +885,7 @@ window.page = {
       "tpe":"List[b]"
     }],
     "result":"List[(a, b)]",
-    "comment":""
+    "comment":"  Returns a list where the element at index `i` is `(a, b)` where  `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.  If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list. "
   },{
     "name":"memberOf",
     "tparams":[{
@@ -950,29 +900,6 @@ window.page = {
     }],
     "result":"Bool",
     "comment":"  Returns true if and only if `xs` contains the element `a`. "
-  },{
-    "name":"or",
-    "tparams":[],
-    "fparams":[{
-      "name":"xs",
-      "tpe":"List[Bool]"
-    }],
-    "result":"Bool",
-    "comment":"  Returns `true` if and only if at least one element in `xs` is `true`. "
-  },{
-    "name":"removeIndex",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"i",
-      "tpe":"Int32"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    }],
-    "result":"List[a]",
-    "comment":"  Returns `xs` with the element at index `i` removed.  Returns `xs` if `i < 0` or `i > length(xs)-1`. "
   },{
     "name":"span",
     "tparams":[{
@@ -1002,34 +929,6 @@ window.page = {
     "result":"Bool",
     "comment":"  Returns `true` if and only if `xs` is a suffix of `ys`. "
   },{
-    "name":"lastOpt",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"xs",
-      "tpe":"List[a]"
-    }],
-    "result":"Option[a]",
-    "comment":"  Returns `Some(x)` if `x` is the last element of `xs`.  Returns `None` if `xs` is empty. "
-  },{
-    "name":"replace",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"i",
-      "tpe":"Int32"
-    },{
-      "name":"a",
-      "tpe":"a"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    }],
-    "result":"List[a]",
-    "comment":"  Returns `xs` with the element at index `i` replaced by `a`.  Returns `xs` if `i < 0` or `i > length(xs)-1`. "
-  },{
     "name":"filter",
     "tparams":[{
       "name":"a"
@@ -1042,7 +941,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"List[a]",
-    "comment":""
+    "comment":"  Returns a list of every element in `xs` that satisfies the predicate `f`. "
   },{
     "name":"toSet",
     "tparams":[{
@@ -1053,7 +952,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"Set[a]",
-    "comment":""
+    "comment":"  Returns the list `xs` as a set. "
   },{
     "name":"scan",
     "tparams":[{
@@ -1094,20 +993,6 @@ window.page = {
     }],
     "result":"List[c]",
     "comment":"  Concatenates the results of applying `f` pairwise to the elements of `xs` and `ys`. "
-  },{
-    "name":"reduceLeftOpt",
-    "tparams":[{
-      "name":"a"
-    }],
-    "fparams":[{
-      "name":"f",
-      "tpe":"a -> a -> a"
-    },{
-      "name":"xs",
-      "tpe":"List[a]"
-    }],
-    "result":"Option[a]",
-    "comment":"  Applies `f` to all elements in `xs` going from left to right until a single value `v` is obtained.  Returns `Some(v)`.  That is, the result is of the form: `Some(f(...f(f(x1, x2), x3)..., xn))`  Returns `None` is `xs` is empty. "
   },{
     "name":"partition",
     "tparams":[{
