@@ -51,7 +51,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <h2>A logic and functional programming language for the implementation of static analyses.</h2>
+                <h2>A functional and logic programming language inspired by Scala, OCaml, and Datalog.</h2>
             </div>
 
             <div class="col-md-4">
@@ -73,6 +73,7 @@
                 <div class="panel-heading"> Recent News</div>
                 <div class="panel-body">
                     <ul>
+                        <li>2017-04-18 Flix version 0.1 is now available!</li>
                         <li>2016-09-25 Ming-Ho Yee's master thesis <a
                                 href="https://flix.github.io/pub/theses/ming-ho-yee.pdf">
                             Implementing a Functional Language for Flix
@@ -107,44 +108,27 @@
         </div>
     </div>
 
+
     <div class="slogan">
-        Short, precise.
+        At a glance
     </div>
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
-                <h2>
-                    Flix embraces the database paradigm:
-                </h2>
-                <ul>
-                    <li><h3>Data is represented as tables.</h3></li>
-                    <li><h3>Constraints (queries) express dataflow between tables.</h3></li>
-                    <li><h3>Functions enable queries on tables to filter, aggregate and compute new values.</h3></li>
-                    <li><h3>The result of a query may be inserted into a table. This process may be repeated until a
-                        fixpoint is reached.</h3></li>
-                    <li><h3>Lattices allow multiple rows to be combined into one row with the use of a
-                        least upper bound operator.</h3></li>
-                </ul>
+            <div class="col-md-6" style="font-size: 2.5rem;">
+                Flix is a statically typed functional- and logic programming language inspired by Scala, OCaml, F#, Haskell, and Datalog.
+                The syntax of Flix resembles Scala and Datalog. The type system supports local type inference and is based on Hindley-Milner.
+                Flix runs on the Java Virtual Machine and compiles directly to JVM bytecode.
             </div>
 
-            <div class="col-md-4">
-                <h3>Graph Reachability</h3>
-                <pre><code class="flix">Path(x, y) :- Edge(x, y).
-Path(x, z) :- Path(x, y), Edge(y, z).
-</code></pre>
-                <h3>Shortest Paths</h3>
-                <pre><code class="flix">Dist(origin, 0).
-Dist(y, dx + d) :-
-    Edge(x, d, y),
-    Dist(x, dx).
-</code></pre>
-
-                <p>Examples of how to compute the transitive closure and shortest paths of graphs.</p>
+            <div class="col-md-6" style="font-size: 2.5rem;">
+                Flix supports hybrid functional and logic programming featuring a built-in fixed point engine based on semi-naive evaluation.
+                The functional and logic languages can be used independently, if so desired.
+                For example, a Flix program can be purely functional, or Flix can be used as a standalone Datalog engine.
             </div>
-
         </div>
     </div>
+
 
     <div id="banner2"></div>
 
@@ -157,7 +141,7 @@ Dist(y, dx + d) :-
             <div class="col-md-4">
                 <h3>Languages Features</h3>
                 <ul>
-                    <li><h4>Declarative and Functional</h4></li>
+                    <li><h4>Functional and Declarative</h4></li>
                     <li><h4>Algebraic Data Types</h4></li>
                     <li><h4>Pattern Matching</h4></li>
                     <li><h4>Namespaces</h4></li>
@@ -170,6 +154,7 @@ Dist(y, dx + d) :-
                 <h3>Additional Features</h3>
                 <ul>
                     <li><h4>Datalog Support</h4></li>
+                    <li><h4>Standard Library</h4></li>
                     <li><h4>Static Type System</h4></li>
                     <li><h4>Formal Semantics</h4></li>
                     <li><h4>Scala and Prolog-style Syntax</h4></li>
@@ -302,7 +287,7 @@ def lub(e1: Parity, e2: Parity): Parity =
 
 
     <div class="slogan">
-        Try the Online Editor
+        Try Flix in the Online Editor
     </div>
 
     <div class="container">
@@ -419,17 +404,20 @@ Path(x, z) :- Path(x, y), Edge(y, z).
                 </p>
             </div>
 
-            <div class="col-md-4">
-                <h3>Integrates with Java and Scala</h3>
+            <!--
+          <div class="col-md-4">
 
-                <p>Flix runs on the Java Virtual Machine and provides APIs for both Java and Scala ensuring that
-                    interoperability is easy and convenient.
-                </p>
+              <h3>Integrates with Java and Scala</h3>
 
-                <p>
-                    Easily add facts from your front-end into Flix and explore the solution as Java objects.
-                </p>
+              <p>Flix runs on the Java Virtual Machine and provides APIs for both Java and Scala ensuring that
+                  interoperability is easy and convenient.
+              </p>
+
+              <p>
+                  Easily add facts from your front-end into Flix and explore the solution as Java objects.
+              </p>
             </div>
+            -->
 
             <div class="col-md-4">
                 <h3>Available on Windows, Linux and Mac OS X</h3>
