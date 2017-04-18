@@ -49,9 +49,6 @@ window.menu = [{
   "name":"BigInt",
   "link":"BigInt.html"
 },{
-  "name":"Char",
-  "link":"Char.html"
-},{
   "name":"Int16",
   "link":"Int16.html"
 },{
@@ -159,7 +156,7 @@ window.page = {
       "name":"a"
     }],
     "fparams":[],
-    "result":"Set['6979]",
+    "result":"Set['7190]",
     "comment":"  Returns the empty set.  `#{}` is syntactic sugar for `empty` (`#{} = empty()`). "
   },{
     "name":"singleton",
@@ -275,6 +272,23 @@ window.page = {
     }],
     "result":"(Set[a], Set[a])",
     "comment":"  Returns a pair of sets `(ys, zs)`.  `ys` contains all elements of `xs` that satisfy the predicate `f`.  `zs` contains all elements of `xs` that do not satisfy the predicate `f`. "
+  },{
+    "name":"replace",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"x",
+      "tpe":"a"
+    },{
+      "name":"y",
+      "tpe":"a"
+    },{
+      "name":"xs",
+      "tpe":"Set[a]"
+    }],
+    "result":"Set[a]",
+    "comment":"  Replaces the element `x` with `y` if `x` is in `xs`.  Otherwise, returns `xs`.  Note: The returned set may be smaller than `xs`. "
   },{
     "name":"size",
     "tparams":[{

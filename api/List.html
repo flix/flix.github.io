@@ -49,9 +49,6 @@ window.menu = [{
   "name":"BigInt",
   "link":"BigInt.html"
 },{
-  "name":"Char",
-  "link":"Char.html"
-},{
   "name":"Int16",
   "link":"Int16.html"
 },{
@@ -81,7 +78,7 @@ window.page = {
       "tpe":"List[a]"
     }],
     "result":"Option[a]",
-    "comment":"  Alias for `reduceLeftOpt`. "
+    "comment":"  Alias for `reduceLeft`. "
   },{
     "name":"mapWithIndex",
     "tparams":[{
@@ -326,6 +323,20 @@ window.page = {
     }],
     "result":"List[a]",
     "comment":"  Returns a list with the element `a` repeated `n` times.  Returns `Nil` if `n < 0`. "
+  },{
+    "name":"eq",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"xs",
+      "tpe":"List[a]"
+    },{
+      "name":"ys",
+      "tpe":"List[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if and only if `xs` and `ys` and equal. "
   },{
     "name":"reduceLeft",
     "tparams":[{
@@ -928,6 +939,23 @@ window.page = {
     }],
     "result":"Bool",
     "comment":"  Returns `true` if and only if `xs` is a suffix of `ys`. "
+  },{
+    "name":"replace",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"x",
+      "tpe":"a"
+    },{
+      "name":"y",
+      "tpe":"a"
+    },{
+      "name":"xs",
+      "tpe":"List[a]"
+    }],
+    "result":"List[a]",
+    "comment":"  Returns `xs` with every occurrence of `x` replaced by `y`. "
   },{
     "name":"filter",
     "tparams":[{

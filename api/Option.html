@@ -49,9 +49,6 @@ window.menu = [{
   "name":"BigInt",
   "link":"BigInt.html"
 },{
-  "name":"Char",
-  "link":"Char.html"
-},{
   "name":"Int16",
   "link":"Int16.html"
 },{
@@ -168,6 +165,23 @@ window.page = {
     "result":"Int32",
     "comment":"  Returns `1` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `0`. "
   },{
+    "name":"replace",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"x",
+      "tpe":"a"
+    },{
+      "name":"y",
+      "tpe":"a"
+    },{
+      "name":"o",
+      "tpe":"Option[a]"
+    }],
+    "result":"Option[a]",
+    "comment":"  Returns `Some(y)` if `o` is `Some(x)`. Otherwise returns `o`. "
+  },{
     "name":"isSome",
     "tparams":[{
       "name":"a"
@@ -214,6 +228,20 @@ window.page = {
     }],
     "result":"Option[a]",
     "comment":"  Returns `v` if `o` is `Some(v)`. Otherwise returns `None`. "
+  },{
+    "name":"eq",
+    "tparams":[{
+      "name":"a"
+    }],
+    "fparams":[{
+      "name":"o1",
+      "tpe":"Option[a]"
+    },{
+      "name":"o2",
+      "tpe":"Option[a]"
+    }],
+    "result":"Bool",
+    "comment":"  Returns `true` if and only if `o1` and `o2` and equal. "
   },{
     "name":"toSet",
     "tparams":[{

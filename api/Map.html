@@ -49,9 +49,6 @@ window.menu = [{
   "name":"BigInt",
   "link":"BigInt.html"
 },{
-  "name":"Char",
-  "link":"Char.html"
-},{
   "name":"Int16",
   "link":"Int16.html"
 },{
@@ -245,6 +242,25 @@ window.page = {
     }],
     "result":"Set[k]",
     "comment":"  Returns the keys of `m`. "
+  },{
+    "name":"replace",
+    "tparams":[{
+      "name":"k"
+    },{
+      "name":"v"
+    }],
+    "fparams":[{
+      "name":"x",
+      "tpe":"(k, v)"
+    },{
+      "name":"y",
+      "tpe":"(k, v)"
+    },{
+      "name":"m",
+      "tpe":"Map[k, v]"
+    }],
+    "result":"Map[k, v]",
+    "comment":"  Replaces the mapping `fst(x) -> snd(x)` with `fst(y) -> snd(y)` if `fst(x) -> snd(x)` is in `m`.  Otherwise, returns `m`.  Note: The returned map may be smaller than `m`. "
   },{
     "name":"difference",
     "tparams":[{
@@ -441,7 +457,7 @@ window.page = {
       "name":"v"
     }],
     "fparams":[],
-    "result":"Map['5744, '5745]",
+    "result":"Map['5931, '5932]",
     "comment":"  Returns the empty map.  `@{}` is syntactic sugar for `empty` (`@{} = empty()`). "
   },{
     "name":"forall",
