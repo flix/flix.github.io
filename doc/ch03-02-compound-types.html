@@ -519,13 +519,13 @@ def h: List[Int] = 1 :: 2 :: Nil
 def i: List[Int] = 1 :: 2 :: 3 :: Nil
 </code></pre>
 <p>Lists can be destructed with pattern matching:</p>
-<pre><code class="lang-flix">def f(xs: List[Int): Int = match xs with {
+<pre><code class="lang-flix">def f(xs: List[Int]): Int = match xs with {
     case Nil =&gt; 0
     case x :: xs =&gt; x + f(xs)
 }
 </code></pre>
 <p>Another example:</p>
-<pre><code class="lang-flix">def f(xs: List[Int): Bool = match xs with {
+<pre><code class="lang-flix">def f(xs: List[Int]): Bool = match xs with {
     case Nil =&gt; true
     case x :: Nil =&gt; false
     case x :: y :: Nil =&gt; f(xs)
@@ -539,10 +539,10 @@ def g: Vec[Int] = #[1]        // a singleton vector
 def h: Vec[Int] = #[1, 2, 3]  // another vector
 </code></pre>
 <p>Vectors can be destructed using pattern matching:</p>
-<pre><code class="lang-flix">def f(xs: Vec[Int): Bool = match xs with {
+<pre><code class="lang-flix">def f(xs: Vec[Int]): Bool = match xs with {
     case #[] =&gt; true
-    case [x] =&gt; false
-    case [x, y, xs...] =&gt; f(xs)
+    case #[x] =&gt; false
+    case #[x, y, xs...] =&gt; f(xs)
 }
 </code></pre>
 <p>The syntax <code>xs...</code> denotes the rest of the vector.</p>
@@ -555,7 +555,7 @@ def g: Set[Int] = #{1}        // a singleton set
 def h: Set[Int] = #{1, 2, 3}  // another set
 </code></pre>
 <p>You can even destruct sets with pattern matching:</p>
-<pre><code class="lang-flix">def f(s: Set[Int): Int = match s with {
+<pre><code class="lang-flix">def f(s: Set[Int]): Int = match s with {
     case #{} =&gt; 0
     case #{x} =&gt; 1
     case #{x, xs...} =&gt; 1 + f(xs)
@@ -568,7 +568,7 @@ Thus, the last pattern matches an element of the set <code>x</code> and the rema
 You must ensure that any destructuring is associative (order agnostic).</p>
 </blockquote>
 <p>As another example:</p>
-<pre><code class="lang-flix">def f(s: Set[Int): Bool = match s with {
+<pre><code class="lang-flix">def f(s: Set[Int]): Bool = match s with {
     case #{1, x, 3, y} =&gt; true
     case _             =&gt; false
 }
@@ -617,7 +617,7 @@ You must ensure that any destructuring is associative (order agnostic).</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Compound Types","level":"1.4.2","depth":2,"next":{"title":"Enumerations","level":"1.4.3","depth":2,"path":"ch03-03-enumerations.md","ref":"ch03-03-enumerations.md","articles":[]},"previous":{"title":"Primitive Types","level":"1.4.1","depth":2,"path":"ch03-01-primitive-types.md","ref":"ch03-01-primitive-types.md","articles":[]},"dir":"ltr"},"config":{"plugins":["addcssjs","-sharing","livereload"],"styles":{"website":"css/style.css"},"pluginsConfig":{"addcssjs":{"css":["css/highlight/idea.css"],"js":["js/highlight.pack.js","js/boot.js"]},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Flix","gitbook":"3.2.x","description":"The Flix Programming Language"},"file":{"path":"ch03-02-compound-types.md","mtime":"2016-11-07T21:23:07.357Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-17T22:17:15.218Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Compound Types","level":"1.4.2","depth":2,"next":{"title":"Enumerations","level":"1.4.3","depth":2,"path":"ch03-03-enumerations.md","ref":"ch03-03-enumerations.md","articles":[]},"previous":{"title":"Primitive Types","level":"1.4.1","depth":2,"path":"ch03-01-primitive-types.md","ref":"ch03-01-primitive-types.md","articles":[]},"dir":"ltr"},"config":{"plugins":["addcssjs","-sharing","livereload"],"styles":{"website":"css/style.css"},"pluginsConfig":{"addcssjs":{"css":["css/highlight/idea.css"],"js":["js/highlight.pack.js","js/boot.js"]},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Flix","gitbook":"3.2.x","description":"The Flix Programming Language"},"file":{"path":"ch03-02-compound-types.md","mtime":"2017-05-25T15:14:09.475Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-05-25T15:35:06.065Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
