@@ -74,7 +74,7 @@
                 <div class="panel-body">
                     <ul>
                         <li>
-                            2017-010-11 Flix <a href="https://github.com/flix/flix/releases/tag/v0.2">version 0.2</a> is now available!
+                            2017-10-11 Flix <a href="https://github.com/flix/flix/releases/tag/v0.2">version 0.2</a> is now available!
                         </li>
                         <li>
                             2017-04-18 Flix <a href="https://github.com/flix/flix/releases/tag/v0.1">version 0.1</a> is now available!
@@ -349,7 +349,7 @@ def area(s: Shape): Int = match s with {
   case Rectangle(l, w) => l * w
 }
 
-def f: Int = area(Rectangle(10, 20))
+def f(): Int = area(Rectangle(10, 20))
 </pre>
             </div>
             <div class="col-md-4">
@@ -374,6 +374,8 @@ Edge(2, 3).
 
 Path(x, y) :- Edge(x, y).
 Path(x, z) :- Path(x, y), Edge(y, z).
+
+def f(): Int = 42
 </pre>
             </div>
             <div class="col-md-4">
