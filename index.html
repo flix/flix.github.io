@@ -74,6 +74,9 @@
                 <div class="panel-body">
                     <ul>
                         <li>
+                            2017-010-11 Flix <a href="https://github.com/flix/flix/releases/tag/v0.2">version 0.2</a> is now available!
+                        </li>
+                        <li>
                             2017-04-18 Flix <a href="https://github.com/flix/flix/releases/tag/v0.1">version 0.1</a> is now available!
                         </li>
                         <li>2016-09-25 Ming-Ho Yee's master thesis <a
@@ -148,7 +151,7 @@
                     <li><h4>Pattern Matching</h4></li>
                     <li><h4>Namespaces</h4></li>
                     <li><h4>Parallel Rule Evaluation</h4></li>
-                    <li><h4>Tail call optimization</h4></li>
+                    <li><h4>Tail recursion optimization</h4></li>
                 </ul>
             </div>
 
@@ -156,6 +159,7 @@
                 <h3>Additional Features</h3>
                 <ul>
                     <li><h4>Datalog Support</h4></li>
+                    <li><h4>Stratified Negation</h4></li>
                     <li><h4>Standard Library</h4></li>
                     <li><h4>Static Type System</h4></li>
                     <li><h4>Formal Semantics</h4></li>
@@ -296,7 +300,7 @@ def lub(e1: Parity, e2: Parity): Parity =
 
         <div class="row" style="padding-bottom: 2rem;">
             <div class="col-md-8">
-                <pre id="example-1-editor" class="editor">def f: Bool = List.exists(x -> x % 42 == 0, List.range(1, 100))</pre>
+                <pre id="example-1-editor" class="editor">def f(): Bool = List.exists(x -> x % 42 == 0, List.range(1, 100))</pre>
             </div>
             <div class="col-md-4">
                 <div>
@@ -313,7 +317,7 @@ def lub(e1: Parity, e2: Parity): Parity =
 
         <div class="row" style="padding-bottom: 2rem;">
             <div class="col-md-8">
-                <pre id="example-2-editor" class="editor">def f: Int =
+                <pre id="example-2-editor" class="editor">def f(): Int =
     List.foldLeft((x, y) -> x + y, 0,
         List.map(x -> x + 1,
             List.range(1, 10)))</pre>
