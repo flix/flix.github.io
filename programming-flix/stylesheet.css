@@ -1,0 +1,79 @@
+#page {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50em;
+    margin-top: 2em;
+}
+
+.title {
+    font-size: 5em;
+    text-align: center;
+    font-family: "Playfair", serif;
+    margin-bottom: 0.4em;
+}
+
+.code {
+    font-family: "Roboto Mono", monospace;
+    color: #1178d4;
+}
+
+.editor {
+    background-color: #fff9f2;
+
+    margin-top: 1.3em;
+    margin-bottom: 1.3em;
+
+    padding-left: 1.5em;
+}
+
+.planned-feature {
+  /*  background-color: #f6fcff;
+    padding: 0.2em 0.5em; */
+}
+
+.design-note {
+  /*  background-color: #f9f6ff;
+    padding: 0.2em 0.5em; */
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+section {
+    margin-bottom: 8em;
+    line-height: 2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Roboto", sans-serif;
+}
+
+h1 {
+    font-size: 2em;
+    font-weight: normal;
+    padding-bottom: 0.2em;
+    border-bottom: 0.02em solid gainsboro;
+}
+
+h2 {
+    font-weight: normal;
+    margin-top: 1.5em;
+}
+
+h3 {
+    margin-top: 1.2em;
+}
+
+p {
+    text-align: justify;
+}
+
+#brace-editor.ace_editor {
+    font: 14px/normal "Roboto Mono", monospace;
+    background-color: inherit;
+}
+
+.ace_cursor {
+    /*display: none;*/
+}
